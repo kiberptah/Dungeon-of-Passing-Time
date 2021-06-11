@@ -47,6 +47,11 @@ public class EnemyHealth : MonoBehaviour, IHealth
         {
             currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
             UpdateHealthBar();
+
+            if (currentHealth == 0)
+            {
+                EventDirector.somebody_Death(transform);
+            }
         }
     }
     public void OnNoHealth(Transform who)

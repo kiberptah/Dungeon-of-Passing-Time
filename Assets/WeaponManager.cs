@@ -55,9 +55,7 @@ public class WeaponManager : MonoBehaviour
     {
         if (weaponsSheathed[weaponSlot] != null)
         {
-            playerWeaponController.equippedWeapon = Instantiate(weaponsSheathed[weaponSlot], transform);
-            playerWeaponController.equippedWeapon.SetActive(true);
-            playerWeaponController.weaponSlot = weaponSlot;
+            playerWeaponController.PlaceWeaponInHand(weaponsSheathed[weaponSlot], weaponSlot);
 
             Destroy(weaponsSheathed[weaponSlot]);
 

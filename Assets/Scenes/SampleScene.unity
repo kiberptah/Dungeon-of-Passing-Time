@@ -5874,10 +5874,6 @@ MonoBehaviour:
   equippedWeapon: {fileID: 0}
   weaponSlot: 0
   weaponDistanceFromBody: 0.75
-  weaponMinimalFollowSpeed: 0.01
-  weaponFollowSpeedMod: 0.5
-  weaponFollowDeadzone: 3
-  weaponRotationSpeed: 0.4
 --- !u!114 &996978325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5894,6 +5890,7 @@ MonoBehaviour:
   isWeaponDrawn: 0
   weaponsSheathed:
   - {fileID: 7265373763533837596, guid: d64952ca6fb2c804abc069e96db34df0, type: 3}
+  - {fileID: 7265373763533837596, guid: 602a1e8a81bfde74e9470ec566e00aad, type: 3}
 --- !u!1 &1029120672
 GameObject:
   m_ObjectHideFlags: 0
