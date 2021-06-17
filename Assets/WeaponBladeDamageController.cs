@@ -57,7 +57,7 @@ public class WeaponBladeDamageController : MonoBehaviour
     {
         if (!recentlyHitTargets.Contains(target))
         {
-            EventDirector.somebody_TakeDamage(target.transform, currentDamage);
+            EventDirector.somebody_TakeDamage(target.transform, currentDamage, transform);
             StartCoroutine(dontHitRecentTarget(target, currentAttack));
         }
 

@@ -351,17 +351,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  velocityDamageModifier: 1
-  typeOfDamageScaling: 0
-  damageTickDelay: 0.25
+  velocityDamageModifier: 10
+  damageCalcType: 4
+  damageTickDelay: 0.1
   damageType: 0
-  weaponMinimalFollowSpeed: 0.001
-  weaponFollowSpeedMod: 0.5
-  weaponFollowDeadzone: 3
+  weaponMinimalFollowSpeed: 0.5
+  weaponFollowSpeedMod: 0
+  weaponFollowDeadzone: 1
   weaponRotationSpeed: 1
   weaponSensitivityAngle: 90
-  maxFollowSpeed: 1
+  maxFollowSpeed: 10
   bladeCollider: {fileID: 7803989515013692249}
+  weaponClass: 0
 --- !u!1 &7265373763736890428
 GameObject:
   m_ObjectHideFlags: 0

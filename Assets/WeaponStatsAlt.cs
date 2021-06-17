@@ -7,7 +7,16 @@ public class WeaponStatsAlt : MonoBehaviour
     [Header("Damage")]
     public float damage;
     public float velocityDamageModifier = 1f;
-    public int typeOfDamageScaling = 0;
+    //int typeOfDamageScaling = 0;
+    public enum damageCalculationTypes
+    {
+        no,
+        sword1,
+        sword2,
+        sword3,
+        dagger
+    }
+    public damageCalculationTypes damageCalcType;
     //public float damageVelocityOffset = 10f;
     public float damageTickDelay;
 
@@ -28,4 +37,10 @@ public class WeaponStatsAlt : MonoBehaviour
     [Header("etc")]
     public Collider2D bladeCollider;
 
+    public enum classOfWeapon
+    {
+        sword,
+        dagger
+    }
+    public classOfWeapon weaponClass;
 }

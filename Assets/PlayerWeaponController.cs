@@ -6,6 +6,7 @@ using System;
 public class PlayerWeaponController : MonoBehaviour
 {
     public GameObject equippedWeapon;
+    WeaponStatsAlt weaponStats;
     public int weaponSlot;
     public float weaponDistanceFromBody = 1.25f;
     //float weaponAttackRange;
@@ -23,11 +24,13 @@ public class PlayerWeaponController : MonoBehaviour
     float weaponFollowSpeed = 0f;
     
 
-    Vector3 mouseDirection = Vector3.up;
+    Vector3 mouseProjection = Vector3.up;
 
 
-    Vector3 previousWeaponPosition;
-    float weaponVelocity;
+    //float weaponVelocity;
+    //float charVelocity;
+    Vector3 weaponVelocity = Vector3.zero;
+    Vector3 charVelocity = Vector3.zero;
 
     float weaponDirectionTendency = 0;
 
@@ -54,6 +57,7 @@ public class PlayerWeaponController : MonoBehaviour
         if (equippedWeapon != null)
         {
             WeaponSwinging();
+
             AdjustWeaponAngle();
 
             CalculateBladeVelocity();
@@ -63,21 +67,25 @@ public class PlayerWeaponController : MonoBehaviour
 
         
     }
+  
     void WeaponSwinging()
     {
+        Vector3 fakeMousePosition;
+
         /// --- kinda project  mouse position on a circle around center of the player
         /// in local coordinates!!!
         Vector3 mousePosition = Vector3.zero;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //mouseDirection = mousePosition - transform.position; // result is local coordinates!!!
-        mouseDirection = transform.InverseTransformPoint(mousePosition); // result is local coordinates!!!
-        mouseDirection.z = 0;
-        mouseDirection = mouseDirection.normalized;
+        mouseProjection = transform.InverseTransformPoint(mousePosition); // result is local coordinates!!!
+        mouseProjection.z = 0;
+        mouseProjection = mouseProjection.normalized;
 
         /// --- calculate angle between direction to mouse and the player 
         /// still in local coordinates!!!
-        float directionalAngle = Vector3.SignedAngle(equippedWeapon.transform.localPosition, mouseDirection, -transform.forward);
+        float directionalAngle = Vector3.SignedAngle(equippedWeapon.transform.localPosition, mouseProjection, -transform.forward);
+        //print(directionalAngle);
+
         /// check if angle bigger then a deadzone cause we loosing exact value in the next lines and need to know it later
         bool isAngleNotInTheDeadzone = false;
         if (Mathf.Abs(directionalAngle) > weaponFollowDeadzone)
@@ -99,22 +107,98 @@ public class PlayerWeaponController : MonoBehaviour
             }
             weaponDirectionTendency = directionalAngle;
         }
-        Vector3 fakeMousePosition;
-        fakeMousePosition = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * 1f, 0, 0));
 
+
+        ///
+        ///
+        /*
+        // convert into world space from equippedweapon space
+        Vector3 weaponDirectionTendencyProjection = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * 1f, 0, 0));
+        Vector3 mouseDirectionWorldSpace = transform.TransformPoint(mouseDirection);
+
+        if (Vector3.Distance(equippedWeapon.transform.position, weaponDirectionTendencyProjection) 
+            > Vector3.Distance(equippedWeapon.transform.position, mouseDirectionWorldSpace))
+        {
+            fakeMousePosition = transform.TransformPoint(mouseDirection);
+            //print("close follow mode");
+        }
+        else
+        {
+            fakeMousePosition = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * weaponFollowSpeed, 0, 0));
+            //print("far follow mode");
+
+        }
+        */
+        if (true)
+        {
+            fakeMousePosition = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * 10f, 0, 0));
+
+            Vector3 fakeMouseProjection;
+            fakeMouseProjection = transform.InverseTransformPoint(fakeMousePosition).normalized;
+
+            if (Vector3.Distance(equippedWeapon.transform.position, transform.TransformPoint(fakeMouseProjection))
+            > Vector3.Distance(equippedWeapon.transform.position, transform.TransformPoint(mouseProjection)))
+            {
+                //if (weaponFollowSpeed < weaponMaxFollowSpeed / 2f)
+                if (true)
+                {
+                    /// there's a a thing 
+                    /// when you stop swinging blade still has high speed and it snaps to mouse in the end
+                    /// and does extra damage
+                    /// it can be fixed probably but idk how rn (UPDATE: BY IF STATEMENT ABOVE) --- if (weaponFollowSpeed < weaponMaxFollowSpeed / 2f)
+                    /// but it can be a cool feature to have last swing deal extra damage
+                    fakeMousePosition = transform.TransformPoint(mouseProjection);
+                    //weaponFollowSpeed = weaponMinimalFollowSpeed;
+
+                }
+
+
+            }
+        }
+        else
+        {
+            fakeMousePosition = transform.TransformPoint(mouseProjection);
+            //weaponFollowSpeed = weaponMinimalFollowSpeed;
+        }
+
+       // fakeMousePosition = transform.TransformPoint(mouseDirection);
+
+        /*
+        float angle = (weaponDirectionTendency * 360f * weaponFollowSpeed)
+            / (2 * Mathf.PI * weaponDistanceFromBody);
+        float x = equippedWeapon.transform.localPosition.x * Mathf.Cos(angle) - equippedWeapon.transform.localPosition.y * Mathf.Sin(angle);
+        float y = equippedWeapon.transform.localPosition.x * Mathf.Sin(angle) + equippedWeapon.transform.localPosition.y * Mathf.Cos(angle);
+        fakeMousePosition = transform.TransformPoint(new Vector3(x, y, 0));
+        debugPoint = fakeMousePosition;
+
+        print(angle);
+        */
+
+        /* //amazing glitches
+        float angle = (weaponDirectionTendency * 180f * weaponFollowSpeed) 
+            / (Mathf.PI * weaponDistanceFromBody);
+        transform.RotateAround(mouseDirection, transform.position, angle);
+        */
+        /*
+        float angle = (weaponDirectionTendency * 180f * weaponFollowSpeed)
+            / (Mathf.PI * weaponDistanceFromBody);
+        equippedWeapon.transform.RotateAround(transform.position, -transform.forward, angle);
+        */
         /// --- actually move the weapon
         /// IN WORLD COORDINATES otherwise this crap doesnt work
         /// also move only if mouse not in the deadzone
-        if (isAngleNotInTheDeadzone)
+        if (true)
         {
-            print("mov");
+            //debugPoint = fakeMousePosition;
+            //print("mov");
             //print(fakeMousePosition);
             //print(weaponFollowSpeed);
+
             equippedWeapon.transform.position
                 = Vector3.MoveTowards(equippedWeapon.transform.position, fakeMousePosition, weaponFollowSpeed);
         }
         /// --- to set weapon on a fixed distance from the player (or limit how far is max)
-        equippedWeapon.transform.localPosition = equippedWeapon.transform.localPosition.normalized;
+        equippedWeapon.transform.localPosition = equippedWeapon.transform.localPosition.normalized * weaponDistanceFromBody;
         //equippedWeapon.transform.localPosition = Vector3.ClampMagnitude(equippedWeapon.transform.localPosition, weaponDistanceFromBody);
     }
 
@@ -131,7 +215,7 @@ public class PlayerWeaponController : MonoBehaviour
     }
     void AdjustWeaponAngle()
     {
-        float mouseDirAngle = Vector3.Angle(Vector3.up, mouseDirection);
+        //float mouseDirAngle = Vector3.Angle(Vector3.up, mouseDirection);
         float weaponDirAngle = Vector3.SignedAngle(equippedWeapon.transform.up, equippedWeapon.transform.localPosition, Vector3.forward);
         equippedWeapon.transform.Rotate(0, 0, weaponDirAngle * weaponRotationSpeed);
 
@@ -139,26 +223,33 @@ public class PlayerWeaponController : MonoBehaviour
     }
     void AdjustFollowSpeedAccordingToCurrentVelocity()
     {
-        /// --- basically a function for acceleration
-        /// 
-        ///
-        if (weaponVelocity == 0)
+        if (weaponFollowSpeedMod != 0)
         {
-            weaponFollowSpeed = 0;
-            return;
+            /// --- basically a function for acceleration
+            /// 
+            ///
+            if (weaponVelocity.magnitude == 0)
+            {
+                weaponFollowSpeed = weaponMinimalFollowSpeed;
+                return;
+            }
+
+            weaponFollowSpeed -= weaponMinimalFollowSpeed;
+
+            //weaponFollowSpeed = weaponFollowSpeed + weaponFollowSpeedMod * weaponVelocity;
+            weaponFollowSpeed = weaponFollowSpeed + weaponFollowSpeedMod * Mathf.Sqrt(weaponVelocity.magnitude);
+            //print("follow speed: " + weaponFollowSpeed);
+            //print("weaponVelocity: " + weaponVelocity);
+
+
+
+            weaponFollowSpeed = Mathf.Clamp(weaponFollowSpeed, 0, weaponMaxFollowSpeed);
+            weaponFollowSpeed += weaponMinimalFollowSpeed;
         }
-
-        weaponFollowSpeed -= weaponMinimalFollowSpeed;
-
-        //weaponFollowSpeed = weaponFollowSpeed + weaponFollowSpeedMod * weaponVelocity;
-        weaponFollowSpeed = weaponFollowSpeed + weaponFollowSpeedMod * Mathf.Sqrt(weaponVelocity);
-        //print("follow speed: " + weaponFollowSpeed);
-        //print("weaponVelocity: " + weaponVelocity);
-
-
-
-        weaponFollowSpeed = Mathf.Clamp(weaponFollowSpeed, 0, weaponMaxFollowSpeed);
-        weaponFollowSpeed += weaponMinimalFollowSpeed;
+        else
+        {
+            weaponFollowSpeed = weaponMinimalFollowSpeed;
+        }
     }
 
     public void PlaceWeaponInHand(GameObject weapon, int _weaponSlot)
@@ -167,15 +258,15 @@ public class PlayerWeaponController : MonoBehaviour
         equippedWeapon.SetActive(true);
         weaponSlot = _weaponSlot;
 
-        WeaponStatsAlt weaponstats = weapon.GetComponent<WeaponStatsAlt>();
+        weaponStats = weapon.GetComponent<WeaponStatsAlt>();
 
-        weaponMinimalFollowSpeed = weaponstats.weaponMinimalFollowSpeed;
-        weaponFollowSpeedMod = weaponstats.weaponFollowSpeedMod;
-        weaponFollowDeadzone = weaponstats.weaponFollowDeadzone;
-        weaponRotationSpeed = weaponstats.weaponRotationSpeed;
-        weaponSensitivityAngle = weaponstats.weaponSensitivityAngle;
+        weaponMinimalFollowSpeed = weaponStats.weaponMinimalFollowSpeed;
+        weaponFollowSpeedMod = weaponStats.weaponFollowSpeedMod;
+        weaponFollowDeadzone = weaponStats.weaponFollowDeadzone;
+        weaponRotationSpeed = weaponStats.weaponRotationSpeed;
+        weaponSensitivityAngle = weaponStats.weaponSensitivityAngle;
 
-        weaponMaxFollowSpeed = weaponstats.maxFollowSpeed;
+        weaponMaxFollowSpeed = weaponStats.maxFollowSpeed;
     }
 
     void Inputs()
@@ -186,54 +277,32 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
-    void TryToAttackWithTheWeapon(WeaponStats.Attack attack)
-    {
-        if (!isAttackInCooldown)
-        {
-            EventDirector.someBladeAttackStarted(equippedWeapon.transform, attack);
 
-            //print("too fast!");
-
-            StartCoroutine(AttackCooldownTimer(attack));
-        }
-    }
-    IEnumerator AttackCooldownTimer(WeaponStats.Attack attack)
-    {
-        isAttackInCooldown = true;
-        yield return new WaitForSeconds(attack.coolDownSeconds);
-        isAttackInCooldown = false;
-
-
-        yield return null;
-    }
-
-    float maxRecordedVelocity = 0;
+    Vector3 previousCharacterWorldPosition;
+    Vector3 previousWeaponLocalPosition;
     void CalculateBladeVelocity()
     {
-        if (Input.GetButtonDown("Jump"))
-        {
-            maxRecordedVelocity = 0;
-        }
         if (equippedWeapon != null)
         {
-            if (previousWeaponPosition != null)
+            if (previousCharacterWorldPosition != null && previousWeaponLocalPosition != null)
             {
-                weaponVelocity = Vector3.Magnitude(equippedWeapon.transform.localPosition - previousWeaponPosition);
-                //print("weapon velocity: " + weaponVelocity);
-                if (weaponVelocity > maxRecordedVelocity)
-                {
-                    print("max velocity: " + weaponVelocity);
-                    maxRecordedVelocity = weaponVelocity;
-                }
+                charVelocity = transform.position - previousCharacterWorldPosition;
+                weaponVelocity = equippedWeapon.transform.localPosition - previousWeaponLocalPosition;
+
+                //print("world velocity: " + charVelocity);
+                //print("weapon velocty: " + weaponVelocity);
             }
-            previousWeaponPosition = equippedWeapon.transform.localPosition;
+
+            previousCharacterWorldPosition = transform.position;
+            previousWeaponLocalPosition = equippedWeapon.transform.localPosition;
         }
     }
     void AssignSpeedToTheBlade()
     {
         if (equippedWeapon != null)
         {
-            EventDirector.someBladeUpdateVelocity(equippedWeapon.transform, weaponVelocity);
+            EventDirector.someBladeUpdateVelocity(equippedWeapon.transform, weaponVelocity, charVelocity);
+            //print("welocity: " + weaponVelocity);
         }
     }
 

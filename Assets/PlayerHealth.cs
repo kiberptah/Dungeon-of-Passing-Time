@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         //EventDirector.player_updateHealth(currentHealth);
     }
 
-    public void OnGettingHealth(Transform who, float amount)
+    public void OnGettingHealth(Transform who, float amount, Transform fromWhom)
     {
         if (who == transform)
         {
@@ -41,7 +41,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
             UpdateHealthBar();
         }
     }
-    public void OnLoosingHealth(Transform who, float amount)
+    public void OnLoosingHealth(Transform who, float amount, Transform fromWhom)
     {
         if (who == transform)
         {
@@ -49,7 +49,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
             UpdateHealthBar();
         }
     }
-    public void OnNoHealth(Transform who)
+    public void OnNoHealth(Transform who, Transform killer)
     {
 
     }

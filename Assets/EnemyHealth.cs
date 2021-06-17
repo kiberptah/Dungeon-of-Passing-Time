@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
         //EventDirector.player_updateHealth(currentHealth);
     }
 
-    public void OnGettingHealth(Transform who, float amount)
+    public void OnGettingHealth(Transform who, float amount, Transform fromWhom)
     {
         if (who == transform)
         {
@@ -41,7 +41,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
             UpdateHealthBar();
         }
     }
-    public void OnLoosingHealth(Transform who, float amount)
+    public void OnLoosingHealth(Transform who, float amount, Transform fromWhom)
     {
         if (who == transform)
         {
@@ -50,11 +50,11 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
             if (currentHealth == 0)
             {
-                EventDirector.somebody_Death(transform);
+                EventDirector.somebody_Death(transform, fromWhom);
             }
         }
     }
-    public void OnNoHealth(Transform who)
+    public void OnNoHealth(Transform who, Transform killer)
     {
         if (who == transform)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHealth 
 {
-    void OnGettingHealth(Transform who, float amount);
-    void OnLoosingHealth(Transform who, float amount);
-    void OnNoHealth(Transform who);
+    void OnGettingHealth(Transform who, float amount, Transform fromWhom);
+    void OnLoosingHealth(Transform who, float amount, Transform fromWhom);
+    void OnNoHealth(Transform who, Transform killer);
 }

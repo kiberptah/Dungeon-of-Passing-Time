@@ -6,9 +6,9 @@ using System;
 public class EventDirector : MonoBehaviour
 {
 
-    public static Action<Transform, float> somebody_Heal;
-    public static Action<Transform, float> somebody_TakeDamage;
-    public static Action<Transform> somebody_Death;
+    public static Action<Transform, float, Transform> somebody_Heal; // who, amout, from whom
+    public static Action<Transform, float, Transform> somebody_TakeDamage; // who, amout, from whom
+    public static Action<Transform, Transform> somebody_Death; // who, killer
     public static Action player_Death;
 
     public static Action player_Attack;
@@ -18,17 +18,8 @@ public class EventDirector : MonoBehaviour
     public static Action<Transform, Transform> someBladeCollision; //blade, target
     
     
-    public static Action<Transform, float> someBladeUpdateVelocity;
-
-
-
-
-
-
-
-
-
-
+    public static Action<Transform, Vector3, Vector3> someBladeUpdateVelocity; // blade, bladespeed, walkspeed
+    //public static Action<Transform, float> someBladeUpdateVelocity; // blade, bladespeed
 
 
 
