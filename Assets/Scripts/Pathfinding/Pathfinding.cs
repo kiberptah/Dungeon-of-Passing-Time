@@ -29,6 +29,16 @@ public class Pathfinding : MonoBehaviour
 
         Node startNode = grid.NodeFromWorldPoint(_startPos);
         Node targetNode = grid.NodeFromWorldPoint(_targetPos);
+
+        /// ??? ??? ??? 
+        if (!startNode.walkable || !targetNode.walkable)
+        {
+            /*
+            startNode.walkable = true;
+            targetNode.walkable = true;
+            */
+        }
+
         if (startNode.walkable && targetNode.walkable)
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
@@ -45,6 +55,7 @@ public class Pathfinding : MonoBehaviour
                     sw.Stop();
                     //print("Path found: " + sw.ElapsedMilliseconds + " ms");
                     pathSucess = true;
+                    //pathSucess = false;
                     break;
                 }
                 foreach (Node neighbour in grid.GetNeighbours(currentNode))
@@ -71,11 +82,18 @@ public class Pathfinding : MonoBehaviour
                     }
                 }
             }
-        }        
-        if (pathSucess)
-        {
-            waypoints = RetracePath(startNode, targetNode);
+            if (pathSucess)
+            {
+                waypoints = RetracePath(startNode, targetNode);
+            }
         }
+        else
+        {
+            pathSucess = false;
+        }
+
+
+        
         requestManager.FinishedProcessingPath(waypoints, pathSucess);
 
         yield return null;

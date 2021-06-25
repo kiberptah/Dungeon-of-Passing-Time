@@ -7,7 +7,7 @@ public class AnimationEventTrigger : MonoBehaviour
 
     public void FinishAttack()
     {
-        EventDirector.someBladeAttackFinished?.Invoke(transform.parent);
+        //EventDirector.someBladeAttackFinished?.Invoke(transform.parent);
         //print(transform.parent);
     }
 }

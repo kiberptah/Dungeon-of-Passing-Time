@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Grid : MonoBehaviour
 {
-    public Transform player;
+    public static Grid instance;
+    //public Transform player;
     public bool displayGridGizmos;
 
     public LayerMask unwalkableMask;
+    
+
     public Vector2 gridWorldSize;
     public float nodeDiameter = 1;
+    public float nodeScanScale = 2f;
     Node[,] grid;
 
     float nodeRadius;
@@ -16,6 +20,16 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
+
         nodeRadius = nodeDiameter * 0.5f;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
@@ -30,6 +44,9 @@ public class Grid : MonoBehaviour
     }
     void CreateGrid()
     {
+
+
+
         grid = new Node[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
 
@@ -40,7 +57,7 @@ public class Grid : MonoBehaviour
                 Vector3 worldPoint = worldBottomLeft 
                     + Vector3.right * (x * nodeDiameter + nodeRadius) 
                     + Vector3.up * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter, nodeDiameter), unwalkableMask));
+                bool walkable = !Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter * nodeScanScale, nodeDiameter * nodeScanScale), 0, unwalkableMask.value);
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
                 //Debug.Log("grid[" + x + "," + y + "]: " + worldPoint);
             }
@@ -100,14 +117,10 @@ public class Grid : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y));
         if (grid != null && displayGridGizmos)
         {
-            Node playerNode = NodeFromWorldPoint(player.position);
             foreach (Node n in grid)
             {
                 Color currentColor = (n.walkable) ? Color.white : Color.red;
-                if (playerNode == n)
-                {
-                    currentColor = Color.cyan;
-                }
+
 
                 currentColor.a = 0.2f;
                 Gizmos.color = currentColor;             

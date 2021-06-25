@@ -34,13 +34,16 @@ public class WeaponBladeAltDamageController : MonoBehaviour
     {
         if (blade == transform)
         {
-            if (!recentlyHitTargets.Contains(target))
+            if (target.TryGetComponent(out IHealth targetHealth))
             {
-                UpdateBladeDamage(blade, target);
-                EventDirector.somebody_TakeDamage?.Invoke(target.transform, currentDamage, transform);
-                StartCoroutine(dontHitRecentTarget(target));
+                if (!recentlyHitTargets.Contains(target))
+                {
+                    UpdateBladeDamage(blade, target);
+                    EventDirector.somebody_TakeDamage?.Invoke(target.transform, currentDamage, transform);
+                    StartCoroutine(dontHitRecentTarget(target));
 
-                //print("damage: " + currentDamage);
+                    //print("damage: " + currentDamage);
+                }
             }
         }
     }
@@ -78,7 +81,8 @@ public class WeaponBladeAltDamageController : MonoBehaviour
         }
 
 
-        float totalVelocity = currentBladeVelocity.magnitude + charVelocity;
+        //float totalVelocity = currentBladeVelocity.magnitude + charVelocity;
+        float totalVelocity = currentBladeVelocity.magnitude;
         if (totalVelocity < 0)
         {
             totalVelocity = 0;

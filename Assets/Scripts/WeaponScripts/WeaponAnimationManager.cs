@@ -10,11 +10,11 @@ public class WeaponAnimationManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventDirector.someBladeAttackStarted += ChangeAnimationState;
+
     }
     private void OnDisable()
     {
-        EventDirector.someBladeAttackStarted -= ChangeAnimationState;
+
     }
     private void ChangeAnimationState(Transform blade, WeaponStats.Attack attack)
     {

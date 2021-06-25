@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
-    public float maxHealth = 100;
+    float maxHealth = 100;
     float currentHealth;
+    ActorStats playerStats;
 
     [SerializeField]
     Transform healthBar;
@@ -26,6 +27,11 @@ public class PlayerHealth : MonoBehaviour, IHealth
     }
     void Awake()
     {
+        playerStats = GetComponent<ActorStats>();
+
+        maxHealth = playerStats.maxHealth;
+
+
         currentHealth = maxHealth;
     }
     private void Start()
@@ -55,6 +61,9 @@ public class PlayerHealth : MonoBehaviour, IHealth
     }
     void UpdateHealthBar()
     {
-        healthBar.localScale = new Vector3(currentHealth / maxHealth, healthBar.localScale.y, healthBar.localScale.z);
+        if (healthBar != null)
+        {
+            healthBar.localScale = new Vector3(currentHealth / maxHealth, healthBar.localScale.y, healthBar.localScale.z);
+        }
     }
 }

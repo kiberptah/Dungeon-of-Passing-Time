@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 10f;
+    float speed = 10f;
     Vector3 movementDirection = Vector3.zero;
+    ActorStats playerStats;
 
+    private void Awake()
+    {
+        playerStats = GetComponent<ActorStats>();
+
+        speed = playerStats.walkSpeed;
+    }
     private void Update()
     {
         InputMovement();

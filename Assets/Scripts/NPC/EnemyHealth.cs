@@ -7,6 +7,8 @@ public class EnemyHealth : MonoBehaviour, IHealth
     public float maxHealth = 100;
     float currentHealth;
 
+    ActorStats npcStats;
+
     [SerializeField]
     Transform healthBar;
     void OnEnable()
@@ -26,6 +28,9 @@ public class EnemyHealth : MonoBehaviour, IHealth
     }
     void Awake()
     {
+        npcStats = GetComponent<ActorStats>();
+        maxHealth = npcStats.maxHealth;
+
         currentHealth = maxHealth;
     }
     private void Start()
@@ -64,6 +69,9 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
     void UpdateHealthBar()
     {
-        healthBar.localScale = new Vector3(currentHealth / maxHealth, healthBar.localScale.y, healthBar.localScale.z);
+        if (healthBar != null)
+        {
+            healthBar.localScale = new Vector3(currentHealth / maxHealth, healthBar.localScale.y, healthBar.localScale.z);
+        }
     }
 }

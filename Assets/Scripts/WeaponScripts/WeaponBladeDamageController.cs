@@ -12,46 +12,16 @@ public class WeaponBladeDamageController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventDirector.someBladeAttackStarted += ActivateBlade;
-        EventDirector.someBladeAttackFinished += DeactivateBlade;
+        //EventDirector.someBladeAttackStarted += ActivateBlade;
+        //EventDirector.someBladeAttackFinished += DeactivateBlade;
         EventDirector.someBladeCollision += bladeHit;
     }
     private void OnDisable()
     {
-        EventDirector.someBladeAttackStarted -= ActivateBlade;
-        EventDirector.someBladeAttackFinished -= DeactivateBlade;
+        //EventDirector.someBladeAttackStarted -= ActivateBlade;
+        //EventDirector.someBladeAttackFinished -= DeactivateBlade;
         EventDirector.someBladeCollision -= bladeHit;
     }
-
-    public void ActivateBlade(Transform whichBlade, WeaponStats.Attack attack)
-    {
-        if (whichBlade == transform)
-        {
-            if (bladeCollider != null)
-            {
-                // disable old collider as we change it
-                bladeCollider.enabled = false;
-                currentDamage = 0;
-            }
-            //enable new collider
-            bladeCollider = attack.attackCollider;
-            bladeCollider.enabled = true;
-
-            currentDamage = attack.damage;
-            currentAttack = attack;
-            //print("pew pew");
-        }   
-    }
-    void DeactivateBlade(Transform whichBlade)
-    {
-        if (whichBlade == transform)
-        {
-            bladeCollider.enabled = false;
-            currentDamage = 0;
-        }
-    }
-
-
 
     void bladeHit(Transform blade, Transform target)
     {
