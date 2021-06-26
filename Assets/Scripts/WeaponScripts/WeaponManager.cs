@@ -1,23 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// ATTACH TO ACTORS NOT THE WEAPON ! ! !
+/// </summary>
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField]
     int selectedWeaponSlot = 0;
-    [SerializeField]
 
-    bool isWeaponDrawn = false;
+    [HideInInspector] public bool isWeaponDrawn = false;
     public GameObject[] weaponsSheathed = new GameObject[2];
-    PlayerWeaponController playerWeaponController;
+    //PlayerWeaponController playerWeaponController;
+    WeaponController weaponController;
     private void Awake()
     {
-        playerWeaponController = GetComponent<PlayerWeaponController>();      
+        //playerWeaponController = GetComponent<PlayerWeaponController>();      
+        weaponController = GetComponent<WeaponController>();
     }
     private void Start()
-    {
-        
+    {    
         // Spawn sheathed weapons in the scene to avoid headache 
         for (int i = 0; i < weaponsSheathed.Length; ++i)
         {
@@ -30,11 +31,12 @@ public class WeaponManager : MonoBehaviour
     }
     private void Update()
     {
-        Inputs();
+
     }
 
     void Inputs()
     {
+        /*
         if (Input.GetButtonDown("DrawWeapon"))
         {
             if (isWeaponDrawn == false)
@@ -50,32 +52,59 @@ public class WeaponManager : MonoBehaviour
         {
             NextWeaponSlot();
         }
+        */
     }
+    public void Input_DrawOrSheathWeapon()
+    {
+        if (isWeaponDrawn == false)
+        {
+            Input_DrawWeapon();
+        }
+        else
+        {
+            SheathWeapon();
+        }
+    }
+    public void Input_DrawWeapon()
+    {
+        TransferWeaponToHand(selectedWeaponSlot);
+    }
+    public void Input_SheathWeapon()
+    {
+        SheathWeapon();
+    }
+    public void Input_NextSlot()
+    {
+        NextWeaponSlot();
+    }    
+
+
+
     void TransferWeaponToHand(int weaponSlot)
     {
         if (weaponsSheathed[weaponSlot] != null)
         {
-            playerWeaponController.PlaceWeaponInHand(weaponsSheathed[weaponSlot], weaponSlot);
+            weaponController.PlaceWeaponInHand(weaponsSheathed[weaponSlot], weaponSlot);
 
             Destroy(weaponsSheathed[weaponSlot]);
 
             isWeaponDrawn = true;
         }
     }
-
     void SheathWeapon()
     {
-        if (playerWeaponController.equippedWeapon != null)
+        
+        //if (weaponController.equippedWeapon != null)
+        if (isWeaponDrawn == true)
         {
-            weaponsSheathed[playerWeaponController.weaponSlot] = Instantiate(playerWeaponController.equippedWeapon, transform);
-            weaponsSheathed[playerWeaponController.weaponSlot].SetActive(false);
+            weaponsSheathed[weaponController.weaponSlot] = Instantiate(weaponController.equippedWeapon, transform);
+            weaponsSheathed[weaponController.weaponSlot].SetActive(false);
 
-            Destroy(playerWeaponController.equippedWeapon);
+            Destroy(weaponController.equippedWeapon);
 
             isWeaponDrawn = false;
         }
     }
-
     void NextWeaponSlot()
     {
         selectedWeaponSlot++;

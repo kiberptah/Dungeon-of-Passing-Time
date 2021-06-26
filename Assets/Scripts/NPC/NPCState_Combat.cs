@@ -10,15 +10,19 @@ public class NPCState_Combat : INPCState
     {
         npc = _npc;
         npc.npcMovement.InitiateMovementToCurrentTarget();
+
+        npc.npcWeaponManager.Input_DrawWeapon();
     }
     public INPCState DoState(NPCStateMachine _npc)
     {
-
+        npc.npcWeaponController.weaponDirectionTendency = 1f;
 
 
 
         if (npc.EyeContactWithTarget(npc.currentTarget) == false)
         {
+            npc.npcWeaponManager.Input_SheathWeapon();
+            Debug.Log("lost eye contact!");
             npc.npcMovement.StopAllCoroutines();
             return npc.chaseState;
         }

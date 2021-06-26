@@ -10,6 +10,8 @@ public class NPCState_Chase : INPCState
         npc = _npc;
 
         npc.npcMovement.InitiateMovementToSomePosition(npc.lastKnownTargetPosition);
+
+        npc.npcWeaponManager.Input_SheathWeapon();
     }
     public INPCState DoState(NPCStateMachine _npc)
     {

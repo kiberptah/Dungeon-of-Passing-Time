@@ -10,7 +10,7 @@ public class NPCState_Idle : INPCState
     {
         npc = _npc;
 
-
+        npc.npcWeaponManager.Input_SheathWeapon();
     }
     public INPCState DoState(NPCStateMachine _npc)
     {

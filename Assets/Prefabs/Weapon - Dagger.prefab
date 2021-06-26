@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2767394469018529242}
   - component: {fileID: 7581630533159577052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Isometric Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2314225583513666789}
   - component: {fileID: 4100160914184103927}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4271946710658096348}
   - component: {fileID: 7299667669767237049}
   - component: {fileID: 3726928419338450096}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 4936985403028044602}
   - component: {fileID: 7803989515013692249}
   - component: {fileID: 972297273682834192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Blade Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 7265373763533837597}
   - component: {fileID: 792757389901168360}
   - component: {fileID: 3292592105608416131}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Weapon - Dagger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7265373763736890429}
   - component: {fileID: 7265373763736890430}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: handguard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

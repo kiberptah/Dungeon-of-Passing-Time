@@ -6,6 +6,9 @@ public class NPCStateMachine : MonoBehaviour
 {
     [HideInInspector] public ActorStats npcStats;
     [HideInInspector] public NPCMovement npcMovement;
+    [HideInInspector] public WeaponManager npcWeaponManager;
+    [HideInInspector] public WeaponController npcWeaponController;
+
 
     public Transform currentTarget;
     [HideInInspector] public Vector3 lastKnownTargetPosition;
@@ -29,6 +32,8 @@ public class NPCStateMachine : MonoBehaviour
     {
         npcStats = GetComponent<ActorStats>();
         npcMovement = GetComponent<NPCMovement>();
+        npcWeaponManager = GetComponent<WeaponManager>();
+        npcWeaponController = GetComponent<WeaponController>();
 
         currentState = idleState;
         currentStateName = currentState.ToString();
@@ -69,7 +74,9 @@ public class NPCStateMachine : MonoBehaviour
     public bool EyeContactWithTarget(Transform target)
     {
         //RaycastHit2D raycast = Physics2D.Raycast(transform.position, target.position, npcStats.sightRadius, LayerMask.GetMask("Geometry", "Actors"));
-        RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.TransformDirection(target.position - transform.position), npcStats.sightRadius);
+        RaycastHit2D raycast = 
+            Physics2D.Raycast(transform.position, transform.TransformDirection(target.position - transform.position), 
+            npcStats.sightRadius, ~LayerMask.GetMask("Weapon"));
 
 
         if (raycast.transform == target)
