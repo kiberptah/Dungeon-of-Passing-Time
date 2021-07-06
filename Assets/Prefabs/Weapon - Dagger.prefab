@@ -362,7 +362,7 @@ MonoBehaviour:
   weaponSensitivityAngle: 90
   maxFollowSpeed: 10
   bladeCollider: {fileID: 7803989515013692249}
-  weaponClass: 0
+  weaponClass: 1
 --- !u!1 &7265373763736890428
 GameObject:
   m_ObjectHideFlags: 0

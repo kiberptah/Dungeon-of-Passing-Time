@@ -18,9 +18,10 @@ GameObject:
   - component: {fileID: 4778285313243707445}
   - component: {fileID: 4778285313243707447}
   - component: {fileID: 4778285313243707446}
+  - component: {fileID: 937971299349516226}
   m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +110,7 @@ MonoBehaviour:
   friendlyFactions: 01000000
   hatedFactions: 00000000
   maxHealth: 100
-  walkSpeed: 3
+  walkSpeed: 2
   sightRadius: 50
 --- !u!114 &4778285313243707448
 MonoBehaviour:
@@ -140,6 +141,7 @@ MonoBehaviour:
   npcStats: {fileID: 0}
   npcMovement: {fileID: 0}
   npcWeaponManager: {fileID: 0}
+  npcWeaponController: {fileID: 0}
   currentTarget: {fileID: 0}
   lastKnownTargetPosition: {x: 0, y: 0, z: 0}
   path: []
@@ -160,6 +162,15 @@ MonoBehaviour:
   equippedWeapon: {fileID: 0}
   weaponSlot: 0
   weaponDistanceFromBody: 1
+  weaponMinimalFollowSpeed: 1
+  weaponFollowSpeedMod: 1
+  weaponFollowDeadzone: 1
+  weaponRotationSpeed: 1
+  weaponSensitivityAngle: 45
+  weaponMaxFollowSpeed: 100
+  weaponKnockbackModifer: 0
+  weaponFollowSpeed: 0
+  weaponDirectionTendency: 0
 --- !u!114 &-8984534697881254404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +235,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &937971299349516226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778285313243707444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73ad7524677b5249baac348bc107abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4778285314500999352
 GameObject:
   m_ObjectHideFlags: 0

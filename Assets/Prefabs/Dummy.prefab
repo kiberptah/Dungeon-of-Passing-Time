@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 113476827239124475}
   - component: {fileID: 113476827239124473}
   - component: {fileID: 113476827239124474}
+  - component: {fileID: 1227439288}
   m_Layer: 7
   m_Name: Dummy
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,7 +154,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -173,6 +174,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1227439288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113476827239124472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73ad7524677b5249baac348bc107abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthCapPercentForMaxKnockback: 0.05
 --- !u!1 &113476827726319550
 GameObject:
   m_ObjectHideFlags: 0

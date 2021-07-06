@@ -5,9 +5,12 @@ using System;
 
 public class EventDirector : MonoBehaviour
 {
+    public static Action scene_Reset; // reset current scene
+
 
     public static Action<Transform, float, Transform> somebody_Heal; // who, amout, from whom
     public static Action<Transform, float, Transform> somebody_TakeDamage; // who, amout, from whom
+    public static Action<Transform, float, float, Transform> somebody_Knockback; // who, knockback, damage, from whom
     public static Action<Transform, Transform> somebody_Death; // who, killer
     public static Action player_Death;
 

@@ -118,4 +118,23 @@ public class NPCStateMachine : MonoBehaviour
             }
         }
     }
+
+
+
+    private void OnDrawGizmos()
+    {
+        if (currentTarget != null && npcWeaponController.equippedWeapon != null)
+        {
+            Vector3 targetProjection = transform.InverseTransformPoint(currentTarget.position).normalized;
+            Vector3 bladeProjection = transform.InverseTransformPoint(npcWeaponController.equippedWeapon.transform.position).normalized;
+
+            Gizmos.color = Color.red;
+
+            Gizmos.DrawSphere(transform.TransformPoint(targetProjection), 0.1f);
+            Gizmos.color = Color.cyan;
+
+            Gizmos.DrawSphere(transform.TransformPoint(bladeProjection), 0.1f);
+
+        }
+    }
 }

@@ -39,7 +39,8 @@ public class WeaponBladeAltDamageController : MonoBehaviour
                 if (!recentlyHitTargets.Contains(target))
                 {
                     UpdateBladeDamage(blade, target);
-                    EventDirector.somebody_TakeDamage?.Invoke(target.transform, currentDamage, transform);
+                    EventDirector.somebody_TakeDamage?.Invoke(target.transform, currentDamage, transform.parent);
+                    EventDirector.somebody_Knockback?.Invoke(target.transform, weaponStats.knockbackModifier, currentDamage, transform.parent);
                     StartCoroutine(dontHitRecentTarget(target));
 
                     //print("damage: " + currentDamage);
@@ -110,7 +111,11 @@ public class WeaponBladeAltDamageController : MonoBehaviour
                 currentDamage = weaponStats.damage * Mathf.Pow(totalVelocity * 10f, weaponStats.velocityDamageModifier);
                 break;
             case WeaponStatsAlt.damageCalculationTypes.dagger:
-                currentDamage = weaponStats.damage * totalVelocity * weaponStats.velocityDamageModifier;
+                currentDamage = weaponStats.damage;
+                if (totalVelocity == 0)
+                {
+                    currentDamage = 0;
+                }
                 break;
         }
         //print("currentDamage: " + currentDamage);

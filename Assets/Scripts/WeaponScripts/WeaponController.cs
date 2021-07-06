@@ -15,14 +15,15 @@ public class WeaponController : MonoBehaviour
 
 
     [Header("Weapon Alignment")]
-    float weaponMinimalFollowSpeed = 1f;
-    float weaponFollowSpeedMod = 1f;
-    float weaponFollowDeadzone = 1f;
-    float weaponRotationSpeed = 1f;
-    float weaponSensitivityAngle = 45f;
-    float weaponMaxFollowSpeed = 100f;
+    [HideInInspector] public float weaponMinimalFollowSpeed = 1f;
+    [HideInInspector] public float weaponFollowSpeedMod = 1f;
+    [HideInInspector] public float weaponFollowDeadzone = 1f;
+    [HideInInspector] public float weaponRotationSpeed = 1f;
+    [HideInInspector] public float weaponSensitivityAngle = 45f;
+    [HideInInspector] public float weaponMaxFollowSpeed = 100f;
+    [HideInInspector] public float weaponKnockbackModifer = 0;
 
-    float weaponFollowSpeed = 0f;
+    [HideInInspector] public float weaponFollowSpeed = 0f;
 
     bool isControlledByPlayer = false;
 
@@ -34,19 +35,15 @@ public class WeaponController : MonoBehaviour
     Vector3 weaponVelocity = Vector3.zero;
     Vector3 charVelocity = Vector3.zero;
 
+    Vector3 desiredPosition = Vector3.zero;
 
     private void FixedUpdate()
     {
         if (equippedWeapon != null)
         {
-            if (isControlledByPlayer)
-            {
-                PlayerWeaponSwinging();
-            }
-            else
-            {
-                NPCWeaponSwinging();
-            }
+            //print(mousePosition);
+
+            WeaponSwinging();
 
             AdjustWeaponAngle();
 
@@ -64,6 +61,14 @@ public class WeaponController : MonoBehaviour
     public void PlaceWeaponInHand(GameObject weapon, int _weaponSlot)
     {
         equippedWeapon = Instantiate(weapon, transform);
+        //
+        mouseProjection = transform.InverseTransformPoint(mousePosition); // result is local coordinates!!!
+        mouseProjection.z = 0;
+        mouseProjection = mouseProjection.normalized;
+        equippedWeapon.transform.position = transform.TransformPoint(mouseProjection);
+
+        weaponFollowSpeed = weaponMinimalFollowSpeed;
+        //
         equippedWeapon.SetActive(true);
         weaponSlot = _weaponSlot;
 
@@ -74,6 +79,7 @@ public class WeaponController : MonoBehaviour
         weaponFollowDeadzone = weaponStats.weaponFollowDeadzone;
         weaponRotationSpeed = weaponStats.weaponRotationSpeed;
         weaponSensitivityAngle = weaponStats.weaponSensitivityAngle;
+        weaponKnockbackModifer = weaponStats.knockbackModifier;
 
         weaponMaxFollowSpeed = weaponStats.maxFollowSpeed;
     }
@@ -81,24 +87,9 @@ public class WeaponController : MonoBehaviour
     public void UpdateMousePosition(Vector3 _mousePosition)
     {
         mousePosition = _mousePosition;
-        isControlledByPlayer = true;
     }
-    void NPCWeaponSwinging()
-    {        
-        /// ASSIGN FAKE MOUSE POSITION
-        Vector3 fakeMousePosition;
-        fakeMousePosition = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * 10f, 0, 0));
 
-        /// --- actually move the weapon
-        /// IN WORLD COORDINATES otherwise this crap doesnt work
-        /// also move only if mouse not in the deadzone
-        equippedWeapon.transform.position
-                = Vector3.MoveTowards(equippedWeapon.transform.position, fakeMousePosition, weaponFollowSpeed);
-
-        /// --- to set weapon on a fixed distance from the player
-        equippedWeapon.transform.localPosition = equippedWeapon.transform.localPosition.normalized * weaponDistanceFromBody;
-    }
-    void PlayerWeaponSwinging()
+    void WeaponSwinging()
     {
         Vector3 fakeMousePosition;
 
@@ -135,6 +126,8 @@ public class WeaponController : MonoBehaviour
             }
             weaponDirectionTendency = directionalAngle;
         }
+
+        // // // //
         /// ASSIGN FAKE MOUSE POSITION
         fakeMousePosition = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * 10f, 0, 0));
 
@@ -144,8 +137,10 @@ public class WeaponController : MonoBehaviour
         if (Vector3.Distance(equippedWeapon.transform.position, transform.TransformPoint(fakeMouseProjection))
         > Vector3.Distance(equippedWeapon.transform.position, transform.TransformPoint(mouseProjection)))
         {
-            //if (weaponFollowSpeed < weaponMaxFollowSpeed / 2f)
-            if (true)
+            if 
+                (weaponFollowSpeed < weaponMaxFollowSpeed / 2f)
+                //(true)
+            //if (true)
             {
                 /// there's a a thing 
                 /// when you stop swinging blade still has high speed and it snaps to mouse in the end
@@ -167,6 +162,7 @@ public class WeaponController : MonoBehaviour
         equippedWeapon.transform.localPosition = equippedWeapon.transform.localPosition.normalized * weaponDistanceFromBody;
         //equippedWeapon.transform.localPosition = Vector3.ClampMagnitude(equippedWeapon.transform.localPosition, weaponDistanceFromBody);
     }
+
     Vector3 debugPoint;
     Vector3 debugOrigin;
     Vector3 debugLineEnd;
@@ -245,6 +241,22 @@ public class WeaponController : MonoBehaviour
             EventDirector.someBladeUpdateVelocity(equippedWeapon.transform, weaponVelocity, charVelocity);
             //print("welocity: " + weaponVelocity);
         }
+    }
+
+
+
+
+
+    void BladeCollision(Transform otherObject)
+    {
+        //if (localObject.gameObject.layer == LayerMask.GetMask("Weapon") && otherObject.gameObject.layer == LayerMask.GetMask("Weapon"))
+
+        //print(" collided with " + otherObject.name);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        BladeCollision(collision.transform);
     }
 }
 

@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 3292592105608416131}
   m_Layer: 9
   m_Name: Weapon - AltSword
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,10 +268,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 12
   velocityDamageModifier: 2
+  knockbackModifier: 10
   damageCalcType: 1
   damageTickDelay: 0.25
   damageType: 0
-  weaponMinimalFollowSpeed: 0.05
+  weaponMinimalFollowSpeed: 0.06
   weaponFollowSpeedMod: 0.01
   weaponFollowDeadzone: 3
   weaponRotationSpeed: 0.4

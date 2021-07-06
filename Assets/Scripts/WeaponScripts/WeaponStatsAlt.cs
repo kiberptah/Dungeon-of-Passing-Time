@@ -7,6 +7,7 @@ public class WeaponStatsAlt : MonoBehaviour
     [Header("Damage")]
     public float damage;
     public float velocityDamageModifier = 1f;
+    public float knockbackModifier = 1f;
     //int typeOfDamageScaling = 0;
     public enum damageCalculationTypes
     {

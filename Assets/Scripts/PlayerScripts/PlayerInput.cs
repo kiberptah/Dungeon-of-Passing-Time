@@ -6,10 +6,14 @@ public class PlayerInput : MonoBehaviour
 {
     WeaponManager weaponManager;
     WeaponController weaponController;
+
+    
     private void Awake()
     {
         weaponManager = GetComponent<WeaponManager>();
         weaponController = GetComponent<WeaponController>();
+
+
     }
 
     private void Update()
@@ -22,9 +26,13 @@ public class PlayerInput : MonoBehaviour
         {
             weaponManager.Input_NextSlot();
         }
+
+
     }
     private void FixedUpdate()
     {
         weaponController.UpdateMousePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
     }
+
 }

@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IHealth
 {
     public float maxHealth = 100;
-    float currentHealth;
+
+    
+    public float currentHealth { get; set; }
 
     ActorStats npcStats;
 
