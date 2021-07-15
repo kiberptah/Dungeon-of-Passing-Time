@@ -28,6 +28,17 @@ public class PlayerInput : MonoBehaviour
         }
 
 
+        if (Input.GetButtonDown("HoldToPierce"))
+        {
+            weaponController.currentAttackMode = WeaponController.attackMode.pierce;
+            weaponController.previousMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            print("pierce");
+        }
+        if (Input.GetButtonUp("HoldToPierce"))
+        {
+            weaponController.currentAttackMode = WeaponController.attackMode.slash;
+        }
+
     }
     private void FixedUpdate()
     {

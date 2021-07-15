@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1208257796927939550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7973224027385049375}
+  m_Layer: 0
+  m_Name: WeaponLocalHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7973224027385049375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208257796927939550}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4271946710658096348}
+  - {fileID: 4936985403028044602}
+  m_Father: {fileID: 7265373763533837597}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1455019324074511004
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,8 +57,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455019324074511004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0969, z: 0}
-  m_LocalScale: {x: 0.55, y: 1.5157442, z: 1}
+  m_LocalPosition: {x: 0, y: -0.084, z: 0}
+  m_LocalScale: {x: 0.12, y: 1.36, z: 1}
   m_Children: []
   m_Father: {fileID: 4271946710658096348}
   m_RootOrder: 2
@@ -108,8 +140,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040687095729595678}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2048, z: 0}
-  m_LocalScale: {x: 0.33, y: 0.5904, z: 1}
+  m_LocalPosition: {x: 0, y: -0.2508, z: 0}
+  m_LocalScale: {x: 0.07, y: 0.49841568, z: 1}
   m_Children: []
   m_Father: {fileID: 4271946710658096348}
   m_RootOrder: 1
@@ -191,14 +223,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2434479263887921356}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7265373763736890429}
   - {fileID: 2314225583513666789}
   - {fileID: 2767394469018529242}
-  m_Father: {fileID: 7265373763533837597}
+  m_Father: {fileID: 7973224027385049375}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7299667669767237049
@@ -257,11 +289,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3229229842767731482}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.205, z: 0}
   m_LocalScale: {x: 0.47, y: 0.74, z: 1}
   m_Children: []
-  m_Father: {fileID: 7265373763533837597}
+  m_Father: {fileID: 7973224027385049375}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &7803989515013692249
@@ -278,7 +310,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.28}
-  m_Size: {x: 1.37, y: 0.73}
+  m_Size: {x: 0.34, y: 0.73}
   m_Direction: 0
 --- !u!114 &972297273682834192
 MonoBehaviour:
@@ -292,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e7983ef77fc7e488e0ed1067f1c187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponMainObject: {fileID: 7265373763533837597}
 --- !u!1 &7265373763533837596
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,10 +352,9 @@ Transform:
   m_GameObject: {fileID: 7265373763533837596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4271946710658096348}
-  - {fileID: 4936985403028044602}
+  - {fileID: 7973224027385049375}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -352,15 +384,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   velocityDamageModifier: 10
+  knockbackModifier: 1
   damageCalcType: 4
   damageTickDelay: 0.1
   damageType: 0
-  weaponMinimalFollowSpeed: 0.5
+  weaponMinimalFollowSpeed: 0.25
   weaponFollowSpeedMod: 0
   weaponFollowDeadzone: 1
   weaponRotationSpeed: 1
   weaponSensitivityAngle: 90
-  maxFollowSpeed: 10
+  maxFollowSpeed: 1
   bladeCollider: {fileID: 7803989515013692249}
   weaponClass: 1
 --- !u!1 &7265373763736890428
@@ -389,7 +422,7 @@ Transform:
   m_GameObject: {fileID: 7265373763736890428}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.31, z: 0}
-  m_LocalScale: {x: 0.69, y: -0.06, z: 1}
+  m_LocalScale: {x: 0.32, y: -0.06, z: 1}
   m_Children: []
   m_Father: {fileID: 4271946710658096348}
   m_RootOrder: 0

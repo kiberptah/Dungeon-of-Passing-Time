@@ -34,6 +34,7 @@ public class WeaponBladeAltDamageController : MonoBehaviour
     {
         if (blade == transform)
         {
+            //print("hit");
             if (target.TryGetComponent(out IHealth targetHealth))
             {
                 if (!recentlyHitTargets.Contains(target))

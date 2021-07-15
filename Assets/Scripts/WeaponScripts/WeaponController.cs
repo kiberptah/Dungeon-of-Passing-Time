@@ -11,10 +11,9 @@ public class WeaponController : MonoBehaviour
 
     [HideInInspector] public GameObject equippedWeapon;
     [HideInInspector] public int weaponSlot;
-    public float weaponDistanceFromBody = 1.25f;
+    public float weaponDistanceFromBody = 1f;
+    public float weaponMaxDistanceFromBody = 2f;
 
-
-    [Header("Weapon Alignment")]
     [HideInInspector] public float weaponMinimalFollowSpeed = 1f;
     [HideInInspector] public float weaponFollowSpeedMod = 1f;
     [HideInInspector] public float weaponFollowDeadzone = 1f;
@@ -25,8 +24,6 @@ public class WeaponController : MonoBehaviour
 
     [HideInInspector] public float weaponFollowSpeed = 0f;
 
-    bool isControlledByPlayer = false;
-
     Vector3 mousePosition = Vector3.zero;
     Vector3 mouseProjection = Vector3.up;
     [HideInInspector] public float weaponDirectionTendency = 0;
@@ -35,17 +32,31 @@ public class WeaponController : MonoBehaviour
     Vector3 weaponVelocity = Vector3.zero;
     Vector3 charVelocity = Vector3.zero;
 
-    Vector3 desiredPosition = Vector3.zero;
+    public enum attackMode
+    {
+        slash,
+        pierce
+    }
+    public attackMode currentAttackMode;
 
+
+    public Vector3 frozenMousePosition = Vector3.zero;
     private void FixedUpdate()
     {
         if (equippedWeapon != null)
         {
-            //print(mousePosition);
+            if (currentAttackMode == attackMode.slash)
+            {
+                WeaponSwinging();
+            }
+            if (currentAttackMode == attackMode.pierce)
+            {
+                WeaponPiercing();
+            }
 
-            WeaponSwinging();
 
             AdjustWeaponAngle();
+
 
             CalculateBladeVelocity();
             AssignSpeedToTheBlade();
@@ -89,6 +100,37 @@ public class WeaponController : MonoBehaviour
         mousePosition = _mousePosition;
     }
 
+    public Vector3 previousMousePosition = Vector3.zero;
+    void WeaponPiercing()
+    {
+        if (previousMousePosition != Vector3.zero)
+        {
+            Vector3 normal = equippedWeapon.transform.position - transform.position;
+            Vector3 directionX = Vector3.Project((mousePosition - previousMousePosition), normal);
+            Vector3 directionY = Vector3.Project(mousePosition, Vector3.Cross(transform.forward, directionX));
+
+            Vector3 direction = directionX;
+
+            if (Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) <= weaponMaxDistanceFromBody
+                && Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) >= weaponDistanceFromBody)
+            {
+                equippedWeapon.transform.position
+                    = Vector3.MoveTowards(equippedWeapon.transform.position, equippedWeapon.transform.position + direction, weaponFollowSpeed);
+            }
+            else
+            {
+                if (Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) > weaponMaxDistanceFromBody)
+                {
+                    equippedWeapon.transform.position = transform.position + (equippedWeapon.transform.position - transform.position).normalized * weaponMaxDistanceFromBody;
+                }
+                if (Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) < weaponDistanceFromBody)
+                {
+                    equippedWeapon.transform.position = transform.position + (equippedWeapon.transform.position - transform.position).normalized * weaponDistanceFromBody;
+                }
+            }
+        }
+        previousMousePosition = mousePosition;
+    }
     void WeaponSwinging()
     {
         Vector3 fakeMousePosition;
@@ -106,12 +148,6 @@ public class WeaponController : MonoBehaviour
         float directionalAngle = Vector3.SignedAngle(equippedWeapon.transform.localPosition, mouseProjection, -transform.forward);
         //print(directionalAngle);
 
-        /// check if angle bigger then a deadzone cause we loosing exact value in the next lines and need to know it later
-        bool isAngleNotInTheDeadzone = false;
-        if (Mathf.Abs(directionalAngle) > weaponFollowDeadzone)
-        {
-            isAngleNotInTheDeadzone = true;
-        }
         /// choose direction to move weapon towards, represented by fake mouse cursor 
         /// now working in world coordinates!!! i dont know why but this fucken shit doesnt work in local coordinates after now!
         /// 
@@ -127,9 +163,17 @@ public class WeaponController : MonoBehaviour
             weaponDirectionTendency = directionalAngle;
         }
 
+        //Debug.Log("weapondir: " + weaponDirectionTendency);
+
         // // // //
         /// ASSIGN FAKE MOUSE POSITION
-        fakeMousePosition = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * 10f, 0, 0));
+        //fakeMousePosition = equippedWeapon.transform.TransformPoint(new Vector3(weaponDirectionTendency * 10f, 0, 0));
+
+        fakeMousePosition = transform.TransformPoint(weaponDirectionTendency * 1f * -Vector2.Perpendicular(equippedWeapon.transform.position - transform.position));
+
+
+        //Vector3 normal = Vector3.Cross(transform.forward, transform.TransformPoint((equippedWeapon.transform.position - transform.position).normalized));
+
 
         Vector3 fakeMouseProjection;
         fakeMouseProjection = transform.InverseTransformPoint(fakeMousePosition).normalized;
@@ -159,6 +203,8 @@ public class WeaponController : MonoBehaviour
                 = Vector3.MoveTowards(equippedWeapon.transform.position, fakeMousePosition, weaponFollowSpeed);
 
         /// --- to set weapon on a fixed distance from the player (or limit how far is max)
+        /// 
+
         equippedWeapon.transform.localPosition = equippedWeapon.transform.localPosition.normalized * weaponDistanceFromBody;
         //equippedWeapon.transform.localPosition = Vector3.ClampMagnitude(equippedWeapon.transform.localPosition, weaponDistanceFromBody);
     }
@@ -169,8 +215,10 @@ public class WeaponController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(debugPoint, 0.1f);
-        Gizmos.DrawLine(debugOrigin, debugLineEnd);
+        //Gizmos.DrawSphere(debugPoint, 0.1f);
+        //Gizmos.DrawLine(debugOrigin, debugLineEnd);
+
+        Gizmos.DrawSphere(transform.TransformPoint(mouseProjection), 0.25f);
 
     }
     void AdjustWeaponAngle()
@@ -258,6 +306,12 @@ public class WeaponController : MonoBehaviour
     {
         BladeCollision(collision.transform);
     }
+
+
+
+
+
+
 }
 
 

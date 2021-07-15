@@ -114,7 +114,7 @@ public class NPCState_Combat : INPCState
 
     void AttackPattern_SwingAtEnemy()
     {
-        float maxAngle = 160f;
+        float maxAngle = 80f;
         Vector3 targetProjection = npc.transform.InverseTransformPoint(npc.currentTarget.position).normalized;
         Vector3 bladeProjection = npc.transform.InverseTransformPoint(npc.npcWeaponController.equippedWeapon.transform.position).normalized;
 
@@ -122,14 +122,19 @@ public class NPCState_Combat : INPCState
         if (angleBetweenBladeAndEnemy > maxAngle)
         {
             dir = 1;
+            Debug.Log(">>>");
         }
         if (angleBetweenBladeAndEnemy < -maxAngle)
         {
             dir = -1;
+            Debug.Log("<<<");
         }
-
+        //Debug.Log("angleBetweenBladeAndEnemy: " + angleBetweenBladeAndEnemy);
         npcMousePosition = npc.npcWeaponController.equippedWeapon.transform.TransformPoint(new Vector3(dir * 10f, 0, 0));
         npc.npcWeaponController.UpdateMousePosition(npcMousePosition);
+
+        npc.shittymouseccord = npcMousePosition;
+
     }
 
     void AttackPattern_PierceEnemy()

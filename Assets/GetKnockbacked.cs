@@ -28,7 +28,7 @@ public class GetKnockbacked : MonoBehaviour
         }
     }
 
-    float knockbackDuration = 0.25f;
+    float knockbackDuration = 0.2f;
     IEnumerator GetKnocked(Transform who, float knockback, float damage, Transform byWhom)
     {
         Vector3 movementDirection = who.position - byWhom.position;

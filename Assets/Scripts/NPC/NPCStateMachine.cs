@@ -121,8 +121,11 @@ public class NPCStateMachine : MonoBehaviour
 
 
 
+    public Vector3 shittymouseccord = Vector3.zero;
     private void OnDrawGizmos()
     {
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawSphere(shittymouseccord, 1f);
         if (currentTarget != null && npcWeaponController.equippedWeapon != null)
         {
             Vector3 targetProjection = transform.InverseTransformPoint(currentTarget.position).normalized;

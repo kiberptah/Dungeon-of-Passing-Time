@@ -13,7 +13,7 @@ public class TimeSlowdownManager : MonoBehaviour
         EventDirector.somebody_TakeDamage -= SlowTimeOnHit;
     }
 
-    void SlowTimeOnHit(Transform who, float amount, Transform fromWhom)
+    void SlowTimeOnHit(Transform who, float amount  , Transform fromWhom)
     {
         print(who.name + " got hit by " + fromWhom.name);
         if (who.tag != "Player" && fromWhom.tag == "Player")

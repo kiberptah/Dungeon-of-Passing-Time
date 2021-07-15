@@ -4,11 +4,11 @@ using UnityEngine;
 using System;
 public class Collision2DCallback : MonoBehaviour
 {
-    
+    public Transform weaponMainObject;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        EventDirector.someBladeCollision(transform.parent, collision.transform);
+        EventDirector.someBladeCollision(weaponMainObject, collision.transform);
         //print("collision with blade");
     }
 }
