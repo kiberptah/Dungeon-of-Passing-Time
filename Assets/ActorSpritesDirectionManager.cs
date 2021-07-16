@@ -38,54 +38,56 @@ public class ActorSpritesDirectionManager : MonoBehaviour
 
     public void UpdateDirection(Vector3 direction)
     {
-        Vector3 closestDirection = Vector3.zero;
-        int whichDir = 0;
-        float minimalAngle = 360f;
-
-        int i = 0;
-        foreach(Vector3 dir in cardinalDirections)
+        if (direction != Vector3.zero)
         {
-            float angle = Mathf.Abs(Vector3.Angle(direction, dir));
-            if (angle < minimalAngle)
+            Vector3 closestDirection = Vector3.zero;
+            int whichDir = 0;
+            float minimalAngle = 360f;
+
+            int i = 0;
+            foreach (Vector3 dir in cardinalDirections)
             {
-                whichDir = i;
-                minimalAngle = angle;
-                print(closestDirection);
+                float angle = Mathf.Abs(Vector3.Angle(direction, dir));
+                if (angle < minimalAngle)
+                {
+                    whichDir = i;
+                    minimalAngle = angle;
+                    print(closestDirection);
+                }
+                ++i;
             }
-            ++i;
-        }
-        
-        switch (whichDir)
-        {
-            default:
-                break;
-            case 0:
-                currentSpriteDirection = spriteDirection.N;
-                break;
-            case 1:
-                currentSpriteDirection = spriteDirection.W;
-                break;
-            case 2:
-                currentSpriteDirection = spriteDirection.S;
-                break;
-            case 3:
-                currentSpriteDirection = spriteDirection.E;
-                break;
-            case 4:
-                currentSpriteDirection = spriteDirection.NW;
-                break;
-            case 5:
-                currentSpriteDirection = spriteDirection.NE;
-                break;
-            case 6:
-                currentSpriteDirection = spriteDirection.SW;
-                break;
-            case 7:
-                currentSpriteDirection = spriteDirection.SE;
-                break;
-        }
-        
 
+            switch (whichDir)
+            {
+                default:
+                    break;
+                case 0:
+                    currentSpriteDirection = spriteDirection.N;
+                    break;
+                case 1:
+                    currentSpriteDirection = spriteDirection.W;
+                    break;
+                case 2:
+                    currentSpriteDirection = spriteDirection.S;
+                    break;
+                case 3:
+                    currentSpriteDirection = spriteDirection.E;
+                    break;
+                case 4:
+                    currentSpriteDirection = spriteDirection.NW;
+                    break;
+                case 5:
+                    currentSpriteDirection = spriteDirection.NE;
+                    break;
+                case 6:
+                    currentSpriteDirection = spriteDirection.SW;
+                    break;
+                case 7:
+                    currentSpriteDirection = spriteDirection.SE;
+                    break;
+            }
+
+        }
     }
 
     void SelectAnimation()

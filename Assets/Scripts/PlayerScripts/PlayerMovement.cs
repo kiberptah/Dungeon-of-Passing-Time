@@ -44,17 +44,16 @@ public class PlayerMovement : MonoBehaviour
     public void Dash()
     {
         StartCoroutine("SpeedBoost");
-
-        float boostDuration = 0.1f;
-        float boostMult = 5f;
-        IEnumerator SpeedBoost()
-        {
-            speed = speed * boostMult;
-            yield return new WaitForSeconds(boostDuration);
-            speed = playerStats.walkSpeed;
-
-            yield return null;
-        }
     }
-    
+    float boostDuration = 0.1f;
+    float boostMult = 5f;
+    IEnumerator SpeedBoost()
+    {
+        speed = speed * boostMult;
+        yield return new WaitForSeconds(boostDuration);
+        speed = playerStats.walkSpeed;
+
+        yield return null;
+    }
+
 }
