@@ -104,7 +104,7 @@ public class NPCMovement : MonoBehaviour
                 //print("currentWaypoint = " + currentWaypoint);
                 //print("path[targetIndex] = " + path[targetIndex]);
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, npcStats.walkSpeed * Time.deltaTime);
-
+                //print("moving " + Time.time);
                 yield return new WaitForFixedUpdate();
             }
         }

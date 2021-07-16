@@ -6,7 +6,8 @@ public class PlayerInput : MonoBehaviour
 {
     WeaponManager weaponManager;
     WeaponController weaponController;
-
+    public PlayerMovement playerMovement;
+    public ActorSpritesDirectionManager spriteManager;
     
     private void Awake()
     {
@@ -18,6 +19,20 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        Input_Weapon();
+        Input_Movement();
+
+
+    }
+    private void FixedUpdate()
+    {
+        weaponController.UpdateMousePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
+    }
+
+
+    void Input_Weapon()
+    {
         if (Input.GetButtonDown("DrawWeapon"))
         {
             weaponManager.Input_DrawOrSheathWeapon();
@@ -27,23 +42,28 @@ public class PlayerInput : MonoBehaviour
             weaponManager.Input_NextSlot();
         }
 
-
         if (Input.GetButtonDown("HoldToPierce"))
         {
-            weaponController.currentAttackMode = WeaponController.attackMode.pierce;
-            weaponController.previousMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            print("pierce");
+            weaponController.WeaponPiercing();
+            //print("pierce");
         }
-        if (Input.GetButtonUp("HoldToPierce"))
-        {
-            weaponController.currentAttackMode = WeaponController.attackMode.slash;
-        }
-
     }
-    private void FixedUpdate()
+    void Input_Movement()
     {
-        weaponController.UpdateMousePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Vector3 movementDirection = Vector3.zero;
+
+        movementDirection.x = Input.GetAxis("Horizontal");
+        movementDirection.y = Input.GetAxis("Vertical");
+
+        movementDirection = movementDirection.normalized;
+
+        playerMovement.InputMovement(movementDirection);
+        spriteManager.UpdateDirection(movementDirection);
+
+        if (Input.GetButtonDown("Dash"))
+        {
+            playerMovement.Dash();
+        }
 
     }
-
 }

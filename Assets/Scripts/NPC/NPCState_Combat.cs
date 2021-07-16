@@ -122,12 +122,12 @@ public class NPCState_Combat : INPCState
         if (angleBetweenBladeAndEnemy > maxAngle)
         {
             dir = 1;
-            Debug.Log(">>>");
+            //Debug.Log(">>>");
         }
         if (angleBetweenBladeAndEnemy < -maxAngle)
         {
             dir = -1;
-            Debug.Log("<<<");
+            //Debug.Log("<<<");
         }
         //Debug.Log("angleBetweenBladeAndEnemy: " + angleBetweenBladeAndEnemy);
         npcMousePosition = npc.npcWeaponController.equippedWeapon.transform.TransformPoint(new Vector3(dir * 10f, 0, 0));

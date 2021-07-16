@@ -8,7 +8,7 @@ public class Collision2DCallback : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        EventDirector.someBladeCollision(weaponMainObject, collision.transform);
-        //print("collision with blade");
+        //EventDirector.someBladeCollision(weaponMainObject, collision.transform);
+        print("DONT USE THIS SCRIPT!!!!");
     }
 }

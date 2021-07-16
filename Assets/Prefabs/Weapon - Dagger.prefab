@@ -29,6 +29,7 @@ Transform:
   m_Children:
   - {fileID: 4271946710658096348}
   - {fileID: 4936985403028044602}
+  - {fileID: 179537308352105315}
   m_Father: {fileID: 7265373763533837597}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -274,9 +275,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4936985403028044602}
   - component: {fileID: 7803989515013692249}
-  - component: {fileID: 972297273682834192}
+  - component: {fileID: 2867079611242478894}
   m_Layer: 9
-  m_Name: Blade Collider
+  m_Name: Blade Slash Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +313,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.28}
   m_Size: {x: 0.34, y: 0.73}
   m_Direction: 0
---- !u!114 &972297273682834192
+--- !u!114 &2867079611242478894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -321,9 +322,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3229229842767731482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4e7983ef77fc7e488e0ed1067f1c187, type: 3}
+  m_Script: {fileID: 11500000, guid: 66fba3dfde9451a40ac2e45025a4c8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTypeOfAttack: 0
   weaponMainObject: {fileID: 7265373763533837597}
 --- !u!1 &7265373763533837596
 GameObject:
@@ -382,11 +384,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607bf664d2035324a99f48b5d2a9e522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  slashDamage: 10
+  pierceDamage: 10
   velocityDamageModifier: 10
   knockbackModifier: 1
   damageCalcType: 4
-  damageTickDelay: 0.1
+  slashDamageTickDelay: 0.1
+  pierceDamageTickDelay: 0.5
   damageType: 0
   weaponMinimalFollowSpeed: 0.25
   weaponFollowSpeedMod: 0
@@ -394,7 +398,12 @@ MonoBehaviour:
   weaponRotationSpeed: 1
   weaponSensitivityAngle: 90
   maxFollowSpeed: 1
-  bladeCollider: {fileID: 7803989515013692249}
+  pierceAttackSpeed: 0.5
+  pierceHoldTime: 0.1
+  pierceRecoverSpeed: 0.1
+  slashCollider: {fileID: 7803989515013692249}
+  pierceCollider: {fileID: 311820200409715624}
+  weaponLocalHolder: {fileID: 7973224027385049375}
   weaponClass: 1
 --- !u!1 &7265373763736890428
 GameObject:
@@ -479,3 +488,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7948669977770187624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 179537308352105315}
+  - component: {fileID: 311820200409715624}
+  - component: {fileID: 2010559770727164857}
+  m_Layer: 9
+  m_Name: Blade Pierce Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &179537308352105315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7948669977770187624}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.205, z: 0}
+  m_LocalScale: {x: 0.47, y: 0.74, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7973224027385049375}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &311820200409715624
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7948669977770187624}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.28}
+  m_Size: {x: 0.34, y: 0.73}
+  m_Direction: 0
+--- !u!114 &2010559770727164857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7948669977770187624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fba3dfde9451a40ac2e45025a4c8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectTypeOfAttack: 1
+  weaponMainObject: {fileID: 7265373763533837597}

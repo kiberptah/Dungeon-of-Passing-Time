@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tmp: {fileID: 3707658339993942959}
   lifeTime: 0.5
-  floatingSpeed: 0.2
+  floatingSpeed: 0.1
 --- !u!1 &4540466639530162468
 GameObject:
   m_ObjectHideFlags: 0

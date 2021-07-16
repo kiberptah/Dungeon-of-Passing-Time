@@ -18,7 +18,8 @@ public class EventDirector : MonoBehaviour
 
     //public static Action<Transform, WeaponStats.Attack> someBladeAttackStarted; // blade, attack
     //public static Action<Transform> someBladeAttackFinished; // blade
-    public static Action<Transform, Transform> someBladeCollision; //blade, target
+    public static Action<Transform, Transform> someBladeSlashCollision; //blade, target
+    public static Action<Transform, Transform> someBladePierceCollision; //blade, target
     
     
     public static Action<Transform, Vector3, Vector3> someBladeUpdateVelocity; // blade, bladespeed, walkspeed

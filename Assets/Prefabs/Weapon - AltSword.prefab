@@ -93,9 +93,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4936985403028044602}
   - component: {fileID: 7803989515013692249}
-  - component: {fileID: 972297273682834192}
+  - component: {fileID: 3846544402117379321}
   m_Layer: 9
-  m_Name: Blade Collider
+  m_Name: Blade Slash Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.28}
   m_Size: {x: 0.27, y: 0.73}
   m_Direction: 0
---- !u!114 &972297273682834192
+--- !u!114 &3846544402117379321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,72 @@ MonoBehaviour:
   m_GameObject: {fileID: 3229229842767731482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4e7983ef77fc7e488e0ed1067f1c187, type: 3}
+  m_Script: {fileID: 11500000, guid: 66fba3dfde9451a40ac2e45025a4c8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTypeOfAttack: 0
+  weaponMainObject: {fileID: 7265373763533837597}
+--- !u!1 &4326767747664693051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5678704182267606986}
+  - component: {fileID: 170783791029400476}
+  - component: {fileID: 9008664921412093547}
+  m_Layer: 9
+  m_Name: Blade Pierce Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5678704182267606986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326767747664693051}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.452, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2669357897576410750}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &170783791029400476
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326767747664693051}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.28}
+  m_Size: {x: 0.27, y: 0.73}
+  m_Direction: 0
+--- !u!114 &9008664921412093547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326767747664693051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fba3dfde9451a40ac2e45025a4c8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectTypeOfAttack: 1
   weaponMainObject: {fileID: 7265373763533837597}
 --- !u!1 &5221834485465567390
 GameObject:
@@ -205,6 +268,7 @@ Transform:
   m_Children:
   - {fileID: 4037518746762044099}
   - {fileID: 4936985403028044602}
+  - {fileID: 5678704182267606986}
   m_Father: {fileID: 7265373763533837597}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -265,11 +329,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607bf664d2035324a99f48b5d2a9e522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 12
+  slashDamage: 10
+  pierceDamage: 50
   velocityDamageModifier: 2
   knockbackModifier: 15
   damageCalcType: 1
-  damageTickDelay: 0.25
+  slashDamageTickDelay: 0.25
+  pierceDamageTickDelay: 0.5
   damageType: 0
   weaponMinimalFollowSpeed: 0.06
   weaponFollowSpeedMod: 0.01
@@ -277,7 +343,12 @@ MonoBehaviour:
   weaponRotationSpeed: 1
   weaponSensitivityAngle: 90
   maxFollowSpeed: 0.2
-  bladeCollider: {fileID: 7803989515013692249}
+  pierceAttackSpeed: 0.2
+  pierceHoldTime: 0.1
+  pierceRecoverSpeed: 0.06
+  slashCollider: {fileID: 7803989515013692249}
+  pierceCollider: {fileID: 170783791029400476}
+  weaponLocalHolder: {fileID: 2669357897576410750}
   weaponClass: 0
 --- !u!1 &7265373763736890428
 GameObject:

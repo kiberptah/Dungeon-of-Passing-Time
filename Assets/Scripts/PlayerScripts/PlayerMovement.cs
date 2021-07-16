@@ -16,40 +16,45 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        InputMovement();
+        //InputMovement();
     }
     private void FixedUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, transform.position + movementDirection, speed * Time.deltaTime);
     }
 
-    void InputMovement()
+    public void InputMovement(Vector3 _movementDirection)
     {
+        movementDirection = _movementDirection;
+
+        /*
         movementDirection.x = Input.GetAxis("Horizontal");
         movementDirection.y = Input.GetAxis("Vertical");
 
         movementDirection = movementDirection.normalized;
-
-
+        */
+        /*
         if (Input.GetButtonDown("Dash"))
         {
             Dash();
         }
+        */
     }
 
     public void Dash()
     {
         StartCoroutine("SpeedBoost");
-    }
 
-    float boostDuration = 0.1f;
-    float boostMult = 5f;
-    IEnumerator SpeedBoost()
-    {
-        speed = speed * boostMult;
-        yield return new WaitForSeconds(boostDuration);
-        speed = playerStats.walkSpeed;
+        float boostDuration = 0.1f;
+        float boostMult = 5f;
+        IEnumerator SpeedBoost()
+        {
+            speed = speed * boostMult;
+            yield return new WaitForSeconds(boostDuration);
+            speed = playerStats.walkSpeed;
 
-        yield return null;
+            yield return null;
+        }
     }
+    
 }

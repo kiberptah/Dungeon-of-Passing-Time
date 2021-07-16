@@ -8,19 +8,22 @@ public class WeaponBladeAltDamageController : MonoBehaviour
     float currentDamage;
     Vector3 currentBladeVelocity;
     Vector3 currentCharVelocity;
-    List<Transform> recentlyHitTargets = new List<Transform>();
+    List<Transform> recentlySlashedTargets = new List<Transform>();
+    List<Transform> recentlyPiercedTargets = new List<Transform>();
 
 
     private void OnEnable()
     {
         EventDirector.someBladeUpdateVelocity += UpdateBladeVelocity;
-        EventDirector.someBladeCollision += BladeHit;
+        EventDirector.someBladeSlashCollision += BladeSlashHit;
+        EventDirector.someBladePierceCollision += BladePierceHit;
 
     }
     private void OnDisable()
     {
         EventDirector.someBladeUpdateVelocity -= UpdateBladeVelocity;
-        EventDirector.someBladeCollision -= BladeHit;
+        EventDirector.someBladeSlashCollision -= BladeSlashHit;
+        EventDirector.someBladePierceCollision -= BladePierceHit;
 
     }
     private void Awake()
@@ -30,30 +33,59 @@ public class WeaponBladeAltDamageController : MonoBehaviour
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    void BladeHit(Transform blade, Transform target)
+    void BladeSlashHit(Transform blade, Transform target)
     {
         if (blade == transform)
         {
             //print("hit");
             if (target.TryGetComponent(out IHealth targetHealth))
             {
-                if (!recentlyHitTargets.Contains(target))
+                if (!recentlySlashedTargets.Contains(target))
                 {
                     UpdateBladeDamage(blade, target);
                     EventDirector.somebody_TakeDamage?.Invoke(target.transform, currentDamage, transform.parent);
                     EventDirector.somebody_Knockback?.Invoke(target.transform, weaponStats.knockbackModifier, currentDamage, transform.parent);
-                    StartCoroutine(dontHitRecentTarget(target));
+                    StartCoroutine(dontSlashRecentTarget(target));
+                    StartCoroutine(dontPierceRecentTarget(target));
 
                     //print("damage: " + currentDamage);
                 }
             }
         }
     }
-    IEnumerator dontHitRecentTarget(Transform target)
+    void BladePierceHit(Transform blade, Transform target)
     {
-        recentlyHitTargets.Add(target);
-        yield return new WaitForSeconds(weaponStats.damageTickDelay);
-        recentlyHitTargets.Remove(target);
+        if (blade == transform)
+        {
+            //print("hit");
+            if (target.TryGetComponent(out IHealth targetHealth))
+            {
+                if (!recentlyPiercedTargets.Contains(target))
+                {
+                    UpdateBladeDamage(blade, target);
+                    EventDirector.somebody_TakeDamage?.Invoke(target.transform, weaponStats.pierceDamage, transform.parent);
+                    EventDirector.somebody_Knockback?.Invoke(target.transform, weaponStats.knockbackModifier, currentDamage, transform.parent);
+                    StartCoroutine(dontPierceRecentTarget(target));
+                    StartCoroutine(dontSlashRecentTarget(target));
+
+                    //print("damage: " + currentDamage);
+                }
+            }
+        }
+    }
+    IEnumerator dontSlashRecentTarget(Transform target)
+    {
+        recentlySlashedTargets.Add(target);
+        yield return new WaitForSeconds(weaponStats.slashDamageTickDelay);
+        recentlySlashedTargets.Remove(target);
+
+        yield return null;
+    }
+    IEnumerator dontPierceRecentTarget(Transform target)
+    {
+        recentlyPiercedTargets.Add(target);
+        yield return new WaitForSeconds(weaponStats.pierceDamageTickDelay);
+        recentlyPiercedTargets.Remove(target);
 
         yield return null;
     }
@@ -93,14 +125,14 @@ public class WeaponBladeAltDamageController : MonoBehaviour
         switch (weaponStats.damageCalcType)
         {
             default:
-                currentDamage = weaponStats.damage;
+                currentDamage = weaponStats.slashDamage;
                 if ((currentCharVelocity + currentBladeVelocity).magnitude == 0)
                 {
                     currentDamage = 0;
                 }
                 break;
             case WeaponStatsAlt.damageCalculationTypes.no:
-                currentDamage = weaponStats.damage;
+                currentDamage = weaponStats.slashDamage;
                 if ((currentCharVelocity + currentBladeVelocity).magnitude == 0)
                 {
                     currentDamage = 0;
@@ -109,10 +141,10 @@ public class WeaponBladeAltDamageController : MonoBehaviour
             
 
             case WeaponStatsAlt.damageCalculationTypes.sword1:
-                currentDamage = weaponStats.damage * Mathf.Pow(totalVelocity * 10f, weaponStats.velocityDamageModifier);
+                currentDamage = weaponStats.slashDamage * Mathf.Pow(totalVelocity * 10f, weaponStats.velocityDamageModifier);
                 break;
             case WeaponStatsAlt.damageCalculationTypes.dagger:
-                currentDamage = weaponStats.damage;
+                currentDamage = weaponStats.slashDamage;
                 if (totalVelocity == 0)
                 {
                     currentDamage = 0;

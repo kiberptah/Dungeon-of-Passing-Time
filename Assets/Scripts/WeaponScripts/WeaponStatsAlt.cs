@@ -5,7 +5,8 @@ using UnityEngine;
 public class WeaponStatsAlt : MonoBehaviour
 {
     [Header("Damage")]
-    public float damage;
+    public float slashDamage;
+    public float pierceDamage;
     public float velocityDamageModifier = 1f;
     public float knockbackModifier = 1f;
     //int typeOfDamageScaling = 0;
@@ -19,7 +20,8 @@ public class WeaponStatsAlt : MonoBehaviour
     }
     public damageCalculationTypes damageCalcType;
     //public float damageVelocityOffset = 10f;
-    public float damageTickDelay;
+    public float slashDamageTickDelay;
+    [HideInInspector] public float pierceDamageTickDelay;
 
     public enum typeOfDamage
     {
@@ -34,14 +36,25 @@ public class WeaponStatsAlt : MonoBehaviour
     public float weaponRotationSpeed = 0;
     public float weaponSensitivityAngle = 90f;
     public float maxFollowSpeed = 100f;
+    [Header("Piercing Timing")]
+    public float pierceAttackSpeed;
+    public float pierceHoldTime;
+    public float pierceRecoverSpeed;
 
     [Header("etc")]
-    public Collider2D bladeCollider;
-
+    public Collider2D slashCollider;
+    public Collider2D pierceCollider;
+    public Transform weaponLocalHolder; // required to separate slashing and piercing moving logic by using different coord systems
     public enum classOfWeapon
     {
         sword,
         dagger
     }
     public classOfWeapon weaponClass;
+
+    private void Awake()
+    {
+        //pierceDamageTickDelay = pierceAttackSpeed + pierceHoldTime + pierceRecoverSpeed;
+        pierceCollider.enabled = false;
+    }
 }

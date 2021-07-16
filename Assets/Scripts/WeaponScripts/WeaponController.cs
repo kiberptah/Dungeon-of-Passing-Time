@@ -21,6 +21,8 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public float weaponSensitivityAngle = 45f;
     [HideInInspector] public float weaponMaxFollowSpeed = 100f;
     [HideInInspector] public float weaponKnockbackModifer = 0;
+    [HideInInspector] public Transform weaponLocalHolder;
+
 
     [HideInInspector] public float weaponFollowSpeed = 0f;
 
@@ -40,19 +42,13 @@ public class WeaponController : MonoBehaviour
     public attackMode currentAttackMode;
 
 
-    public Vector3 frozenMousePosition = Vector3.zero;
+    [HideInInspector] public Vector3 frozenMousePosition = Vector3.zero;
     private void FixedUpdate()
     {
         if (equippedWeapon != null)
         {
-            if (currentAttackMode == attackMode.slash)
-            {
-                WeaponSwinging();
-            }
-            if (currentAttackMode == attackMode.pierce)
-            {
-                WeaponPiercing();
-            }
+            WeaponSwinging();
+
 
 
             AdjustWeaponAngle();
@@ -83,7 +79,7 @@ public class WeaponController : MonoBehaviour
         equippedWeapon.SetActive(true);
         weaponSlot = _weaponSlot;
 
-        weaponStats = weapon.GetComponent<WeaponStatsAlt>();
+        weaponStats = equippedWeapon.GetComponent<WeaponStatsAlt>();
 
         weaponMinimalFollowSpeed = weaponStats.weaponMinimalFollowSpeed;
         weaponFollowSpeedMod = weaponStats.weaponFollowSpeedMod;
@@ -91,6 +87,7 @@ public class WeaponController : MonoBehaviour
         weaponRotationSpeed = weaponStats.weaponRotationSpeed;
         weaponSensitivityAngle = weaponStats.weaponSensitivityAngle;
         weaponKnockbackModifer = weaponStats.knockbackModifier;
+        weaponLocalHolder = weaponStats.weaponLocalHolder;
 
         weaponMaxFollowSpeed = weaponStats.maxFollowSpeed;
     }
@@ -100,37 +97,66 @@ public class WeaponController : MonoBehaviour
         mousePosition = _mousePosition;
     }
 
-    public Vector3 previousMousePosition = Vector3.zero;
-    void WeaponPiercing()
+    public void WeaponPiercing()
     {
-        if (previousMousePosition != Vector3.zero)
+        if (equippedWeapon != null)
         {
-            Vector3 normal = equippedWeapon.transform.position - transform.position;
-            Vector3 directionX = Vector3.Project((mousePosition - previousMousePosition), normal);
-            Vector3 directionY = Vector3.Project(mousePosition, Vector3.Cross(transform.forward, directionX));
-
-            Vector3 direction = directionX;
-
-            if (Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) <= weaponMaxDistanceFromBody
-                && Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) >= weaponDistanceFromBody)
-            {
-                equippedWeapon.transform.position
-                    = Vector3.MoveTowards(equippedWeapon.transform.position, equippedWeapon.transform.position + direction, weaponFollowSpeed);
-            }
-            else
-            {
-                if (Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) > weaponMaxDistanceFromBody)
-                {
-                    equippedWeapon.transform.position = transform.position + (equippedWeapon.transform.position - transform.position).normalized * weaponMaxDistanceFromBody;
-                }
-                if (Vector3.Distance(equippedWeapon.transform.position + direction, transform.position) < weaponDistanceFromBody)
-                {
-                    equippedWeapon.transform.position = transform.position + (equippedWeapon.transform.position - transform.position).normalized * weaponDistanceFromBody;
-                }
-            }
+            weaponStats.pierceCollider.enabled = true;
+            weaponStats.slashCollider.enabled = false;
+            StartCoroutine("WeaponPiercingCoroutine");
         }
-        previousMousePosition = mousePosition;
     }
+
+    IEnumerator WeaponPiercingCoroutine()
+    {
+        //print("pierce crt");
+        while (weaponLocalHolder.transform.localPosition.magnitude < weaponMaxDistanceFromBody - weaponDistanceFromBody
+            && equippedWeapon != null)
+        {
+            weaponFollowSpeed = weaponMinimalFollowSpeed;
+            //print("moving blade forward");
+            Vector3 direction = weaponLocalHolder.transform.localPosition + Vector3.up;
+
+
+            weaponLocalHolder.transform.localPosition
+                = Vector3.MoveTowards(weaponLocalHolder.transform.localPosition, direction, weaponStats.pierceAttackSpeed);
+
+            if (equippedWeapon == null)
+            {
+                break;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        yield return new WaitForSeconds(weaponStats.pierceHoldTime);
+
+        while (weaponLocalHolder.transform.localPosition.magnitude > 0 && equippedWeapon != null)
+        {
+            //print("moving blade back");
+
+            Vector3 direction = equippedWeapon.transform.position + equippedWeapon.transform.TransformPoint(Vector3.down);
+            direction = weaponLocalHolder.transform.localPosition + Vector3.down;
+
+            weaponLocalHolder.transform.localPosition
+                = Vector3.MoveTowards(weaponLocalHolder.transform.localPosition, Vector3.zero, weaponStats.pierceRecoverSpeed);
+
+            if (equippedWeapon == null)
+            {
+                break;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (equippedWeapon != null)
+        {
+            weaponStats.pierceCollider.enabled = false;
+            weaponStats.slashCollider.enabled = true;
+        }
+        
+        yield return null;
+    }
+
+    
     void WeaponSwinging()
     {
         Vector3 fakeMousePosition;
@@ -285,7 +311,7 @@ public class WeaponController : MonoBehaviour
     void AssignSpeedToTheBlade()
     {
         if (equippedWeapon != null)
-        {
+        {   
             EventDirector.someBladeUpdateVelocity(equippedWeapon.transform, weaponVelocity, charVelocity);
             //print("welocity: " + weaponVelocity);
         }
