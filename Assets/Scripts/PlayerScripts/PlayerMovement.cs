@@ -5,14 +5,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float speed = 10f;
+    float dashCost = 0;
     Vector3 movementDirection = Vector3.zero;
     ActorStats playerStats;
+    ActorStamina playerStamina;
 
+    Rigidbody2D rb;
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<ActorStats>();
+        playerStamina = GetComponent<ActorStamina>();
 
         speed = playerStats.walkSpeed;
+        dashCost = playerStats.dashCost;
     }
     private void Update()
     {
@@ -20,33 +26,31 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + movementDirection, speed * Time.deltaTime);
+        //transform.position = Vector3.MoveTowards(transform.position, transform.position + movementDirection, speed * Time.deltaTime);
+        if (movementDirection != Vector3.zero)
+        {
+            rb.AddRelativeForce(movementDirection * speed, ForceMode2D.Force);
+
+            //rb.MovePosition(transform.position + movementDirection * speed * Time.fixedDeltaTime);
+        }
+        //rb.MovePosition(transform.position + movementDirection * speed * Time.fixedDeltaTime);
     }
 
     public void InputMovement(Vector3 _movementDirection)
     {
         movementDirection = _movementDirection;
-
-        /*
-        movementDirection.x = Input.GetAxis("Horizontal");
-        movementDirection.y = Input.GetAxis("Vertical");
-
-        movementDirection = movementDirection.normalized;
-        */
-        /*
-        if (Input.GetButtonDown("Dash"))
-        {
-            Dash();
-        }
-        */
     }
 
     public void Dash()
     {
-        StartCoroutine("SpeedBoost");
+        if (playerStamina.currentStamina >= dashCost)
+        {
+            EventDirector.somebody_LoseStamina(transform, dashCost);
+            StartCoroutine("SpeedBoost");
+        }
     }
     float boostDuration = 0.1f;
-    float boostMult = 5f;
+    float boostMult = 3f;
     IEnumerator SpeedBoost()
     {
         speed = speed * boostMult;

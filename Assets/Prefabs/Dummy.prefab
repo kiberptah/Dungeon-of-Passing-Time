@@ -107,8 +107,11 @@ MonoBehaviour:
   friendlyFactions: 
   hatedFactions: 
   maxHealth: 9999
+  maxStamina: 0
+  staminaRegenPerSecond: 0
   walkSpeed: 4
   sightRadius: 0
+  dashCost: 0
 --- !u!114 &113476827239124476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +153,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 7
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}

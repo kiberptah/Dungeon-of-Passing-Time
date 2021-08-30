@@ -387,7 +387,7 @@ MonoBehaviour:
   slashDamage: 10
   pierceDamage: 10
   velocityDamageModifier: 10
-  knockbackModifier: 1
+  knockbackModifier: 10
   damageCalcType: 4
   slashDamageTickDelay: 0.1
   pierceDamageTickDelay: 0.5

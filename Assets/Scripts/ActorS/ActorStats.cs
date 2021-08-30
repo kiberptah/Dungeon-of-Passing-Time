@@ -14,8 +14,13 @@ public class ActorStats : MonoBehaviour
     public Factions[] friendlyFactions;
     public Factions[] hatedFactions;
 
+    [Header("Basic Stats")]
     public float maxHealth;
+    public float maxStamina;
+    public float staminaRegenPerSecond;
     public float walkSpeed;
     public float sightRadius;
+    [Header("Costs")]
+    public float dashCost;
 
 }

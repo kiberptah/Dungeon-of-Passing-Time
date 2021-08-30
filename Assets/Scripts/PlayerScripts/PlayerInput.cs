@@ -58,7 +58,18 @@ public class PlayerInput : MonoBehaviour
         movementDirection = movementDirection.normalized;
 
         playerMovement.InputMovement(movementDirection);
-        spriteManager.UpdateDirection(movementDirection);
+        if (movementDirection != Vector3.zero)
+        {
+            //spriteManager.UpdateDirection(movementDirection, ActorSpritesDirectionManager.spriteAction.walking);
+            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.walking);
+
+        }
+        else
+        {
+            //spriteManager.UpdateDirection(movementDirection, ActorSpritesDirectionManager.spriteAction.idle);
+            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.idle);
+        }
+
 
         if (Input.GetButtonDown("Dash"))
         {

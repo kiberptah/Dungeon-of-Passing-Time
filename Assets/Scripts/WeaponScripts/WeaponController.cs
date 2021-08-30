@@ -8,6 +8,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     WeaponStatsAlt weaponStats;
+    ActorStamina actorStamina;
 
     [HideInInspector] public GameObject equippedWeapon;
     [HideInInspector] public int weaponSlot;
@@ -21,6 +22,7 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public float weaponSensitivityAngle = 45f;
     [HideInInspector] public float weaponMaxFollowSpeed = 100f;
     [HideInInspector] public float weaponKnockbackModifer = 0;
+    [HideInInspector] public float weaponPierceCost = 0;
     [HideInInspector] public Transform weaponLocalHolder;
 
 
@@ -43,6 +45,10 @@ public class WeaponController : MonoBehaviour
 
 
     [HideInInspector] public Vector3 frozenMousePosition = Vector3.zero;
+    private void Start()
+    {
+        actorStamina = GetComponent<ActorStamina>();
+    }
     private void FixedUpdate()
     {
         if (equippedWeapon != null)
@@ -88,6 +94,7 @@ public class WeaponController : MonoBehaviour
         weaponSensitivityAngle = weaponStats.weaponSensitivityAngle;
         weaponKnockbackModifer = weaponStats.knockbackModifier;
         weaponLocalHolder = weaponStats.weaponLocalHolder;
+        weaponPierceCost = weaponStats.pierceStaminaCost;
 
         weaponMaxFollowSpeed = weaponStats.maxFollowSpeed;
     }
@@ -101,9 +108,14 @@ public class WeaponController : MonoBehaviour
     {
         if (equippedWeapon != null)
         {
-            weaponStats.pierceCollider.enabled = true;
-            weaponStats.slashCollider.enabled = false;
-            StartCoroutine("WeaponPiercingCoroutine");
+            if (weaponPierceCost < actorStamina.currentStamina)
+            {
+                EventDirector.somebody_LoseStamina(transform, weaponPierceCost);
+
+                weaponStats.pierceCollider.enabled = true;
+                weaponStats.slashCollider.enabled = false;
+                StartCoroutine("WeaponPiercingCoroutine");
+            }
         }
     }
 

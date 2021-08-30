@@ -331,8 +331,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashDamage: 10
   pierceDamage: 50
+  pierceStaminaCost: 30
   velocityDamageModifier: 2
-  knockbackModifier: 15
+  knockbackModifier: 20
   damageCalcType: 1
   slashDamageTickDelay: 0.25
   pierceDamageTickDelay: 0.5

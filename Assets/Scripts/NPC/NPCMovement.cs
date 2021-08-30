@@ -10,8 +10,8 @@ public class NPCMovement : MonoBehaviour
     Vector3[] path;
     int targetIndex;
 
-    Vector3 destination;
-
+    Vector2 destination;
+    float timer = 0;
     private void Awake()
     {
         npcStats = GetComponent<ActorStats>();
@@ -21,47 +21,31 @@ public class NPCMovement : MonoBehaviour
     {
         
     }
-    public void InitiateMovementToCurrentTarget()
-    {       
-        StopCoroutine(PeriodicallyRequestPath());
-        StartCoroutine(PeriodicallyRequestPath());
-    }
-    public void InitiateMovementToSomePosition(Vector3 _destination)
+    private void FixedUpdate()
     {
-        PathRequestManager.RequestPath(transform.position, _destination, OnPathFound);
-    }
-    public void StopMovement(Vector3 destination)
-    {
-        StopCoroutine(PeriodicallyRequestPath());
-        StopCoroutine(FollowPath());
-
-    }
-
-
-    IEnumerator PeriodicallyRequestPath()
-    {
-        float delay = 0.25f;
-
-
-        while (true)
+        if (destination != Vector2.zero)
         {
-            if (npc.currentTarget.position != destination)
+            float delay = 0.25f;
+
+            if (Vector3.Distance(transform.position, destination) > Grid.instance.nodeDiameter)
             {
-                destination = npc.currentTarget.position;
-
-                if (Vector3.Distance(transform.position, destination) > Grid.instance.nodeDiameter)
+                if (timer >= delay)
                 {
-                    //print("path requested");
-                    //print("distance = " + Vector3.Distance(transform.position, destination));
+                    timer = 0;
                     PathRequestManager.RequestPath(transform.position, destination, OnPathFound);
-
                 }
+                timer += Time.fixedDeltaTime;
             }
-            yield return new WaitForSeconds(delay);
         }
     }
-    
-
+    public void UpdateMovementDestination(Vector2 _destination)
+    {
+        destination = _destination;
+    }
+    public void StopMovement()
+    {
+        destination = Vector2.zero;
+    }
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
         if (pathSuccessful)
@@ -72,9 +56,6 @@ public class NPCMovement : MonoBehaviour
 
             StopCoroutine("FollowPath");
             StartCoroutine("FollowPath");
-
-
-
         }
     }
 
@@ -88,32 +69,50 @@ public class NPCMovement : MonoBehaviour
 
             while (true)
             {
-                if (transform.position == currentWaypoint)
+                //if (transform.position == currentWaypoint)
+                if (Vector3.Distance(transform.position, currentWaypoint) < 0.01f)
                 {
                     targetIndex++;
                     if (targetIndex >= path.Length)
                     {
                         //targetIndex = 0;
                         //path = new Vector3[0];
+                        print("stop");
+                        MoveNPC(transform.position);
                         yield break;
                     }
                     currentWaypoint = path[targetIndex];
                     //print("currentWaypoint = path[targetIndex];");
                 }
 
-                //print("currentWaypoint = " + currentWaypoint);
-                //print("path[targetIndex] = " + path[targetIndex]);
-                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, npcStats.walkSpeed * Time.deltaTime);
-                //print("moving " + Time.time);
+                MoveNPC(currentWaypoint);
+
+
+
                 yield return new WaitForFixedUpdate();
             }
         }
         else
         {
-            print("path[0] is null, fix this shit!");
+            print("path[0] is null, fix this shit! ");
+            MoveNPC(transform.position);
         }
     }
 
+    void MoveNPC(Vector3 currentWaypoint)
+    {
+        Vector3 movementDirection = (currentWaypoint - transform.position).normalized;
+
+        if (movementDirection != Vector3.zero)
+        {
+            GetComponent<Rigidbody2D>().AddRelativeForce(movementDirection * npcStats.walkSpeed, ForceMode2D.Force);
+            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.walking);
+        }
+        else
+        {
+            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.idle);
+        }
+    }
 
     public void OnDrawGizmos()
     {

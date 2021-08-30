@@ -22,7 +22,7 @@ public class NPCState_Combat : INPCState
         npc = _npc;
 
 
-        npc.npcMovement.InitiateMovementToCurrentTarget();
+        //npc.npcMovement.InitiateMovementToCurrentTarget();
         npc.npcWeaponManager.Input_DrawWeapon();
 
 
@@ -30,6 +30,7 @@ public class NPCState_Combat : INPCState
     }
     public INPCState DoState(NPCStateMachine _npc)
     {
+        npc.npcMovement.UpdateMovementDestination(npc.currentTarget.position);
         /*
         float diceRoll;
         diceRoll = Random.Range(0, 100f);
@@ -72,7 +73,7 @@ public class NPCState_Combat : INPCState
         if (npc.EyeContactWithTarget(npc.currentTarget) == false)
         {
             npc.npcWeaponManager.Input_SheathWeapon();
-            Debug.Log("lost eye contact!");
+            //Debug.Log("lost eye contact!");
             npc.npcMovement.StopAllCoroutines();
             return npc.chaseState;
         }
