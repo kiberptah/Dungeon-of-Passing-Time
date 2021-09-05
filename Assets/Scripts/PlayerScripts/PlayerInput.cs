@@ -7,7 +7,6 @@ public class PlayerInput : MonoBehaviour
     WeaponManager weaponManager;
     WeaponController weaponController;
     public PlayerMovement playerMovement;
-    public ActorSpritesDirectionManager spriteManager;
     
     private void Awake()
     {
@@ -21,7 +20,7 @@ public class PlayerInput : MonoBehaviour
     {
         Input_Weapon();
         Input_Movement();
-
+        Input_Interaction();
 
     }
     private void FixedUpdate()
@@ -42,7 +41,7 @@ public class PlayerInput : MonoBehaviour
             weaponManager.Input_NextSlot();
         }
 
-        if (Input.GetButtonDown("HoldToPierce"))
+        if (Input.GetButtonDown("RMB"))
         {
             weaponController.WeaponPiercing();
             //print("pierce");
@@ -61,13 +60,16 @@ public class PlayerInput : MonoBehaviour
         if (movementDirection != Vector3.zero)
         {
             //spriteManager.UpdateDirection(movementDirection, ActorSpritesDirectionManager.spriteAction.walking);
-            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.walking);
+            EventDirector.somebody_UpdateSpriteVector?.Invoke(transform, movementDirection);
+            EventDirector.somebody_UpdateSpriteAction?.Invoke(transform, ActorAnimationManager.spriteAction.walking);
 
         }
         else
         {
             //spriteManager.UpdateDirection(movementDirection, ActorSpritesDirectionManager.spriteAction.idle);
-            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.idle);
+            EventDirector.somebody_UpdateSpriteVector?.Invoke(transform, movementDirection);
+            EventDirector.somebody_UpdateSpriteAction?.Invoke(transform, ActorAnimationManager.spriteAction.idle);
+
         }
 
 
@@ -76,5 +78,36 @@ public class PlayerInput : MonoBehaviour
             playerMovement.Dash();
         }
 
+    }
+
+    void Input_Interaction()
+    {
+        /*
+        Plane plane = new Plane(Vector2.up, Vector2.zero, Vector2.right);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float distanceToPlane;
+
+        if (plane.Raycast(ray, out distanceToPlane))
+        {
+
+        }
+        */
+        if (Input.GetButtonDown("LMB"))
+        {
+            //Debug.Log("click");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll (ray, Mathf.Infinity);
+             
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.transform.TryGetComponent(out IInteractable interactable))
+                {
+                    interactable?.OnInteract(transform);
+                    Debug.Log("INTERACTION!");
+                }
+            }
+            
+        }
+        
     }
 }

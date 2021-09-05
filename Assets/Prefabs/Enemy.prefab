@@ -18,8 +18,8 @@ GameObject:
   - component: {fileID: 4778285313243707447}
   - component: {fileID: 4778285313243707446}
   - component: {fileID: 937971299349516226}
-  - component: {fileID: 962620282374357075}
   - component: {fileID: 6765226683277223605}
+  - component: {fileID: 854736571166351288}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: NPC
@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139a80f31ca3b504fbdd8f23f6c7c622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NPC_CorpsePrefab: {fileID: 4778285313243707444, guid: 209d7ad5eef31694084906381d5feb94, type: 3}
   maxHealth: 100
   healthBar: {fileID: 4778285314500999353}
 --- !u!114 &4778285313243707450
@@ -207,21 +208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthCapPercentForMaxKnockback: 0.5
---- !u!114 &962620282374357075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4778285313243707444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ed288947ec3b0488d66e18292e869d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3261181417271332872}
-  currentSpriteDirection: 1
-  currentSpriteAction: 0
 --- !u!114 &6765226683277223605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +222,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 6500837584520928616}
   whiteMat: {fileID: 2100000, guid: 5d3567510ca650d4ba7c15f975816fce, type: 2}
+--- !u!114 &854736571166351288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778285313243707444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8893b7563e092e346a8dfd7e335d2e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisActorAnim: {fileID: 22100000, guid: 9eb8d02ac50839940b5e11e3d191ec39, type: 2}
+  animator: {fileID: 3261181417271332872}
+  currentSpriteDirection: 2
+  currentSpriteAction: 0
 --- !u!1 &4778285314500999352
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6407887409411194030
 Transform:
   m_ObjectHideFlags: 0

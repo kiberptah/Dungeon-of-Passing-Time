@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IHealth
 {
+    public GameObject NPC_CorpsePrefab;
     public float maxHealth = 100;
 
     
@@ -65,6 +66,19 @@ public class EnemyHealth : MonoBehaviour, IHealth
     {
         if (who == transform)
         {
+            ActorAnimationManager.spriteDirection spriteDirection = ActorAnimationManager.spriteDirection.E;
+            if (TryGetComponent(out ActorAnimationManager spriteManager))
+            {
+                spriteDirection = spriteManager.currentSpriteDirection;
+            }
+
+            GameObject corpse = Instantiate(NPC_CorpsePrefab, transform.position, Quaternion.identity, transform.parent);
+            if (corpse.TryGetComponent(out ActorDead actorDead))
+            {
+                actorDead.currentSpriteDirection = spriteDirection;
+                actorDead.currentSpriteAction = ActorAnimationManager.spriteAction.dead;
+            }
+
             Destroy(gameObject);
         }
     }

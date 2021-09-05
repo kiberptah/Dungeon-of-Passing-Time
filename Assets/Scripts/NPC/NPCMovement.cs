@@ -106,11 +106,14 @@ public class NPCMovement : MonoBehaviour
         if (movementDirection != Vector3.zero)
         {
             GetComponent<Rigidbody2D>().AddRelativeForce(movementDirection * npcStats.walkSpeed, ForceMode2D.Force);
-            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.walking);
+            EventDirector.somebody_UpdateSpriteVector?.Invoke(transform, movementDirection);
+            EventDirector.somebody_UpdateSpriteAction?.Invoke(transform, ActorAnimationManager.spriteAction.walking);
         }
         else
         {
-            EventDirector.somebody_UpdateSpriteDirection(transform, movementDirection, ActorSpritesDirectionManager.spriteAction.idle);
+            EventDirector.somebody_UpdateSpriteVector?.Invoke(transform, movementDirection);
+            EventDirector.somebody_UpdateSpriteAction?.Invoke(transform, ActorAnimationManager.spriteAction.idle);
+
         }
     }
 

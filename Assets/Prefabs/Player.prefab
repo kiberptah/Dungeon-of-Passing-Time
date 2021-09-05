@@ -154,7 +154,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1924295495
-  m_SortingLayer: 3
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d9f573f147cea7c4abd3c9cf2a365ce1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -370,8 +370,8 @@ GameObject:
   - component: {fileID: 2496667783860783513}
   - component: {fileID: 8416403624754557201}
   - component: {fileID: 1236293107}
-  - component: {fileID: 4620528100586523403}
   - component: {fileID: 1624526507}
+  - component: {fileID: 6428623807176215813}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -468,7 +468,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8416403624754557207}
-  spriteManager: {fileID: 4620528100586523403}
 --- !u!114 &8416403624754557212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,27 +545,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8416403624754557204}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e73ad7524677b5249baac348bc107abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthCapPercentForMaxKnockback: 0.5
---- !u!114 &4620528100586523403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8416403624754557204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ed288947ec3b0488d66e18292e869d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2342028161901112394}
-  currentSpriteDirection: 0
-  currentSpriteAction: 0
 --- !u!114 &1624526507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,3 +566,19 @@ MonoBehaviour:
   maxStamina: 0
   currentStamina: 0
   staminaBar: {fileID: 0}
+--- !u!114 &6428623807176215813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416403624754557204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8893b7563e092e346a8dfd7e335d2e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisActorAnim: {fileID: 22100000, guid: 270ad88c9ebe09544a3e297ff99ae0a1, type: 2}
+  animator: {fileID: 2342028161901112394}
+  currentSpriteDirection: 2
+  currentSpriteAction: 0

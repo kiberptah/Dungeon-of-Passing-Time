@@ -12,7 +12,9 @@ public class EventDirector : MonoBehaviour
     public static Action<Transform, float, Transform> somebody_TakeDamage; // who, amout, from whom
     public static Action<Transform, float> somebody_LoseStamina; // who, amout
     public static Action<Transform, float> somebody_GainStamina; // who, amout
-    public static Action<Transform, Vector2, ActorSpritesDirectionManager.spriteAction> somebody_UpdateSpriteDirection; // who direction animation
+    public static Action<Transform, Vector2> somebody_UpdateSpriteVector; // who direction animation
+    public static Action<Transform, ActorAnimationManager.spriteDirection> somebody_UpdateSpriteDirection; // who direction animation
+    public static Action<Transform, ActorAnimationManager.spriteAction> somebody_UpdateSpriteAction; // who direction animation
 
     public static Action<Transform, float, float, Transform> somebody_Knockback; // who, knockback, damage, from whom
     public static Action<Transform, Transform> somebody_Death; // who, killer
