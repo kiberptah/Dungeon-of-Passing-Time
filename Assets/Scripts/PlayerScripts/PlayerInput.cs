@@ -104,6 +104,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     interactable?.OnInteract(transform);
                     Debug.Log("INTERACTION!");
+                    break;
                 }
             }
             

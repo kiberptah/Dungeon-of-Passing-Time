@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class Door_Single : MonoBehaviour
 {
+    public Collider2D doorCollider;
     Animator animator;
     bool isDoorOpened = false;
+    bool isAnimationInProcess = false;
     private void Start()
     {
         animator = GetComponent<Animator>();
+
+        if (doorCollider == null)
+        {
+            if (TryGetComponent(out Collider2D coll))
+            {
+                doorCollider = coll;
+            }
+        }
     }
 
     public void FlipDoorState()
@@ -31,25 +41,40 @@ public class Door_Single : MonoBehaviour
 
     void OpenDoor()
     {
-        animator.Play("Door_Open");
+        if (!isAnimationInProcess)
+        {
+            animator.Play("Door_Open");
+        }
+        
     }
     void CloseDoor()
     {
-        animator.Play("Door_Close");
+        if (!isAnimationInProcess)
+        {
+            animator.Play("Door_Close");
+        }
+            
     }
-
+    public void StartAnimation()
+    {
+        isAnimationInProcess = true;
+    }
+    public void EndAnimation()
+    {
+        isAnimationInProcess = false;
+    }
     public void DisableCollider()
     {
-        if (TryGetComponent(out Collider coll))
+        if (doorCollider != null)
         {
-            coll.enabled = false;
+            doorCollider.enabled = false;
         }
     }
     public void EnableCollider()
     {
-        if (TryGetComponent(out Collider coll))
+        if (doorCollider != null)
         {
-            coll.enabled = true;
+            doorCollider.enabled = true;
         }
     }
 }
