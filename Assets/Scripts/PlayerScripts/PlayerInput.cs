@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
     WeaponManager weaponManager;
     WeaponController weaponController;
     public PlayerMovement playerMovement;
+    public ActorInteraction actorInteraction;
     
     private void Awake()
     {
@@ -82,16 +83,12 @@ public class PlayerInput : MonoBehaviour
 
     void Input_Interaction()
     {
-        /*
-        Plane plane = new Plane(Vector2.up, Vector2.zero, Vector2.right);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float distanceToPlane;
-
-        if (plane.Raycast(ray, out distanceToPlane))
+        if (Input.GetButtonDown("Interact"))
         {
-
+            actorInteraction.Interact();
         }
-        */
+
+        /*
         if (Input.GetButtonDown("LMB"))
         {
             //Debug.Log("click");
@@ -103,12 +100,13 @@ public class PlayerInput : MonoBehaviour
                 if (hit.transform.TryGetComponent(out IInteractable interactable))
                 {
                     interactable?.OnInteract(transform);
-                    Debug.Log("INTERACTION!");
+                    //Debug.Log("INTERACTION!");
                     break;
                 }
             }
             
         }
+        */
         
     }
 }

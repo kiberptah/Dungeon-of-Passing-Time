@@ -43,6 +43,9 @@ TagManager:
   - name: BackGround
     uniqueID: 3897160951
     locked: 0
+  - name: Floor
+    uniqueID: 3154981049
+    locked: 0
   - name: Geometry
     uniqueID: 2394443699
     locked: 0

@@ -5,17 +5,32 @@ using UnityEngine.Events;
 
 public class InteractableLever : MonoBehaviour, IInteractable
 {
-    public UnityEvent FlipLever;   
+    public bool isAvailableforInteraction { get; set; }
+    public bool isInteractableByDefault = true;
+
+    public UnityEvent FlipLever;
+    private void Start()
+    {
+        isAvailableforInteraction = isInteractableByDefault;
+    }
     public void OnHoverStart(Transform _interactor)
     {
 
     }
     public void OnInteract(Transform interactor)
     {
-        FlipLever?.Invoke();
+        if (isAvailableforInteraction)
+        {
+            FlipLever?.Invoke();
+        }
     }
     public void OnHoverEnd(Transform _interactor)
     {
 
+    }
+
+    public void switchInteractivity()
+    {
+        isAvailableforInteraction = !isAvailableforInteraction;
     }
 }

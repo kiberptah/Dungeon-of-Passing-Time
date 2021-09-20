@@ -154,9 +154,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1924295495
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d9f573f147cea7c4abd3c9cf2a365ce1, type: 3}
+  m_Sprite: {fileID: 8022062193166395224, guid: 5ef1684a62a887747a86b3d3f484a3ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -186,6 +186,96 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &4486638402575764233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2531521299343281970}
+  - component: {fileID: 7762386608099566062}
+  - component: {fileID: 597852146634166090}
+  m_Layer: 7
+  m_Name: InteractionTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2531521299343281970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486638402575764233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8416403624754557206}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7762386608099566062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486638402575764233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ccb272b56dc94242aaf60d6dadc8c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEnterCallback:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3832830026984124569}
+        m_TargetAssemblyTypeName: ActorInteraction, Assembly-CSharp
+        m_MethodName: TriggerEnterCallbackCatch
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Collider2D, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerExitCallback:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3832830026984124569}
+        m_TargetAssemblyTypeName: ActorInteraction, Assembly-CSharp
+        m_MethodName: TriggerExitCallbackCatch
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Collider2D, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!58 &597852146634166090
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486638402575764233}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.1
 --- !u!1 &5713415182211787359
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8416403624754557206}
   - component: {fileID: 8416403624754557202}
-  - component: {fileID: 8416403624754557203}
+  - component: {fileID: 8222245854986395548}
   - component: {fileID: 8416403624754557213}
   - component: {fileID: 7132859125780000496}
   - component: {fileID: 8416403624754557212}
@@ -372,6 +462,7 @@ GameObject:
   - component: {fileID: 1236293107}
   - component: {fileID: 1624526507}
   - component: {fileID: 6428623807176215813}
+  - component: {fileID: -3832830026984124569}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -394,6 +485,7 @@ Transform:
   - {fileID: 8416403624260216580}
   - {fileID: 1486170890}
   - {fileID: 7985411895064376999}
+  - {fileID: 2531521299343281970}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -418,8 +510,8 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &8416403624754557203
-CircleCollider2D:
+--- !u!70 &8222245854986395548
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -432,8 +524,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.7, y: 1}
+  m_Direction: 0
 --- !u!114 &8416403624754557213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +544,7 @@ MonoBehaviour:
   maxHealth: 100
   maxStamina: 100
   staminaRegenPerSecond: 10
-  walkSpeed: 50
+  walkSpeed: 40
   sightRadius: 0
   dashCost: 35
 --- !u!114 &7132859125780000496
@@ -468,6 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8416403624754557207}
+  actorInteraction: {fileID: -3832830026984124569}
 --- !u!114 &8416403624754557212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,3 +675,15 @@ MonoBehaviour:
   animator: {fileID: 2342028161901112394}
   currentSpriteDirection: 2
   currentSpriteAction: 0
+--- !u!114 &-3832830026984124569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416403624754557204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386d19344eab6c04da11dbae380c3f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -8,6 +8,8 @@ public class Door_Single : MonoBehaviour
     Animator animator;
     bool isDoorOpened = false;
     bool isAnimationInProcess = false;
+    public string openAnimation = "Door_Open";
+    public string closeAnimation = "Door_Close";
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -43,7 +45,7 @@ public class Door_Single : MonoBehaviour
     {
         if (!isAnimationInProcess)
         {
-            animator.Play("Door_Open");
+            animator.Play(openAnimation);
         }
         
     }
@@ -51,7 +53,7 @@ public class Door_Single : MonoBehaviour
     {
         if (!isAnimationInProcess)
         {
-            animator.Play("Door_Close");
+            animator.Play(closeAnimation);
         }
             
     }
