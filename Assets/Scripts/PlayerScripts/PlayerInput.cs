@@ -8,6 +8,9 @@ public class PlayerInput : MonoBehaviour
     WeaponController weaponController;
     public PlayerMovement playerMovement;
     public ActorInteraction actorInteraction;
+
+
+    Transform customMouseCursor;
     
     private void Awake()
     {
@@ -15,6 +18,10 @@ public class PlayerInput : MonoBehaviour
         weaponController = GetComponent<WeaponController>();
 
 
+    }
+    private void Start()
+    {
+        customMouseCursor = GameObject.FindGameObjectWithTag("MouseCursor").transform;
     }
 
     private void Update()
@@ -26,7 +33,8 @@ public class PlayerInput : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        weaponController.UpdateMousePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        //weaponController.UpdateMousePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        weaponController.UpdateMousePosition(customMouseCursor.position);
 
     }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Weapon
   - NPC
+  - MouseCursor
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Actors
   - Test
   - Weapon
-  - 
+  - MouseCursor
   - 
   - 
   - 
