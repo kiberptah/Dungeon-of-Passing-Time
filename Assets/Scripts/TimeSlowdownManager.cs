@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TimeSlowdownManager : MonoBehaviour
 {
-    public float duration = 0.1f;
+    public float OnHitDuration = 0.1f;
+    public float OnGettingHitDuration = 0.5f;
     private void OnEnable()
     {
         EventDirector.somebody_TakeDamage += SlowTimeOnHit;
@@ -16,34 +17,26 @@ public class TimeSlowdownManager : MonoBehaviour
 
     void SlowTimeOnHit(Transform who, float amount  , Transform fromWhom)
     {
-        print(who.name + " got hit by " + fromWhom.name);
+        //print(who.name + " got hit by " + fromWhom.name);
         if (who.tag != "Player" && fromWhom.tag == "Player")
         {
-            StartCoroutine("TimeStop");
+            StartCoroutine(TimeStop(OnHitDuration));
         }
-    
+        if (who.tag == "Player" && fromWhom.tag != "Player")
+        {
+            StartCoroutine(TimeStop(OnGettingHitDuration));
+        }
+
     }
 
-    IEnumerator TimeSlowdown()
+    IEnumerator TimeStop(float duration)
     {
-        print("time slowdown");
-        Time.timeScale = 0.1f;
-        yield return new WaitForSecondsRealtime(.1f);
-
-        Time.timeScale = 1f;
-
-
-        yield return null;
-    }
-
-    IEnumerator TimeStop()
-    {
-        print("time stop");
+        //print("time stop");
         Time.timeScale = 0;
 
         yield return new WaitForSecondsRealtime(duration);
 
-        print("time resume");
+        //print("time resume");
         Time.timeScale = 1f;
 
         yield return null;

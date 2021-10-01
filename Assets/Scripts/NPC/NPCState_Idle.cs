@@ -14,9 +14,6 @@ public class NPCState_Idle : INPCState
     }
     public INPCState DoState(NPCStateMachine _npc)
     {
-
-
-        npc.LookForEnemies();
         if (npc.currentTarget != null)
         {
             return npc.combatState;

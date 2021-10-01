@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4778285313243707453}
   - component: {fileID: 4778285313243707451}
   - component: {fileID: 4778285313243707448}
+  - component: {fileID: 3784858375430123586}
   - component: {fileID: 4778285313243707450}
   - component: {fileID: 4733013106887434591}
   - component: {fileID: -8984534697881254404}
@@ -20,6 +21,7 @@ GameObject:
   - component: {fileID: 937971299349516226}
   - component: {fileID: 6765226683277223605}
   - component: {fileID: 854736571166351288}
+  - component: {fileID: 8875190326608742323}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: NPC
@@ -60,8 +62,8 @@ MonoBehaviour:
   friendlyFactions: 01000000
   hatedFactions: 00000000
   maxHealth: 100
-  maxStamina: 0
-  staminaRegenPerSecond: 0
+  maxStamina: 100
+  staminaRegenPerSecond: 100
   walkSpeed: 25
   sightRadius: 50
   dashCost: 0
@@ -80,6 +82,21 @@ MonoBehaviour:
   NPC_CorpsePrefab: {fileID: 4778285313243707444, guid: 209d7ad5eef31694084906381d5feb94, type: 3}
   maxHealth: 100
   healthBar: {fileID: 4778285314500999353}
+--- !u!114 &3784858375430123586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778285313243707444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec91e22c0ec18c4195da69b94518d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStamina: 0
+  currentStamina: 0
+  staminaBar: {fileID: 0}
 --- !u!114 &4778285313243707450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,11 +113,11 @@ MonoBehaviour:
   npcMovement: {fileID: 0}
   npcWeaponManager: {fileID: 0}
   npcWeaponController: {fileID: 0}
+  currentStateName: 
   currentTarget: {fileID: 0}
   lastKnownTargetPosition: {x: 0, y: 0, z: 0}
   path: []
   pathNodeIndex: 0
-  currentStateName: 
   shittymouseccord: {x: 0, y: 0, z: 0}
 --- !u!114 &4733013106887434591
 MonoBehaviour:
@@ -145,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isWeaponDrawn: 0
   weaponsSheathed:
-  - {fileID: 7265373763533837596, guid: 602a1e8a81bfde74e9470ec566e00aad, type: 3}
+  - {fileID: 7265373763533837596, guid: 2e34986327c042c4bacc4657caf8eb52, type: 3}
 --- !u!114 &4778285313243707445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +255,18 @@ MonoBehaviour:
   animator: {fileID: 3261181417271332872}
   currentSpriteDirection: 2
   currentSpriteAction: 0
+--- !u!114 &8875190326608742323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778285313243707444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4db03e2cf0bb47478c0adc168bac50f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4778285314500999352
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +337,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1924295495
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -392,7 +421,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1924295495
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d9f573f147cea7c4abd3c9cf2a365ce1, type: 3}
   m_Color: {r: 0.6698113, g: 0, b: 0, a: 1}
@@ -494,7 +523,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1924295495
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3d7ae1f354735df4499e744b2844e4c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

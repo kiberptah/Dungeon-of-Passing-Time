@@ -8,28 +8,30 @@ public class PlayerMovement : MonoBehaviour
     float dashCost = 0;
     Vector3 movementDirection = Vector3.zero;
     ActorStats playerStats;
-    ActorStamina playerStamina;
+    ActorModifiers playerModifiers;
+    ActorStaminaNew playerStamina;
 
     Rigidbody2D rb;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<ActorStats>();
-        playerStamina = GetComponent<ActorStamina>();
+        playerModifiers = GetComponent<ActorModifiers>();
+        playerStamina = GetComponent<ActorStaminaNew>();
 
         speed = playerStats.walkSpeed;
         dashCost = playerStats.dashCost;
     }
     private void Update()
     {
-        //InputMovement();
+        
     }
     private void FixedUpdate()
     {
         //transform.position = Vector3.MoveTowards(transform.position, transform.position + movementDirection, speed * Time.deltaTime);
         if (movementDirection != Vector3.zero)
         {
-            rb.AddRelativeForce(movementDirection * speed, ForceMode2D.Force);
+            rb.AddRelativeForce(movementDirection * speed * playerModifiers.walkspeed_Modifiers, ForceMode2D.Force);
 
             //rb.MovePosition(transform.position + movementDirection * speed * Time.fixedDeltaTime);
         }
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash()
     {
+
         if (playerStamina.currentStamina >= dashCost)
         {
             EventDirector.somebody_LoseStamina(transform, dashCost);

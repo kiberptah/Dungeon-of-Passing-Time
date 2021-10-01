@@ -8,7 +8,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     WeaponStatsAlt weaponStats;
-    ActorStamina actorStamina;
+    ActorStaminaNew actorStamina;
 
     [HideInInspector] public GameObject equippedWeapon;
     [HideInInspector] public int weaponSlot;
@@ -28,7 +28,7 @@ public class WeaponController : MonoBehaviour
 
     [HideInInspector] public float weaponFollowSpeed = 0f;
 
-    Vector3 mousePosition = Vector3.zero;
+    Vector3 mousePosition = Vector3.up;
     Vector3 mouseProjection = Vector3.up;
     [HideInInspector] public float weaponDirectionTendency = 0;
 
@@ -47,7 +47,7 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public Vector3 frozenMousePosition = Vector3.zero;
     private void Start()
     {
-        actorStamina = GetComponent<ActorStamina>();
+        actorStamina = GetComponent<ActorStaminaNew>();
     }
     private void FixedUpdate()
     {
@@ -75,10 +75,12 @@ public class WeaponController : MonoBehaviour
     {
         equippedWeapon = Instantiate(weapon, transform);
         //
-        mouseProjection = transform.InverseTransformPoint(mousePosition); // result is local coordinates!!!
+        //mouseProjection = transform.InverseTransformPoint(mousePosition); // result is local coordinates!!!
+        mouseProjection = mousePosition; // idk it is in local anyway cause weapon is npcs child
         mouseProjection.z = 0;
         mouseProjection = mouseProjection.normalized;
         equippedWeapon.transform.position = transform.TransformPoint(mouseProjection);
+        //equippedWeapon.transform.position = transform.TransformPoint(mousePosition);
 
         weaponFollowSpeed = weaponMinimalFollowSpeed;
         //

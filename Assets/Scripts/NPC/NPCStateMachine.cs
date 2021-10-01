@@ -9,6 +9,15 @@ public class NPCStateMachine : MonoBehaviour
     [HideInInspector] public WeaponManager npcWeaponManager;
     [HideInInspector] public WeaponController npcWeaponController;
 
+    [SerializeField]
+    private string currentStateName;
+    private string previousStateName;
+    private INPCState currentState;
+
+    public NPCState_Idle idleState = new NPCState_Idle();
+    public NPCState_Chase chaseState = new NPCState_Chase();
+    public NPCState_Combat combatState = new NPCState_Combat();
+
 
     public Transform currentTarget;
     [HideInInspector] public Vector3 lastKnownTargetPosition;
@@ -18,14 +27,9 @@ public class NPCStateMachine : MonoBehaviour
     [HideInInspector] public int pathNodeIndex;
 
 
-    [SerializeField]
-    private string currentStateName;
-    private string previousStateName;
-    private INPCState currentState;
+    //public float timeInThisState = 0;
 
-    public NPCState_Idle idleState = new NPCState_Idle();
-    public NPCState_Chase chaseState = new NPCState_Chase();
-    public NPCState_Combat combatState = new NPCState_Combat();
+    
 
 
     private void Awake()
@@ -42,6 +46,8 @@ public class NPCStateMachine : MonoBehaviour
     {
         currentState.ChangeToThisState(this);
         previousStateName = currentStateName;
+
+        StartCoroutine("LookForEnemies");
     }
 
 
@@ -50,13 +56,19 @@ public class NPCStateMachine : MonoBehaviour
         currentState = currentState.DoState(this);
         currentStateName = currentState.ToString();
 
+        //timeInThisState += Time.deltaTime;
+
         if (previousStateName != currentStateName)
         {
+            //timeInThisState = 0;
+
             currentState.ChangeToThisState(this);
             previousStateName = currentStateName;
         }
 
     }
+
+    
 
     public List<Transform> LookForTheObjectsAround()
     {
@@ -73,49 +85,64 @@ public class NPCStateMachine : MonoBehaviour
     }
     public bool EyeContactWithTarget(Transform target)
     {
-        //RaycastHit2D raycast = Physics2D.Raycast(transform.position, target.position, npcStats.sightRadius, LayerMask.GetMask("Geometry", "Actors"));
-        RaycastHit2D raycast = 
-            Physics2D.Raycast(transform.position, transform.TransformDirection(target.position - transform.position), 
-            npcStats.sightRadius, ~LayerMask.GetMask("Weapon"));
-
-
-        if (raycast.transform == target)
+        if (target != null)
         {
-            if (raycast.transform == currentTarget)
+            //RaycastHit2D raycast = Physics2D.Raycast(transform.position, target.position, npcStats.sightRadius, LayerMask.GetMask("Geometry", "Actors"));
+            RaycastHit2D raycast =
+                Physics2D.Raycast(transform.position, transform.TransformDirection(target.position - transform.position),
+                npcStats.sightRadius, ~LayerMask.GetMask("Weapon", "Object"));
+
+
+            if (raycast.transform == target)
             {
-                lastKnownTargetPosition = raycast.transform.position;
+                if (raycast.transform == currentTarget)
+                {
+                    lastKnownTargetPosition = raycast.transform.position;
+                }
+                return true;
             }
-            return true;
+            else
+            {
+                return false;
+            }
         }
         else
         {
             return false;
         }
     }
-    public void LookForEnemies()
+    IEnumerator LookForEnemies()
     {
-        if (currentTarget != null)
+        float interval = 0.5f;
+
+        while (true)
         {
             currentTarget = null;
-        }
 
-        List<Transform> sightedObjects = LookForTheObjectsAround();
-        foreach (Transform obj in sightedObjects)
-        {
-            if (EyeContactWithTarget(obj))
+            List<Transform> sightedObjects = LookForTheObjectsAround();
+
+            foreach (Transform obj in sightedObjects)
             {
+                // check if object is NPC
                 if (obj.transform.TryGetComponent(out ActorStats stats))
                 {
-                    foreach (ActorStats.Factions hatedFaction in npcStats.hatedFactions)
+                    // check if there's an eye contact with an object
+                    if (EyeContactWithTarget(obj))
                     {
-                        if (hatedFaction == stats.faction)
+                        // decide if it is an enemy and make it the target if true
+                        foreach (ActorStats.Factions hatedFaction in npcStats.hatedFactions)
                         {
-                            currentTarget = obj;
-                            lastKnownTargetPosition = currentTarget.position;
+                            if (hatedFaction == stats.faction)
+                            {
+                                currentTarget = obj;
+                                lastKnownTargetPosition = currentTarget.position;
+                            }
                         }
                     }
                 }
             }
+            //print("look for enemise");
+            yield return new WaitForSeconds(interval);
         }
     }
 

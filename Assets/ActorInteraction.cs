@@ -15,13 +15,13 @@ public class ActorInteraction : MonoBehaviour
             {
                 closestInteractableObject?.OnHoverEnd(transform);
                 interactionUI.SetActive(false);
-                Debug.Log("TEMPORARY CAN'T INTERACT WITH " + closestInteractableObject);
+                //Debug.Log("TEMPORARY CAN'T INTERACT WITH " + closestInteractableObject);
             }
             else
             {
                 closestInteractableObject?.OnHoverStart(transform);
                 interactionUI.SetActive(true);
-                Debug.Log("AGAIN CAN INTERACT WITH " + closestInteractableObject);
+                //Debug.Log("AGAIN CAN INTERACT WITH " + closestInteractableObject);
             }
         }
     }
@@ -35,7 +35,7 @@ public class ActorInteraction : MonoBehaviour
                 interactable?.OnHoverStart(transform);
                 closestInteractableObject = interactable;
                 interactionUI.SetActive(true);
-                Debug.Log("CAN INTERACT WITH " + collision.name);
+                //Debug.Log("CAN INTERACT WITH " + collision.name);
             }
         }
         
@@ -49,7 +49,7 @@ public class ActorInteraction : MonoBehaviour
             interactable?.OnHoverEnd(transform);
             closestInteractableObject = null;
             interactionUI.SetActive(false);
-            Debug.Log("NO LONGER CAN INTERACT WITH " + collision.name);
+            //Debug.Log("NO LONGER CAN INTERACT WITH " + collision.name);
         }
         
     }
@@ -59,7 +59,7 @@ public class ActorInteraction : MonoBehaviour
         if (closestInteractableObject != null)
         {
             closestInteractableObject?.OnInteract(transform);
-            Debug.Log("INTERACTION WITH " + closestInteractableObject);
+            //Debug.Log("INTERACTION WITH " + closestInteractableObject);
 
         }
     }

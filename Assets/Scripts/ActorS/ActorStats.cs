@@ -18,10 +18,17 @@ public class ActorStats : MonoBehaviour
     public float maxHealth;
     public float maxStamina;
     public float staminaRegenPerSecond;
+    [HideInInspector]
+    public float defaultWalkSpeed;
     public float walkSpeed;
     public float sightRadius;
     [Header("Costs")]
     public float dashCost;
+
+    private void Start()
+    {
+        defaultWalkSpeed = walkSpeed;
+    }
 
 
 }

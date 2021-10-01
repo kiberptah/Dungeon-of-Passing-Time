@@ -236,10 +236,10 @@ MonoBehaviour:
       - m_Target: {fileID: -3832830026984124569}
         m_TargetAssemblyTypeName: ActorInteraction, Assembly-CSharp
         m_MethodName: TriggerEnterCallbackCatch
-        m_Mode: 2
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Collider2D, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -251,10 +251,10 @@ MonoBehaviour:
       - m_Target: {fileID: -3832830026984124569}
         m_TargetAssemblyTypeName: ActorInteraction, Assembly-CSharp
         m_MethodName: TriggerExitCallbackCatch
-        m_Mode: 2
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Collider2D, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -460,9 +460,12 @@ GameObject:
   - component: {fileID: 2496667783860783513}
   - component: {fileID: 8416403624754557201}
   - component: {fileID: 1236293107}
-  - component: {fileID: 1624526507}
   - component: {fileID: 6428623807176215813}
   - component: {fileID: -3832830026984124569}
+  - component: {fileID: 1239369684993509510}
+  - component: {fileID: 2340028105726857938}
+  - component: {fileID: 3996559723787695328}
+  - component: {fileID: 5437372769530903922}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -544,6 +547,7 @@ MonoBehaviour:
   maxHealth: 100
   maxStamina: 100
   staminaRegenPerSecond: 10
+  defaultWalkSpeed: 0
   walkSpeed: 40
   sightRadius: 0
   dashCost: 35
@@ -638,27 +642,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8416403624754557204}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e73ad7524677b5249baac348bc107abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthCapPercentForMaxKnockback: 0.5
---- !u!114 &1624526507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8416403624754557204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ec91e22c0ec18c4195da69b94518d30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxStamina: 0
-  currentStamina: 0
-  staminaBar: {fileID: 0}
 --- !u!114 &6428623807176215813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,5 +674,63 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 386d19344eab6c04da11dbae380c3f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionUI: {fileID: 0}
+--- !u!114 &1239369684993509510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416403624754557204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782bb61c7ed6aea439ec4b181343e0ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkspeed_Modifiers: 1
+  walkspeed_StaminaMod: 1
+--- !u!114 &2340028105726857938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416403624754557204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4862664ab60fe4b9cfe0ea4d0ba9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitySux: UNITY SUX
+--- !u!114 &3996559723787695328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416403624754557204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82441b748d9f80841a45fb1db2e90512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorStats: {fileID: 0}
+  actorModifiers: {fileID: 0}
+  maxStamina: 0
+  currentStamina: 0
+  staminaBar: {fileID: 0}
+  minimalSpeedMod: 0.5
+--- !u!114 &5437372769530903922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416403624754557204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c7a1067ae2172488d3ae8b70900442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
