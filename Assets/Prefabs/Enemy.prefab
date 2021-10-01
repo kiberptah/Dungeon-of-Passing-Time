@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4778285313243707453}
   - component: {fileID: 4778285313243707451}
   - component: {fileID: 4778285313243707448}
-  - component: {fileID: 3784858375430123586}
+  - component: {fileID: 8231815206898031149}
   - component: {fileID: 4778285313243707450}
   - component: {fileID: 4733013106887434591}
   - component: {fileID: -8984534697881254404}
@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6765226683277223605}
   - component: {fileID: 854736571166351288}
   - component: {fileID: 8875190326608742323}
+  - component: {fileID: -8080000605188902247}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: NPC
@@ -64,9 +65,12 @@ MonoBehaviour:
   maxHealth: 100
   maxStamina: 100
   staminaRegenPerSecond: 100
+  defaultWalkSpeed: 0
   walkSpeed: 25
   sightRadius: 50
   dashCost: 0
+  walkspeed_Modifiers: 1
+  walkspeed_StaminaMod: 1
 --- !u!114 &4778285313243707448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +86,7 @@ MonoBehaviour:
   NPC_CorpsePrefab: {fileID: 4778285313243707444, guid: 209d7ad5eef31694084906381d5feb94, type: 3}
   maxHealth: 100
   healthBar: {fileID: 4778285314500999353}
---- !u!114 &3784858375430123586
+--- !u!114 &8231815206898031149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,12 +95,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4778285313243707444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ec91e22c0ec18c4195da69b94518d30, type: 3}
+  m_Script: {fileID: 11500000, guid: e387133eed3021f49b049eec66c80111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxStamina: 0
   currentStamina: 0
   staminaBar: {fileID: 0}
+  minimalSpeedMod: 0.25
 --- !u!114 &4778285313243707450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +270,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4db03e2cf0bb47478c0adc168bac50f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8080000605188902247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778285313243707444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782bb61c7ed6aea439ec4b181343e0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4778285314500999352

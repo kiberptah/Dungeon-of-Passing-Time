@@ -12963,17 +12963,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2901247758475760106, guid: b4e6a63f5f8e9cf46a3d405683b22f45, type: 3}
   m_PrefabInstance: {fileID: 2901247759927272911}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1813835439 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1239369684993509510, guid: c83d0b2132cce084c8129432e28b4fbe, type: 3}
-  m_PrefabInstance: {fileID: 8416403624030281604}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 782bb61c7ed6aea439ec4b181343e0ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1951975506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13455,14 +13444,10 @@ PrefabInstance:
       propertyPath: interactionUI
       value: 
       objectReference: {fileID: 1184524801}
-    - target: {fileID: 1624526507, guid: c83d0b2132cce084c8129432e28b4fbe, type: 3}
+    - target: {fileID: 2186507204534222735, guid: c83d0b2132cce084c8129432e28b4fbe, type: 3}
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 133176085}
-    - target: {fileID: 1624526507, guid: c83d0b2132cce084c8129432e28b4fbe, type: 3}
-      propertyPath: actorModifiers
-      value: 
-      objectReference: {fileID: 1813835439}
     - target: {fileID: 8416403624754557204, guid: c83d0b2132cce084c8129432e28b4fbe, type: 3}
       propertyPath: m_Name
       value: Player
@@ -13515,8 +13500,7 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 388886767}
-    m_RemovedComponents:
-    - {fileID: 1624526507, guid: c83d0b2132cce084c8129432e28b4fbe, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c83d0b2132cce084c8129432e28b4fbe, type: 3}
 --- !u!1001 &9085607246043430439
 PrefabInstance:

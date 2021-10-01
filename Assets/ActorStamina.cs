@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorStaminaNew : MonoBehaviour
+public class ActorStamina : MonoBehaviour
 {
-    public ActorStats actorStats;
-    public ActorModifiers actorModifiers;
+    ActorStats actorStats;
     [HideInInspector] public float maxStamina;
     [HideInInspector] public float currentStamina;
     [SerializeField] Transform staminaBar;
 
     public float minimalSpeedMod = .5f;
+    public float speedDebuffThreshold = .9f;
 
 
     float regenPerSecond = 10f;
@@ -28,8 +28,6 @@ public class ActorStaminaNew : MonoBehaviour
     void Start()
     {
         actorStats = GetComponent<ActorStats>();
-        //actorModifiers = GetComponent<ActorModifiers>();
-        //TryGetComponent(out actorModifiers);
         maxStamina = actorStats.maxStamina;
         regenPerSecond = actorStats.staminaRegenPerSecond;
 
@@ -42,9 +40,10 @@ public class ActorStaminaNew : MonoBehaviour
 
         RegenerateStamina();
         ChangeWalkspeedBasedOnStamina();
-
+        /*
         string testa = transform.GetComponent<UnitySucksTest>().unitySux;
         Debug.Log(transform.GetComponent<UnitySucksTest>().unitySux);
+        */
     }
 
     void ChangeWalkspeedBasedOnStamina()
@@ -52,9 +51,12 @@ public class ActorStaminaNew : MonoBehaviour
         // it is kinda shitty in terms of compatibility with multiple speed modifiers
         //actorStats.walkSpeed = actorStats.defaultWalkSpeed * minimalSpeedMod + actorStats.defaultWalkSpeed * (1 - minimalSpeedMod) * (currentStamina / maxStamina);
 
-        //actorModifiers.walkspeed_StaminaMod = minimalSpeedMod + (1 - minimalSpeedMod) * (currentStamina / maxStamina);
+        actorStats.walkspeed_StaminaMod = minimalSpeedMod + (1 - minimalSpeedMod) * (currentStamina / maxStamina);
 
-
+        if (currentStamina / maxStamina > speedDebuffThreshold)
+        {
+            actorStats.walkspeed_StaminaMod = 1f;
+        }
     }
 
     void RegenerateStamina()

@@ -31,4 +31,15 @@ public class ActorStats : MonoBehaviour
     }
 
 
+
+    [Header("Modifiers (do not tweak)")]
+    public float walkspeed_Modifiers = 1f;
+    public float walkspeed_StaminaMod = 1f;
+
+    private void Update()
+    {
+        walkspeed_Modifiers = walkspeed_StaminaMod;
+
+    }
+
 }

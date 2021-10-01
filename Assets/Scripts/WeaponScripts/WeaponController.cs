@@ -8,7 +8,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     WeaponStatsAlt weaponStats;
-    ActorStaminaNew actorStamina;
+    ActorStamina actorStamina;
 
     [HideInInspector] public GameObject equippedWeapon;
     [HideInInspector] public int weaponSlot;
@@ -47,7 +47,7 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public Vector3 frozenMousePosition = Vector3.zero;
     private void Start()
     {
-        actorStamina = GetComponent<ActorStaminaNew>();
+        actorStamina = GetComponent<ActorStamina>();
     }
     private void FixedUpdate()
     {
