@@ -102,6 +102,7 @@ MonoBehaviour:
   currentStamina: 0
   staminaBar: {fileID: 0}
   minimalSpeedMod: 0.25
+  speedDebuffThreshold: 0.9
 --- !u!114 &4778285313243707450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +442,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d9f573f147cea7c4abd3c9cf2a365ce1, type: 3}
-  m_Color: {r: 0.6698113, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
