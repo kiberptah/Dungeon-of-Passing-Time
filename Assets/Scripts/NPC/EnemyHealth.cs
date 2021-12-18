@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IHealth
 {
     public GameObject NPC_CorpsePrefab;
+    [HideInInspector]
     public float maxHealth = 100;
 
     

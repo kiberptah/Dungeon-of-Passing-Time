@@ -13,7 +13,7 @@ public class Grid : MonoBehaviour
     public Vector2 gridWorldSize;
     public float nodeDiameter = 1;
     public float nodeScanScale = 2f;
-    Node[,] grid;
+    PathfindingNode[,] grid;
 
     float nodeRadius;
     int gridSizeX, gridSizeY;
@@ -47,7 +47,7 @@ public class Grid : MonoBehaviour
 
 
 
-        grid = new Node[gridSizeX, gridSizeY];
+        grid = new PathfindingNode[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
 
         for (int x = 0; x < gridSizeX; ++x)
@@ -58,15 +58,15 @@ public class Grid : MonoBehaviour
                     + Vector3.right * (x * nodeDiameter + nodeRadius) 
                     + Vector3.up * (y * nodeDiameter + nodeRadius);
                 bool walkable = !Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter * nodeScanScale, nodeDiameter * nodeScanScale), 0, unwalkableMask.value);
-                grid[x, y] = new Node(walkable, worldPoint, x, y);
+                grid[x, y] = new PathfindingNode(walkable, worldPoint, x, y);
                 //Debug.Log("grid[" + x + "," + y + "]: " + worldPoint);
             }
         }
     }
 
-    public List<Node> GetNeighbours(Node node)
+    public List<PathfindingNode> GetNeighbours(PathfindingNode node)
     {
-        List<Node> neighbours = new List<Node>();
+        List<PathfindingNode> neighbours = new List<PathfindingNode>();
 
         for (int x = -1; x <= 1; ++x)
         {
@@ -89,7 +89,7 @@ public class Grid : MonoBehaviour
         return neighbours;
     }
 
-    public Node NodeFromWorldPoint(Vector3 _worldPosition)
+    public PathfindingNode NodeFromWorldPoint(Vector3 _worldPosition)
     {
         /*
         float percentX = (_worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
@@ -117,7 +117,7 @@ public class Grid : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y));
         if (grid != null && displayGridGizmos)
         {
-            foreach (Node n in grid)
+            foreach (PathfindingNode n in grid)
             {
                 Color currentColor = (n.walkable) ? Color.white : Color.red;
 

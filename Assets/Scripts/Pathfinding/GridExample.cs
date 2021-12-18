@@ -8,7 +8,7 @@ public class GridExample : MonoBehaviour
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
 	public float nodeRadius;
-	Node[,] grid;
+	PathfindingNode[,] grid;
 
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
@@ -23,7 +23,7 @@ public class GridExample : MonoBehaviour
 
 	void CreateGrid()
 	{
-		grid = new Node[gridSizeX, gridSizeY];
+		grid = new PathfindingNode[gridSizeX, gridSizeY];
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
 
 		for (int x = 0; x < gridSizeX; x++)
@@ -32,14 +32,14 @@ public class GridExample : MonoBehaviour
 			{
 				Vector3 worldPoint = worldBottomLeft + Vector3.up * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
 				bool walkable = !(Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter, nodeDiameter), unwalkableMask));
-				grid[x, y] = new Node(walkable, worldPoint, x, y);
+				grid[x, y] = new PathfindingNode(walkable, worldPoint, x, y);
 			}
 		}
 	}
 
-	public List<Node> GetNeighbours(Node node)
+	public List<PathfindingNode> GetNeighbours(PathfindingNode node)
 	{
-		List<Node> neighbours = new List<Node>();
+		List<PathfindingNode> neighbours = new List<PathfindingNode>();
 
 		for (int x = -1; x <= 1; x++)
 		{
@@ -62,7 +62,7 @@ public class GridExample : MonoBehaviour
 	}
 
 
-	public Node NodeFromWorldPoint(Vector3 worldPosition)
+	public PathfindingNode NodeFromWorldPoint(Vector3 worldPosition)
 	{
 		float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
 		float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
@@ -74,13 +74,13 @@ public class GridExample : MonoBehaviour
 		return grid[x, y];
 	}
 
-	public List<Node> path;
+	public List<PathfindingNode> path;
 	private void OnDrawGizmos()
 	{
 		Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y));
 		if (grid != null)
 		{
-			foreach (Node n in grid)
+			foreach (PathfindingNode n in grid)
 			{
 				Color currentColor = (n.walkable) ? Color.white : Color.red;
 

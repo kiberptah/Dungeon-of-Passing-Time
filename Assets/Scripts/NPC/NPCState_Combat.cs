@@ -99,7 +99,7 @@ public class NPCState_Combat : INPCState
 
     void ChooseRandomTactic()
     {
-        Debug.Log("rolling for randon tactic");
+        //Debug.Log("rolling for randon tactic");
         int rand = Mathf.RoundToInt(Random.Range(1, 4));
 
         switch (rand)
@@ -121,7 +121,7 @@ public class NPCState_Combat : INPCState
                 currentTactic = tactics.pierce;
                 break;
         }
-        Debug.Log(currentTactic);
+        //Debug.Log(currentTactic);
 
     }
 

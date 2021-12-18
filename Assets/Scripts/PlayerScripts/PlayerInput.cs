@@ -8,10 +8,20 @@ public class PlayerInput : MonoBehaviour
     WeaponController weaponController;
     public PlayerMovement playerMovement;
     public ActorInteraction actorInteraction;
-
+    bool inputDisabled = false;
 
     Transform customMouseCursor;
-    
+    private void OnEnable()
+    {
+        EventDirector.dialogue_start += DisableInput;
+        EventDirector.dialogue_end += EnableInput;
+    }
+    private void OnDisable()
+    {
+        EventDirector.dialogue_start -= DisableInput;
+        EventDirector.dialogue_end -= EnableInput;
+    }
+
     private void Awake()
     {
         weaponManager = GetComponent<WeaponManager>();
@@ -26,9 +36,13 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        Input_Weapon();
-        Input_Movement();
-        Input_Interaction();
+        if (inputDisabled == false)
+        {
+            Input_Weapon();
+            Input_Movement();
+            Input_Interaction();
+        }
+        
 
     }
     private void FixedUpdate()
@@ -36,6 +50,15 @@ public class PlayerInput : MonoBehaviour
         //weaponController.UpdateMousePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         weaponController.UpdateMousePosition(customMouseCursor.position);
 
+    }
+
+    void DisableInput()
+    {
+        inputDisabled = true;
+    }
+    void EnableInput()
+    {
+        inputDisabled = false;
     }
 
 

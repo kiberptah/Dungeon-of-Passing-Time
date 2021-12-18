@@ -26,7 +26,7 @@ public class NPCState_Idle : INPCState
     {
 
     }
-
-
     
+
+
 }

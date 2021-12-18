@@ -11,7 +11,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - UnselectableInEditor
   - Water
   - UI
   - Geometry
@@ -19,7 +19,7 @@ TagManager:
   - Test
   - Weapon
   - MouseCursor
-  - 
+  - ShadowCastGeometry
   - 
   - 
   - 
@@ -41,24 +41,36 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: BackGround
     uniqueID: 3897160951
     locked: 0
   - name: Floor
     uniqueID: 3154981049
     locked: 0
-  - name: Geometry
-    uniqueID: 2394443699
-    locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Corpses
     uniqueID: 3305523459
+    locked: 0
+  - name: TrueGeometry
+    uniqueID: 1941938005
+    locked: 0
+  - name: Geometry
+    uniqueID: 2394443699
     locked: 0
   - name: Actors
     uniqueID: 2370671801
     locked: 0
-  - name: Objects
+  - name: GeometryAbove
+    uniqueID: 1187033785
+    locked: 0
+  - name: Swords
     uniqueID: 2048515407
+    locked: 0
+  - name: ShadowCaster
+    uniqueID: 3147868379
+    locked: 0
+  - name: UI
+    uniqueID: 901538827
     locked: 0

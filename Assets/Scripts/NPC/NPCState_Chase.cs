@@ -15,7 +15,7 @@ public class NPCState_Chase : INPCState
     }
     public INPCState DoState(NPCStateMachine _npc)
     {
-
+        
         //npc.LookForEnemies();
         if (npc.currentTarget != null)
         {

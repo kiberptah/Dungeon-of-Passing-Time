@@ -27,8 +27,8 @@ public class Pathfinding : MonoBehaviour
         Vector3[] waypoints = new Vector3[0];
         bool pathSucess = false;
 
-        Node startNode = grid.NodeFromWorldPoint(_startPos);
-        Node targetNode = grid.NodeFromWorldPoint(_targetPos);
+        PathfindingNode startNode = grid.NodeFromWorldPoint(_startPos);
+        PathfindingNode targetNode = grid.NodeFromWorldPoint(_targetPos);
 
         /// ??? ??? ??? 
         if (!startNode.walkable || !targetNode.walkable)
@@ -41,13 +41,13 @@ public class Pathfinding : MonoBehaviour
 
         if (startNode.walkable && targetNode.walkable)
         {
-            Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
-            HashSet<Node> closeSet = new HashSet<Node>();
+            Heap<PathfindingNode> openSet = new Heap<PathfindingNode>(grid.MaxSize);
+            HashSet<PathfindingNode> closeSet = new HashSet<PathfindingNode>();
             openSet.Add(startNode);
 
             while (openSet.Count > 0)
             {
-                Node currentNode = openSet.RemoveFirst();
+                PathfindingNode currentNode = openSet.RemoveFirst();
                 closeSet.Add(currentNode);
 
                 if (currentNode == targetNode)
@@ -58,7 +58,7 @@ public class Pathfinding : MonoBehaviour
                     //pathSucess = false;
                     break;
                 }
-                foreach (Node neighbour in grid.GetNeighbours(currentNode))
+                foreach (PathfindingNode neighbour in grid.GetNeighbours(currentNode))
                 {
                     if (!neighbour.walkable || closeSet.Contains(neighbour))
                     {
@@ -100,10 +100,10 @@ public class Pathfinding : MonoBehaviour
     }
 
 
-    Vector3[] RetracePath(Node _startNode, Node _endNode)
+    Vector3[] RetracePath(PathfindingNode _startNode, PathfindingNode _endNode)
     {
-        List<Node> path = new List<Node>();
-        Node currentNode = _endNode;
+        List<PathfindingNode> path = new List<PathfindingNode>();
+        PathfindingNode currentNode = _endNode;
 
         while (currentNode != _startNode)
         {
@@ -116,7 +116,7 @@ public class Pathfinding : MonoBehaviour
         return waypoints;
     }
 
-    Vector3[] SimplifyPath(List<Node> path)
+    Vector3[] SimplifyPath(List<PathfindingNode> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
         Vector2 directionOld = Vector2.zero;
@@ -132,7 +132,7 @@ public class Pathfinding : MonoBehaviour
         }
         return waypoints.ToArray();
     }
-    int GetDistance(Node nodeA, Node nodeB)
+    int GetDistance(PathfindingNode nodeA, PathfindingNode nodeB)
     {
         
         int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);

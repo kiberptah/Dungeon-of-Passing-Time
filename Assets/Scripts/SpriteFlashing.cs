@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpriteFlashing : MonoBehaviour
 {
+    public float delay = 0.025f;
+    public int flicksAmount = 2;
+
     public SpriteRenderer sprite;
     public Material whiteMat;
 
@@ -32,8 +35,6 @@ public class SpriteFlashing : MonoBehaviour
 
     IEnumerator FlashingCR()
     {
-        float delay = 0.05f;
-        int flicksAmount = 2;
         int i = 0;
         while (i < flicksAmount)
         {
@@ -42,9 +43,9 @@ public class SpriteFlashing : MonoBehaviour
             sprite.material = whiteMat;
 
             //yield return null;
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
             sprite.material = originalMat;
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
         }
         yield return null;
     }

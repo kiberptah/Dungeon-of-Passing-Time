@@ -94,7 +94,7 @@ public class NPCMovement : MonoBehaviour
         }
         else
         {
-            print("path[0] is null, fix this shit! ");
+            Debug.Log("path[0] is null, fix this shit! ");
             MoveNPC(transform.position);
         }
     }

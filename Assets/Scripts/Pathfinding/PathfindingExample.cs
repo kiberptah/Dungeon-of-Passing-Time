@@ -20,16 +20,16 @@ public class PathfindingExample : MonoBehaviour
 
 	void FindPath(Vector3 startPos, Vector3 targetPos)
 	{
-		Node startNode = grid.NodeFromWorldPoint(startPos);
-		Node targetNode = grid.NodeFromWorldPoint(targetPos);
+		PathfindingNode startNode = grid.NodeFromWorldPoint(startPos);
+		PathfindingNode targetNode = grid.NodeFromWorldPoint(targetPos);
 
-		List<Node> openSet = new List<Node>();
-		HashSet<Node> closedSet = new HashSet<Node>();
+		List<PathfindingNode> openSet = new List<PathfindingNode>();
+		HashSet<PathfindingNode> closedSet = new HashSet<PathfindingNode>();
 		openSet.Add(startNode);
 
 		while (openSet.Count > 0)
 		{
-			Node node = openSet[0];
+			PathfindingNode node = openSet[0];
 			for (int i = 1; i < openSet.Count; i++)
 			{
 				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost)
@@ -48,7 +48,7 @@ public class PathfindingExample : MonoBehaviour
 				return;
 			}
 
-			foreach (Node neighbour in grid.GetNeighbours(node))
+			foreach (PathfindingNode neighbour in grid.GetNeighbours(node))
 			{
 				if (!neighbour.walkable || closedSet.Contains(neighbour))
 				{
@@ -69,10 +69,10 @@ public class PathfindingExample : MonoBehaviour
 		}
 	}
 
-	void RetracePath(Node startNode, Node endNode)
+	void RetracePath(PathfindingNode startNode, PathfindingNode endNode)
 	{
-		List<Node> path = new List<Node>();
-		Node currentNode = endNode;
+		List<PathfindingNode> path = new List<PathfindingNode>();
+		PathfindingNode currentNode = endNode;
 
 		while (currentNode != startNode)
 		{
@@ -85,7 +85,7 @@ public class PathfindingExample : MonoBehaviour
 
 	}
 
-	int GetDistance(Node nodeA, Node nodeB)
+	int GetDistance(PathfindingNode nodeA, PathfindingNode nodeB)
 	{
 		int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
 		int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
