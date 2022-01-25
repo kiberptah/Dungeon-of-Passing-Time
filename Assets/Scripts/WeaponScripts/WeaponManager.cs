@@ -9,12 +9,12 @@ public class WeaponManager : MonoBehaviour
     int selectedWeaponSlot = 0;
 
     [HideInInspector] public bool isWeaponDrawn = false;
+
     public GameObject[] weaponsSheathed = new GameObject[2];
-    //PlayerWeaponController playerWeaponController;
+
     WeaponController weaponController;
     private void Awake()
     {
-        //playerWeaponController = GetComponent<PlayerWeaponController>();      
         weaponController = GetComponent<WeaponController>();
     }
     private void Start()
@@ -29,84 +29,59 @@ public class WeaponManager : MonoBehaviour
             }
         }        
     }
-    private void Update()
-    {
 
-    }
-
-    void Inputs()
-    {
-        /*
-        if (Input.GetButtonDown("DrawWeapon"))
-        {
-            if (isWeaponDrawn == false)
-            {            
-                TransferWeaponToHand(selectedWeaponSlot);
-            }
-            else
-            {
-                SheathWeapon();
-            }
-        }
-        if (Input.GetButtonDown("NextWeaponSlot"))
-        {
-            NextWeaponSlot();
-        }
-        */
-    }
-    public void Input_DrawOrSheathWeapon()
+    public void Input_DrawOrSheathWeapon(Vector2 _position = new Vector2())
     {
         if (isWeaponDrawn == false)
         {
-            Input_DrawWeapon();
+            Input_DrawWeapon(_position);
         }
         else
         {
-            SheathWeapon();
+            Input_SheathWeapon();
         }
     }
-    public void Input_DrawWeapon()
+    public void Input_DrawWeapon(Vector2 _position = new Vector2())
     {
-        TransferWeaponToHand(selectedWeaponSlot);
+        DrawWeapon(selectedWeaponSlot, _position);
     }
     public void Input_SheathWeapon()
     {
-        SheathWeapon();
+        SheathWeapon(selectedWeaponSlot);
     }
-    public void Input_NextSlot()
+    public void Input_NextWeaponSlot()
     {
         NextWeaponSlot();
     }    
 
 
 
-    void TransferWeaponToHand(int weaponSlot)
+    void DrawWeapon(int weaponSlot, Vector2 _position = new Vector2())
     {
         if (weaponsSheathed[weaponSlot] != null)
         {
-            weaponController.PlaceWeaponInHand(weaponsSheathed[weaponSlot], weaponSlot);
+            weaponController.PlaceWeaponInHand(weaponsSheathed[weaponSlot], _position);
 
             Destroy(weaponsSheathed[weaponSlot]);
 
             isWeaponDrawn = true;
         }
     }
-    void SheathWeapon()
-    {
-        
-        //if (weaponController.equippedWeapon != null)
+    void SheathWeapon(int weaponSlot)
+    {      
         if (isWeaponDrawn == true)
         {
-            weaponsSheathed[weaponController.weaponSlot] = Instantiate(weaponController.equippedWeapon, transform);
-            weaponsSheathed[weaponController.weaponSlot].SetActive(false);
+            weaponsSheathed[weaponSlot] = Instantiate(weaponController.weaponObject, transform);
+            weaponsSheathed[weaponSlot].SetActive(false);
 
-            Destroy(weaponController.equippedWeapon);
+            weaponController.RemoveWeapon();
 
             isWeaponDrawn = false;
         }
     }
     void NextWeaponSlot()
     {
+        int previousWeaponSlot = selectedWeaponSlot;
         selectedWeaponSlot++;
         if (selectedWeaponSlot >= weaponsSheathed.Length)
         {
@@ -119,8 +94,9 @@ public class WeaponManager : MonoBehaviour
 
         if (isWeaponDrawn)
         {
-            SheathWeapon();
-            TransferWeaponToHand(selectedWeaponSlot);
+            Vector2 tempPos = weaponController.weaponObject.transform.position;
+            SheathWeapon(previousWeaponSlot);
+            DrawWeapon(selectedWeaponSlot, tempPos);
         }
     }
 }

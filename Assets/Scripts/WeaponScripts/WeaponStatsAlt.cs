@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponStatsAlt : MonoBehaviour
 {
+    /*
     [Header("Damage")]
     public float slashDamage;
     public float pierceDamage;
@@ -60,4 +61,5 @@ public class WeaponStatsAlt : MonoBehaviour
         //pierceDamageTickDelay = pierceAttackSpeed + pierceHoldTime + pierceRecoverSpeed;
         pierceCollider.enabled = false;
     }
+    */
 }

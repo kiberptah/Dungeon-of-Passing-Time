@@ -31,16 +31,29 @@ public class ActorAnimationManager : MonoBehaviour
 
     private void OnEnable()
     {
+        /*
         EventDirector.somebody_UpdateSpriteVector += UpdateVector;
         EventDirector.somebody_UpdateSpriteDirection += UpdateDirection;
         EventDirector.somebody_UpdateSpriteAction += UpdateAction;
-
+        */
+        /*
+        UpdateSpriteVector += UpdateVector;
+        UpdateSpriteDirection += UpdateDirection;
+        UpdateSpriteAction += UpdateAction;
+        */
     }
     private void OnDisable()
     {
+        /*
         EventDirector.somebody_UpdateSpriteVector -= UpdateVector;
         EventDirector.somebody_UpdateSpriteDirection -= UpdateDirection;
         EventDirector.somebody_UpdateSpriteAction -= UpdateAction;
+        */
+        /*
+        UpdateSpriteVector -= UpdateVector;
+        UpdateSpriteDirection -= UpdateDirection;
+        UpdateSpriteAction -= UpdateAction;
+        */
     }
 
     private void Start()

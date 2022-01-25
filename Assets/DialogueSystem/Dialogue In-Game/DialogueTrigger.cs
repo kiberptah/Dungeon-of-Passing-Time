@@ -7,7 +7,7 @@ using System.Linq;
 public class DialogueTrigger : MonoBehaviour, IInteractable
 {
     //public DialogueManager dialogueManager;
-    [SerializeField] string text = "Talk";
+    public string actionLabel { get => "Talk"; }
     public DialogueContainer dialogueContainer;
 
     Dialogue dialogue;
@@ -19,7 +19,7 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
     }
     public void OnHoverStart(InteractionUI interactionUI, Transform _interactor)
     {
-        interactionUI.Activate(text);
+        interactionUI.Activate(actionLabel);
     }
     public void OnInteract(Transform interactor)
     {

@@ -4,54 +4,51 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    WeaponManager weaponManager;
-    WeaponController weaponController;
-    public PlayerMovement playerMovement;
-    public ActorInteraction actorInteraction;
+    public ActorControllerConnector actorControllerConnector;
+    Transform actor;
+
     bool inputDisabled = false;
 
     Transform customMouseCursor;
+    GameObject weaponObject;
+    Weapon weaponScript;
+
     private void OnEnable()
     {
         EventDirector.dialogue_start += DisableInput;
         EventDirector.dialogue_end += EnableInput;
+
+        actorControllerConnector.updateDrawnWeapon += UpdateDrawnWeapon;
     }
     private void OnDisable()
     {
         EventDirector.dialogue_start -= DisableInput;
         EventDirector.dialogue_end -= EnableInput;
+
+        actorControllerConnector.updateDrawnWeapon -= UpdateDrawnWeapon;
     }
 
     private void Awake()
     {
-        weaponManager = GetComponent<WeaponManager>();
-        weaponController = GetComponent<WeaponController>();
+        actor = actorControllerConnector.transform;
 
-
-    }
-    private void Start()
-    {
         customMouseCursor = GameObject.FindGameObjectWithTag("MouseCursor").transform;
-    }
 
+
+
+    }
     private void Update()
     {
-        if (inputDisabled == false)
+        if (!inputDisabled)
         {
             Input_Weapon();
             Input_Movement();
             Input_Interaction();
+
+            Input_WeaponSwing();
         }
-        
 
     }
-    private void FixedUpdate()
-    {
-        //weaponController.UpdateMousePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        weaponController.UpdateMousePosition(customMouseCursor.position);
-
-    }
-
     void DisableInput()
     {
         inputDisabled = true;
@@ -66,16 +63,16 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetButtonDown("DrawWeapon"))
         {
-            weaponManager.Input_DrawOrSheathWeapon();
+            actorControllerConnector.Input_DrawOrSheathWeapon(customMouseCursor.position);
         }
         if (Input.GetButtonDown("NextWeaponSlot"))
         {
-            weaponManager.Input_NextSlot();
+            actorControllerConnector.Input_NextWeaponSlot();
         }
 
         if (Input.GetButtonDown("RMB"))
         {
-            weaponController.WeaponPiercing();
+            actorControllerConnector.Input_PiercingAttack();
             //print("pierce");
         }
     }
@@ -88,26 +85,12 @@ public class PlayerInput : MonoBehaviour
 
         movementDirection = movementDirection.normalized;
 
-        playerMovement.InputMovement(movementDirection);
-        if (movementDirection != Vector3.zero)
-        {
-            //spriteManager.UpdateDirection(movementDirection, ActorSpritesDirectionManager.spriteAction.walking);
-            EventDirector.somebody_UpdateSpriteVector?.Invoke(transform, movementDirection);
-            EventDirector.somebody_UpdateSpriteAction?.Invoke(transform, ActorAnimationManager.spriteAction.walking);
-
-        }
-        else
-        {
-            //spriteManager.UpdateDirection(movementDirection, ActorSpritesDirectionManager.spriteAction.idle);
-            EventDirector.somebody_UpdateSpriteVector?.Invoke(transform, movementDirection);
-            EventDirector.somebody_UpdateSpriteAction?.Invoke(transform, ActorAnimationManager.spriteAction.idle);
-
-        }
+        actorControllerConnector.Input_Move(movementDirection);
 
 
         if (Input.GetButtonDown("Dash"))
         {
-            playerMovement.Dash();
+            actorControllerConnector.Input_Ability();
         }
 
     }
@@ -116,28 +99,61 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            actorInteraction.Interact();
+            actorControllerConnector.Input_Interact();
         }
+    }
 
-        /*
-        if (Input.GetButtonDown("LMB"))
+
+    void UpdateDrawnWeapon(GameObject _weaponObject, Weapon _weaponScript)
+    {
+        weaponObject = _weaponObject;
+        weaponScript = _weaponScript;
+    }
+    void Input_WeaponSwing()
+    {
+        if (weaponObject != null && weaponScript != null)
         {
-            //Debug.Log("click");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll (ray, Mathf.Infinity);
-             
-            foreach (RaycastHit2D hit in hits)
+
+            int swingDirection = 0;
+
+
+            /// If mouse further from blade then this angle, it mean player is swinging the sword widely 
+            /// and for easier control we shouldn't interrupt the swing 
+            /// until mouse is not really close to the blade again 
+            float thresholdAngle = weaponScript.stats.weaponSensitivityAngle;
+
+            float maxAngle = 2f; // angle after which sword starts moving
+            float minAngle = 2f; // angle after which sword should be considered aligned with mouse
+
+            Vector2 mouseProjection = actor.InverseTransformPoint(customMouseCursor.position).normalized;
+            Vector2 bladeProjection = actor.InverseTransformPoint(weaponObject.transform.position).normalized;
+
+            //float angleBetweenBladeAndCursor = Vector3.SignedAngle(bladeProjection, mouseProjection, -actor.forward);
+            float angleBetweenBladeAndCursor = Vector2.SignedAngle(mouseProjection, bladeProjection);
+
+            float distanceBetweenVectors = Vector2.Distance(bladeProjection, mouseProjection); // to avoid jitter caused by overshooting. It is a hypotnuse?
+
+            if (Mathf.Abs(angleBetweenBladeAndCursor) < thresholdAngle)// || swingDirection == 0)
             {
-                if (hit.transform.TryGetComponent(out IInteractable interactable))
+                if (angleBetweenBladeAndCursor > maxAngle)
                 {
-                    interactable?.OnInteract(transform);
-                    //Debug.Log("INTERACTION!");
-                    break;
+                    swingDirection = 1;
                 }
+                if (angleBetweenBladeAndCursor < -maxAngle)
+                {
+                    swingDirection = -1;
+                }
+                //if (Mathf.Abs(angleBetweenBladeAndCursor) <= minAngle)
+                if (Mathf.Abs(angleBetweenBladeAndCursor) < minAngle)
+                {
+                    swingDirection = 0;
+                }
+
+
+                actorControllerConnector.Input_UpdateSwingDirection(swingDirection, distanceBetweenVectors);
             }
-            
+            //actorControllerConnector.Input_UpdateMaxSwingOffset(distanceBetweenVectors);
+
         }
-        */
-        
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponBladeAltDamageController : MonoBehaviour
 {
+    /*
     WeaponStatsAlt weaponStats;
     float currentDamage;
     Vector3 currentBladeVelocity;
@@ -38,7 +39,7 @@ public class WeaponBladeAltDamageController : MonoBehaviour
         if (blade == transform)
         {
             //print("hit");
-            if (target.TryGetComponent(out IHealth targetHealth))
+            if (target.TryGetComponent(out ActorHealth targetHealth))
             {
                 if (!recentlySlashedTargets.Contains(target))
                 {
@@ -58,7 +59,7 @@ public class WeaponBladeAltDamageController : MonoBehaviour
         if (blade == transform)
         {
             //print("hit");
-            if (target.TryGetComponent(out IHealth targetHealth))
+            if (target.TryGetComponent(out ActorHealth targetHealth))
             {
                 if (!recentlyPiercedTargets.Contains(target))
                 {
@@ -156,5 +157,5 @@ public class WeaponBladeAltDamageController : MonoBehaviour
         //currentDamage = weaponStats.damage * velocity * weaponStats.velocityDamageModifier;
 
     }
-
+    */
 }

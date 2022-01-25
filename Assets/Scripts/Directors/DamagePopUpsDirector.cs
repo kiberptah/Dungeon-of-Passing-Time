@@ -17,7 +17,12 @@ public class DamagePopUpsDirector : MonoBehaviour
 
     void SpawnDamagePopUp(Transform who, float amount, Transform fromWhom)
     {
-        GameObject newPopUp = Instantiate(damagePopUp, who.position, Quaternion.identity);
-        newPopUp.GetComponent<DamagePopUp>().Initialize(who, amount, fromWhom);
+        if (amount > 0)
+        {
+            GameObject newPopUp = Instantiate(damagePopUp, who.position, Quaternion.identity);
+            newPopUp.GetComponent<DamagePopUp>().Initialize(who, amount, fromWhom);
+
+        }
+
     }
 }
