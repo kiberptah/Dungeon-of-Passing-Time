@@ -41,7 +41,7 @@ public class Pathfinding : MonoBehaviour
 
         if (startNode.walkable && targetNode.walkable)
         {
-            Heap<PathfindingNode> openSet = new Heap<PathfindingNode>(grid.MaxSize);
+            Heap<PathfindingNode> openSet = new Heap<PathfindingNode>(grid.GridSize);
             HashSet<PathfindingNode> closeSet = new HashSet<PathfindingNode>();
             openSet.Add(startNode);
 
@@ -93,7 +93,7 @@ public class Pathfinding : MonoBehaviour
         }
 
 
-        
+
         requestManager.FinishedProcessingPath(waypoints, pathSucess);
 
         yield return null;
@@ -110,7 +110,7 @@ public class Pathfinding : MonoBehaviour
             path.Add(currentNode);
             currentNode = currentNode.parent;
         }
-        Vector3[] waypoints = SimplifyPath(path);    
+        Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);
 
         return waypoints;
@@ -134,7 +134,7 @@ public class Pathfinding : MonoBehaviour
     }
     int GetDistance(PathfindingNode nodeA, PathfindingNode nodeB)
     {
-        
+
         int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
         int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
 

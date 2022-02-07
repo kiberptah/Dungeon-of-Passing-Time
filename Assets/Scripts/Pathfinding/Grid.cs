@@ -4,19 +4,19 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public static Grid instance;
-    //public Transform player;
-    public bool displayGridGizmos;
 
-    public LayerMask unwalkableMask;
-    
-
+    PathfindingNode[,] grid;
     public Vector2 gridWorldSize;
+
     public float nodeDiameter = 1;
     public float nodeScanScale = 2f;
-    PathfindingNode[,] grid;
+
+    public LayerMask unwalkableMask;
+
 
     float nodeRadius;
     int gridSizeX, gridSizeY;
+    public bool displayGridGizmos;
 
     private void Awake()
     {
@@ -35,18 +35,8 @@ public class Grid : MonoBehaviour
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
     }
-    public int MaxSize
-    { 
-        get
-        {
-            return gridSizeX * gridSizeY;
-        }
-    }
     void CreateGrid()
     {
-
-
-
         grid = new PathfindingNode[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
 
@@ -54,8 +44,8 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < gridSizeY; ++y)
             {
-                Vector3 worldPoint = worldBottomLeft 
-                    + Vector3.right * (x * nodeDiameter + nodeRadius) 
+                Vector3 worldPoint = worldBottomLeft
+                    + Vector3.right * (x * nodeDiameter + nodeRadius)
                     + Vector3.up * (y * nodeDiameter + nodeRadius);
                 bool walkable = !Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter * nodeScanScale, nodeDiameter * nodeScanScale), 0, unwalkableMask.value);
                 grid[x, y] = new PathfindingNode(walkable, worldPoint, x, y);
@@ -63,7 +53,13 @@ public class Grid : MonoBehaviour
             }
         }
     }
-
+    public int GridSize
+    {
+        get
+        {
+            return gridSizeX * gridSizeY;
+        }
+    }
     public List<PathfindingNode> GetNeighbours(PathfindingNode node)
     {
         List<PathfindingNode> neighbours = new List<PathfindingNode>();
@@ -101,12 +97,12 @@ public class Grid : MonoBehaviour
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
         */
 
-        
+
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
 
         int x = Mathf.FloorToInt(Mathf.Abs((_worldPosition - worldBottomLeft).x) / nodeDiameter);
         int y = Mathf.FloorToInt(Mathf.Abs((_worldPosition - worldBottomLeft).y) / nodeDiameter);
-        
+
         //Debug.Log("grid["+x+","+y+"]");
         return grid[x, y];
     }
@@ -123,11 +119,15 @@ public class Grid : MonoBehaviour
 
 
                 currentColor.a = 0.2f;
-                Gizmos.color = currentColor;             
+                Gizmos.color = currentColor;
 
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+                if (!n.walkable)
+                {
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+                }
+
             }
         }
     }
-    
+
 }

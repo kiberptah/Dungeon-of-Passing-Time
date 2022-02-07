@@ -364,8 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d3564cc45fa6c4d860eb00934b64c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0.025
-  flicksAmount: 2
+  delay: 0.015
+  flicksAmount: 3
   sprite: {fileID: 6500837584520928616}
   whiteMat: {fileID: 2100000, guid: 7d6bf29ca4fadc141834a0518420a8a8, type: 2}
 --- !u!1 &4778285314500999352
@@ -441,7 +441,7 @@ SpriteRenderer:
   m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0.58431375}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

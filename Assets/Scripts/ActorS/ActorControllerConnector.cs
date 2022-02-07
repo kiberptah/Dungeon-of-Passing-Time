@@ -20,6 +20,7 @@ public class ActorControllerConnector : MonoBehaviour
     IInteractable interactableObject;
     public event Action<IInteractable> interactableAreaEntered;
     public event Action<IInteractable> interactableAreaLeft;
+    bool isInteractableClose = false;
 
     [Header("Movement")]
     ActorMovement actorMovement;
@@ -82,15 +83,19 @@ public class ActorControllerConnector : MonoBehaviour
     {
         interactableObject = _interactableObject;
         interactableAreaEntered?.Invoke(_interactableObject);
+
+        isInteractableClose = true;
     }
     void InteractableAreaLeft(IInteractable _interactableObject)
     {
         interactableObject = _interactableObject;
         interactableAreaLeft?.Invoke(_interactableObject);
+
+        isInteractableClose = false;
     }
     public void Input_Interact()
     {
-        if (interactableObject != null)
+        if (interactableObject != null && isInteractableClose)
         {
             interactableObject.OnInteract(transform);
         }

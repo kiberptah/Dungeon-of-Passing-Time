@@ -25,10 +25,11 @@ public class PathfindingNode : IHeapItem<PathfindingNode>
         gridY = _gridY;
     }
 
-    public int fCost 
-    { get 
-        { 
-            return gCost + hCost; 
+    public int fCost
+    {
+        get
+        {
+            return gCost + hCost;
         }
     }
 

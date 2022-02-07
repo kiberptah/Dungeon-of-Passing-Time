@@ -8,7 +8,7 @@ public class NPC_Controller : MonoBehaviour
     public ActorControllerConnector actor;
 
 
-    GameObject weaponObject;
+    public GameObject weaponObject;
     Weapon weaponScript;
 
     void OnEnable()
@@ -24,11 +24,23 @@ public class NPC_Controller : MonoBehaviour
     {
 
     }
-    public void Input_Movement(Vector3 movementDirection)
+    public void Input_Movement(Vector2 movementDirection)
     {
+        testmovementDirection = movementDirection;
+
         movementDirection = movementDirection.normalized;
+        //Vector2 movementOffset = Vector2.Perpendicular(movementDirection) * 0.95f;
+
+        //movementDirection += movementOffset;
+        //Debug.Log("movementDirection = " + movementDirection);
 
         actor.Input_Move(movementDirection);
+    }
+    Vector3 testmovementDirection;
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(actor.transform.position, actor.transform.position + testmovementDirection);
     }
     public void Input_Ability()
     {

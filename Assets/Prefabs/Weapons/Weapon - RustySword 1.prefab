@@ -366,9 +366,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25fabde92fc8dc4597b621e32f3bf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: e15bb9e3ee4080e49aabea9b33eb54a8, type: 2}
+  stats: {fileID: 11400000, guid: d151364f80e912d4e96ed2c9d2873fd8, type: 2}
   currentVelocity: 0
   currentDamage: 0
+  currentCurve: 0
+  functionXOffset: 0
+  functionYOffset: 0
   slashCollider: {fileID: 7803989515013692249}
   pierceCollider: {fileID: 170783791029400476}
   localHolder: {fileID: 2669357897576410750}
