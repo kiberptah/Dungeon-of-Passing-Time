@@ -72,6 +72,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -496,6 +497,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      enemy_dead_8x_12: -871270224856424851
+      enemy_dead_8x_11: 2103684375650296946
+      enemy_dead_8x_3: 2785007120113655924
+      enemy_dead_8x_1: -5310966225220009031
+      enemy_dead_8x_2: -4426414472007985114
+      enemy_dead_8x_6: -1417992121316147323
+      enemy_dead_8x_15: -4473174827075376022
+      enemy_dead_8x_13: -5070501999392886504
+      enemy_dead_8x_0: -1483498779919716377
+      enemy_dead_8x_4: -3746409940894444709
+      enemy_dead_8x_9: -2422968628194322751
+      enemy_dead_8x_8: -8768747079210890860
+      enemy_dead_8x_10: -4574796669339467104
+      enemy_dead_8x_5: 8820828306252306613
+      enemy_dead_8x_14: -6921568618087303662
+      enemy_dead_8x_7: -8575299448250969715
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a389ba02e3bc47748b01ba3a60ad73cb, type: 3}
+  m_Name: PlayerSword_Draw
+  m_EditorClassIdentifier: 
+  states:
+  - name: Draw
+    spriteSheet: {fileID: 2800000, guid: 8d1b006258be48445ab0bdd6d013a8e3, type: 3}
+    frameLength: 30
+    directionsAmount: 1
+    directions:
+    - name: 0
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -1913854358, guid: 8d1b006258be48445ab0bdd6d013a8e3, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 893506665, guid: 8d1b006258be48445ab0bdd6d013a8e3, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: -1940368143, guid: 8d1b006258be48445ab0bdd6d013a8e3, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: -1876036491, guid: 8d1b006258be48445ab0bdd6d013a8e3, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 5
+        sprite: {fileID: -586190496, guid: 8d1b006258be48445ab0bdd6d013a8e3, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 6
+        sprite: {fileID: -634607283, guid: 8d1b006258be48445ab0bdd6d013a8e3, type: 3}

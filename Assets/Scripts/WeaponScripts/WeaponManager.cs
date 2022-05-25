@@ -1,49 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>
-/// ATTACH TO ACTORS NOT THE WEAPON ! ! !
-/// </summary>
+using System;
+
 public class WeaponManager : MonoBehaviour
 {
-    int selectedWeaponSlot = 0;
+    ActorConnector actorConnector;
+    public Transform weaponHolder;
+    [HideInInspector] public GameObject weaponObject;
+    [HideInInspector] public WeaponConnector weaponConnector;
 
+    int selectedWeaponSlot = 0;
+    public GameObject[] weaponsSheathed = new GameObject[2];
     [HideInInspector] public bool isWeaponDrawn = false;
 
-    public GameObject[] weaponsSheathed = new GameObject[2];
+    Vector2 savedWeaponPosition = Vector2.up;
 
-    WeaponController weaponController;
-    private void Awake()
+    public event Action<GameObject, WeaponConnector> updateDrawnWeapon;
+    void Awake()
     {
-        weaponController = GetComponent<WeaponController>();
+        actorConnector = GetComponent<ActorConnector>();
     }
-    private void Start()
-    {    
-        // Spawn sheathed weapons in the scene to avoid headache 
-        for (int i = 0; i < weaponsSheathed.Length; ++i)
-        {
-            if (weaponsSheathed[i] != null)
-            {
-                weaponsSheathed[i] = Instantiate(weaponsSheathed[i], transform);
-                weaponsSheathed[i].SetActive(false);
-            }
-        }        
-    }
-
-    public void Input_DrawOrSheathWeapon(Vector2 _position = new Vector2())
+    #region Input
+    public void Input_DrawOrSheathWeapon(Vector2? _mousePosition = null)
     {
         if (isWeaponDrawn == false)
         {
-            Input_DrawWeapon(_position);
+            Input_DrawWeapon(_mousePosition);
         }
         else
         {
             Input_SheathWeapon();
         }
     }
-    public void Input_DrawWeapon(Vector2 _position = new Vector2())
+    public void Input_DrawWeapon(Vector2? _mousePosition = null)
     {
-        DrawWeapon(selectedWeaponSlot, _position);
+        DrawWeapon(selectedWeaponSlot, _mousePosition);
     }
     public void Input_SheathWeapon()
     {
@@ -52,33 +44,66 @@ public class WeaponManager : MonoBehaviour
     public void Input_NextWeaponSlot()
     {
         NextWeaponSlot();
-    }    
+    }
 
-
-
-    void DrawWeapon(int weaponSlot, Vector2 _position = new Vector2())
+    #region Input Routing (to weapon)
+    public void UpdateSwingDirection(int _direction, float _maxSwingOffset = 1)
     {
-        if (weaponsSheathed[weaponSlot] != null)
-        {
-            weaponController.PlaceWeaponInHand(weaponsSheathed[weaponSlot], _position);
+        weaponConnector.Input_UpdateSwingDirection(_direction, _maxSwingOffset);
+    }
+    public void SpecialAttack()
+    {
+        weaponConnector.Input_SpecialStart();
+    }
 
-            Destroy(weaponsSheathed[weaponSlot]);
+    #endregion
+    #endregion
+
+
+
+
+    #region Sheath/Draw
+    void DrawWeapon(int weaponSlot, Vector2? _mousePosition = null)
+    {
+        Debug.Log("_mousePosition " + _mousePosition);
+        Debug.Log("actorConnector.transform.position " + actorConnector.transform.position);
+
+        if (weaponsSheathed[weaponSlot] != null && isWeaponDrawn == false)
+        {
+            if (_mousePosition != null)
+            {
+                // if (_mousePosition == actorConnector.transform.position)
+                // {
+                //     _mousePosition += Vector2.up;
+                // }
+                savedWeaponPosition = _mousePosition.Value;
+            }
 
             isWeaponDrawn = true;
+
+            weaponObject = Instantiate(weaponsSheathed[weaponSlot], transform);
+            weaponConnector = weaponObject.GetComponent<WeaponConnector>();
+            weaponConnector.Initialize(savedWeaponPosition, weaponHolder, actorConnector);
+
+            updateDrawnWeapon?.Invoke(weaponObject, weaponConnector);
         }
     }
     void SheathWeapon(int weaponSlot)
-    {      
+    {
+        //Debug.Log("sheath");
+        //Debug.Log("isWeaponDrawn " + isWeaponDrawn);
+
         if (isWeaponDrawn == true)
         {
-            weaponsSheathed[weaponSlot] = Instantiate(weaponController.weaponObject, transform);
-            weaponsSheathed[weaponSlot].SetActive(false);
-
-            weaponController.RemoveWeapon();
-
             isWeaponDrawn = false;
+            savedWeaponPosition = weaponObject.transform.position;
+
+            Destroy(weaponObject);
         }
     }
+    #endregion
+
+
     void NextWeaponSlot()
     {
         int previousWeaponSlot = selectedWeaponSlot;
@@ -87,16 +112,16 @@ public class WeaponManager : MonoBehaviour
         {
             selectedWeaponSlot = 0;
         }
-        if(selectedWeaponSlot < 0)
+        if (selectedWeaponSlot < 0)
         {
             selectedWeaponSlot = weaponsSheathed.Length;
         }
 
         if (isWeaponDrawn)
         {
-            Vector2 tempPos = weaponController.weaponObject.transform.position;
+            Vector2 tempPos = weaponObject.transform.position;
             SheathWeapon(previousWeaponSlot);
-            DrawWeapon(selectedWeaponSlot, tempPos);
+            DrawWeapon(selectedWeaponSlot);
         }
     }
 }

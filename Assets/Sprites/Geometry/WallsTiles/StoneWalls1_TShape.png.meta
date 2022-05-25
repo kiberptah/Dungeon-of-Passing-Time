@@ -72,6 +72,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -516,6 +517,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      StoneWalls1_TShape_10: 6063557005117377754
+      StoneWalls1_TShape_4: 6826852151815545735
+      StoneWalls1_TShape_1: -4392935513672118662
+      StoneWalls1_TShape_6: -6542041825383904533
+      StoneWalls1_TShape_13: -34699476762366641
+      StoneWalls1_TShape_9: 3271476157582237892
+      StoneWalls1_TShape_11: -3527057389838013729
+      StoneWalls1_TShape_15: -225746254085845928
+      StoneWalls1_TShape_0: 7174370039745316080
+      StoneWalls1_TShape_3: -8036729244989985801
+      StoneWalls1_TShape_2: 6500412841499904314
+      StoneWalls1_TShape_12: 711581694176671221
+      StoneWalls1_TShape_5: 838362422061068770
+      StoneWalls1_TShape_7: 2181330331597127023
+      StoneWalls1_TShape_8: 4362496458598281947
+      StoneWalls1_TShape_14: -3737741210176628123
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

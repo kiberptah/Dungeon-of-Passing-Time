@@ -7,11 +7,13 @@ public class CameraShake : MonoBehaviour
     public Transform mainCamera;
     private void OnEnable()
     {
-        EventDirector.somebody_TakeDamage += CatchHitInfo;
+        //EventDirector.somebody_TakeDamage += CatchHitInfo;
+        EventDirector.somebody_TookDamage += CatchHitInfo;
     }
     private void OnDisable()
     {
-        EventDirector.somebody_TakeDamage -= CatchHitInfo;
+        //EventDirector.somebody_TakeDamage -= CatchHitInfo;
+        EventDirector.somebody_TookDamage -= CatchHitInfo;
     }
 
     private void Start()
@@ -29,7 +31,9 @@ public class CameraShake : MonoBehaviour
 
     void CatchHitInfo(Transform who, float damage, Transform byWhom)
     {
-        if (byWhom.transform.tag == "Player")
+        //Debug.Log("hit by " + byWhom + " to " + who);
+
+        if (byWhom.GetComponent<ActorConnector>().isPlayerControlled == true)
         {
             float intensity = 0.05f;
             float duration = 0.1f;
@@ -37,7 +41,7 @@ public class CameraShake : MonoBehaviour
             StartCoroutine(Shaking(intensity, duration));
 
         }
-        if (who.transform.tag == "Player")
+        if (who.GetComponent<ActorConnector>().isPlayerControlled == true)
         {
             float intensity = 0.2f;
             float duration = 0.025f;
@@ -47,7 +51,7 @@ public class CameraShake : MonoBehaviour
 
         }
     }
-    
+
     IEnumerator Shaking(float intensity, float duration)
     {
         Vector3 originalPosition;

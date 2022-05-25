@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpriteFlashing : MonoBehaviour
 {
+    #region DEPENDENCIES
+    ActorHealth actorHealth;
+    #endregion
     public float delay = 0.025f;
     public int flicksAmount = 2;
 
@@ -13,24 +16,27 @@ public class SpriteFlashing : MonoBehaviour
     Material originalMat;
     private void OnEnable()
     {
-        EventDirector.somebody_TakeDamage += Flash;
+        //EventDirector.somebody_TakeDamage += Flash;
+        actorHealth.TakingDamage += Flash;
     }
 
     private void OnDisable()
     {
-        EventDirector.somebody_TakeDamage -= Flash;
+        //EventDirector.somebody_TakeDamage -= Flash;
+        actorHealth.TakingDamage -= Flash;
+    }
+    void Awake()
+    {
+        actorHealth = GetComponent<ActorHealth>();
     }
     private void Start()
     {
         originalMat = sprite.material;
 
     }
-    void Flash(Transform who, float amount, Transform byWhom)
+    void Flash(float amount, float knockback, Transform byWhom)
     {
-        if (who == transform && amount > 0)
-        {
-            StartCoroutine("FlashingCR");
-        }
+        StartCoroutine("FlashingCR");
     }
 
     IEnumerator FlashingCR()

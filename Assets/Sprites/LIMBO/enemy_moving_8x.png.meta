@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -688,6 +689,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      enemy_moving_8x_2: -3391329180660224988
+      enemy_moving_8x_0: 223958270516840813
+      enemy_moving_8x_18: -7331440634204299231
+      enemy_moving_8x_16: -4337171599320074050
+      enemy_moving_8x_21: 4950927007883870247
+      enemy_moving_8x_23: 1211578004567806387
+      enemy_moving_8x_4: 9205688528763063834
+      enemy_moving_8x_17: -8772545507174092600
+      enemy_moving_8x_14: -3399982150723129548
+      enemy_moving_8x_12: -7064198361412834084
+      enemy_moving_8x_9: 496451377037919152
+      enemy_moving_8x_10: 1001916178824981784
+      enemy_moving_8x_20: 2572952959115238385
+      enemy_moving_8x_3: -3473783986786858207
+      enemy_moving_8x_11: -4782878649829415005
+      enemy_moving_8x_5: -1623298711555084025
+      enemy_moving_8x_13: -3387101406796791841
+      enemy_moving_8x_1: 7096461491712032624
+      enemy_moving_8x_19: -6271310922091343783
+      enemy_moving_8x_6: -4423325821465236887
+      enemy_moving_8x_8: 5149191670795101900
+      enemy_moving_8x_22: 9108984797917466981
+      enemy_moving_8x_7: 6009122028903783784
+      enemy_moving_8x_15: -7896641331466091914
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

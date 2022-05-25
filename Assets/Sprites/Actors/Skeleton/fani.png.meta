@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -304,6 +305,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      fani_5: 8197608187946883643
+      fani_4: 8425052311770849706
+      fani_7: 862156206509943282
+      fani_1: 8263354120806348729
+      fani_3: -2898514467810779481
+      fani_6: -2906095436349571867
+      fani_0: 1289341499621613
+      fani_2: -6215719977951301400
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -9,6 +9,8 @@ TagManager:
   - MouseCursor
   - Actor
   - Geometry
+  - PlayerController
+  - Corpse
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Weapon
   - MouseCursor
   - ShadowCastGeometry
-  - 
+  - Corpse
   - 
   - 
   - 
@@ -55,23 +57,29 @@ TagManager:
   - name: Corpses
     uniqueID: 3305523459
     locked: 0
-  - name: TrueGeometry
-    uniqueID: 1941938005
+  - name: ActorShadow
+    uniqueID: 4129188213
     locked: 0
   - name: Geometry
     uniqueID: 2394443699
     locked: 0
+  - name: Ob
+    uniqueID: 3583605481
+    locked: 0
   - name: Actors
     uniqueID: 2370671801
-    locked: 0
-  - name: GeometryAbove
-    uniqueID: 1187033785
     locked: 0
   - name: Swords
     uniqueID: 2048515407
     locked: 0
+  - name: GeometryAbove
+    uniqueID: 1187033785
+    locked: 0
   - name: ShadowCaster
     uniqueID: 3147868379
+    locked: 0
+  - name: TrueGeometry
+    uniqueID: 1941938005
     locked: 0
   - name: UI
     uniqueID: 901538827

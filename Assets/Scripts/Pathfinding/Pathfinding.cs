@@ -6,20 +6,18 @@ using System;
 
 public class Pathfinding : MonoBehaviour
 {
-    PathRequestManager requestManager;
     Grid grid;
 
     private void Awake()
     {
-        requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<Grid>();
     }
 
-    public void StartFindPath(Vector3 startPos, Vector3 targetPos)
+    public void StartFindPath(Vector3 startPos, Vector3 targetPos, Action<Vector3[], bool> managerCallback)
     {
-        StartCoroutine(FindPath(startPos, targetPos));
+        StartCoroutine(FindPath(startPos, targetPos, managerCallback));
     }
-    IEnumerator FindPath(Vector3 _startPos, Vector3 _targetPos)
+    IEnumerator FindPath(Vector3 _startPos, Vector3 _targetPos, Action<Vector3[], bool> managerCallback)
     {
         Stopwatch sw = new Stopwatch();
         sw.Start();
@@ -30,16 +28,7 @@ public class Pathfinding : MonoBehaviour
         PathfindingNode startNode = grid.NodeFromWorldPoint(_startPos);
         PathfindingNode targetNode = grid.NodeFromWorldPoint(_targetPos);
 
-        /// ??? ??? ??? 
-        if (!startNode.walkable || !targetNode.walkable)
-        {
-            /*
-            startNode.walkable = true;
-            targetNode.walkable = true;
-            */
-        }
-
-        if (startNode.walkable && targetNode.walkable)
+        if (startNode.walkable && targetNode.walkable && startNode != targetNode)
         {
             Heap<PathfindingNode> openSet = new Heap<PathfindingNode>(grid.GridSize);
             HashSet<PathfindingNode> closeSet = new HashSet<PathfindingNode>();
@@ -53,9 +42,7 @@ public class Pathfinding : MonoBehaviour
                 if (currentNode == targetNode)
                 {
                     sw.Stop();
-                    //print("Path found: " + sw.ElapsedMilliseconds + " ms");
                     pathSucess = true;
-                    //pathSucess = false;
                     break;
                 }
                 foreach (PathfindingNode neighbour in grid.GetNeighbours(currentNode))
@@ -93,8 +80,15 @@ public class Pathfinding : MonoBehaviour
         }
 
 
+        if (waypoints.Length == 0)
+        {
+            // I don't know why it happens, but sometimes length is zero and it breaks therefor here's the fix...
+            pathSucess = false;
+        }
+        //requestManager.FinishedProcessingPath(waypoints, pathSucess);
+        //print(waypoints.Length);
+        managerCallback(waypoints, pathSucess);
 
-        requestManager.FinishedProcessingPath(waypoints, pathSucess);
 
         yield return null;
     }
@@ -118,12 +112,14 @@ public class Pathfinding : MonoBehaviour
 
     Vector3[] SimplifyPath(List<PathfindingNode> path)
     {
+        ///Get rid of waypoints that dont chage direction///
+
         List<Vector3> waypoints = new List<Vector3>();
-        Vector2 directionOld = Vector2.zero;
+        Vector3 directionOld = Vector3.zero;
 
         for (int i = 1; i < path.Count; i++)
         {
-            Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
+            Vector3 directionNew = new Vector3(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
             if (directionNew != directionOld)
             {
                 waypoints.Add(path[i - 1].worldPosition);

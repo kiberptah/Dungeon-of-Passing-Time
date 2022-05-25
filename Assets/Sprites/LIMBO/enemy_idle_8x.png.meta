@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -304,6 +305,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      enemy_idle_8x_3: -7125685414276861753
+      enemy_idle_8x_7: -4710591644359808914
+      enemy_idle_8x_1: -1244645062083935034
+      enemy_idle_8x_2: 67472429988467316
+      enemy_idle_8x_5: -3948535165933252456
+      enemy_idle_8x_6: -8050334423727304877
+      enemy_idle_8x_0: 1843189965224781227
+      enemy_idle_8x_4: 1091067770167149104
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

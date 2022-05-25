@@ -19,7 +19,7 @@ public class DamagePopUp : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     IEnumerator Dissolving()
@@ -30,7 +30,7 @@ public class DamagePopUp : MonoBehaviour
         {
             float subtraction = Time.deltaTime / lifeTime;
             //transform.localScale = new Vector3(transform.localScale.x - subtraction, transform.localScale.y - subtraction, transform.localScale.z - subtraction);
-            tmp.color = new Color (tmp.color.r, tmp.color.g, tmp.color.b, tmp.color.a - subtraction);
+            tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, tmp.color.a - subtraction);
             lifeTimeCounter -= subtraction;
 
             if (lifeTimeCounter <= 0)

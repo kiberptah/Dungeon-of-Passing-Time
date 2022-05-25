@@ -126,6 +126,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1068,6 +1069,41 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      StoneWalls1_Internal_32: -4832466941044330898
+      StoneWalls1_Internal_9: -7720925006896998618
+      StoneWalls1_Internal_13: -5618886510141885241
+      StoneWalls1_Internal_0: 8993216604665859789
+      StoneWalls1_Internal_30: 4906779990878201185
+      StoneWalls1_Internal_3: 1973404594377879484
+      StoneWalls1_Internal_7: 7936246574099584291
+      StoneWalls1_Internal_27: 3231827113265774452
+      StoneWalls1_Internal_28: 8349413867872609474
+      StoneWalls1_Internal_19: 3169274203306325277
+      StoneWalls1_Internal_18: 2031156638226402409
+      StoneWalls1_Internal_16: 7559073844464261373
+      StoneWalls1_Internal_15: 5740573902114268282
+      StoneWalls1_Internal_17: -1852492116372192364
+      StoneWalls1_Internal_2: 3409762702383204855
+      StoneWalls1_Internal_8: 7079603426239122561
+      StoneWalls1_Internal_33: -8815087400196236897
+      StoneWalls1_Internal_14: 3617238878164569778
+      StoneWalls1_Internal_22: -8782152961130564988
+      StoneWalls1_Internal_31: 2921007594363971415
+      StoneWalls1_Internal_23: 6490482368220497070
+      StoneWalls1_Internal_6: -4837843614732391883
+      StoneWalls1_Internal_1: 6504585306133800739
+      StoneWalls1_Internal_4: 3109434047124202377
+      StoneWalls1_Internal_5: -7007176121772945388
+      StoneWalls1_Internal_11: 6675982057110971712
+      StoneWalls1_Internal_24: -3320673629406423458
+      StoneWalls1_Internal_10: 2319624641810028209
+      StoneWalls1_Internal_20: -4688192276831745696
+      StoneWalls1_Internal_12: -9134507243389583960
+      StoneWalls1_Internal_26: -8898923037822704425
+      StoneWalls1_Internal_25: -6927682363687327801
+      StoneWalls1_Internal_21: -4669738822256832296
+      StoneWalls1_Internal_29: -4347747657450135829
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

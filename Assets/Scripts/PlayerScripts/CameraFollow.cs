@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public PlayerInput playerInput;
+    PlayerController playerController;
     Transform target;
     Rigidbody2D rb;
     public float force = 1f;
@@ -12,7 +12,8 @@ public class CameraFollow : MonoBehaviour
     public float minimalOffset = 0.5f;
     void Awake()
     {
-        target = playerInput.actorControllerConnector.transform;
+        playerController = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerController>();
+        target = playerController.actorConnector.transform;
     }
     private void Start()
     {

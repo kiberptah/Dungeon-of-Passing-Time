@@ -114,6 +114,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -951,6 +952,37 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      StoneWalls1_External_9: 6681148901181488172
+      StoneWalls1_External_1: -7475632136365206452
+      StoneWalls1_External_22: -1011161325089740556
+      StoneWalls1_External_20: 3499411071823723071
+      StoneWalls1_External_24: 8142115132517276964
+      StoneWalls1_External_16: -6693092949195777084
+      StoneWalls1_External_10: -1206376893337077508
+      StoneWalls1_External_27: -1691376665565519488
+      StoneWalls1_External_4: -8412636269949659265
+      StoneWalls1_External_17: 6923586350377433279
+      StoneWalls1_External_25: 7674936154672561019
+      StoneWalls1_External_12: 1288486855447589937
+      StoneWalls1_External_11: 381236035155114859
+      StoneWalls1_External_18: -812947838820067245
+      StoneWalls1_External_14: -9067170034784422317
+      StoneWalls1_External_26: -2129630664829530466
+      StoneWalls1_External_13: -491675180889616840
+      StoneWalls1_External_6: -920843265299501228
+      StoneWalls1_External_28: 3639944014373337570
+      StoneWalls1_External_3: 5751789880775411759
+      StoneWalls1_External_0: -2653442087230768171
+      StoneWalls1_External_23: 913125525698022333
+      StoneWalls1_External_5: -4995897893592062082
+      StoneWalls1_External_2: -6094164104769902306
+      StoneWalls1_External_15: 3668512787077063634
+      StoneWalls1_External_19: -137717201974702955
+      StoneWalls1_External_29: -49239909338331988
+      StoneWalls1_External_7: 6573209246461934580
+      StoneWalls1_External_8: 6244742506945992538
+      StoneWalls1_External_21: 3885568215940522580
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

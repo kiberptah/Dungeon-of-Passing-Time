@@ -8,11 +8,13 @@ public class DamagePopUpsDirector : MonoBehaviour
 
     private void OnEnable()
     {
-        EventDirector.somebody_TakeDamage += SpawnDamagePopUp;
+        //EventDirector.somebody_TakeDamage += SpawnDamagePopUp;
+        EventDirector.somebody_TookDamage += SpawnDamagePopUp;
     }
     private void OnDisable()
     {
-        EventDirector.somebody_TakeDamage -= SpawnDamagePopUp;
+        //EventDirector.somebody_TakeDamage -= SpawnDamagePopUp;
+        EventDirector.somebody_TookDamage -= SpawnDamagePopUp;
     }
 
     void SpawnDamagePopUp(Transform who, float amount, Transform fromWhom)

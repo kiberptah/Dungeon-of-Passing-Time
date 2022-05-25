@@ -5,52 +5,30 @@ using System;
 
 public class ActorStamina : MonoBehaviour
 {
-    ActorStats actorStats;
-    float maxStamina;
-    public float currentStamina;
-    float regenPerSecond;
+    public float maxStamina;
+    float currentStamina;
+    public float regenPerSecond;
 
 
     public float minimalSpeedMod = .5f;
     public float speedDebuffThreshold = .9f;
 
     public event Action<float, float> updateStaminaInfo; // current, max
-    public event Action<float> updateStaminaWalkspeedMod;
-    
-    private void OnEnable()
-    {
-        
-        EventDirector.somebody_LoseStamina += SubtractStamina;
-        EventDirector.somebody_GainStamina += AddStamina;
-        
-    }
-    private void OnDisable()
-    {
-        
-        EventDirector.somebody_LoseStamina -= SubtractStamina;
-        EventDirector.somebody_GainStamina -= AddStamina;
-        
+    //public event Action<float> updateStaminaWalkspeedMod;
 
-    }
-    void Start()
+    void Awake()
     {
-        actorStats = GetComponent<ActorStats>();
-
-        maxStamina = actorStats.maxStamina;
-        regenPerSecond = actorStats.staminaRegenPerSecond;
-
         currentStamina = maxStamina;
     }
 
-    // Update is called once per frame
     private void Update()
     {
 
         RegenerateStamina();
-        ChangeWalkspeedBasedOnStamina();
+        //ChangeWalkspeedBasedOnStamina();
     }
 
-    void ChangeWalkspeedBasedOnStamina()
+    /* void ChangeWalkspeedBasedOnStamina()
     {
         // it is kinda shitty in terms of compatibility with multiple speed modifiers
 
@@ -60,8 +38,24 @@ public class ActorStamina : MonoBehaviour
         {
             actorStats.walkspeed_StaminaMod = 1f;
         }
+    } */
+
+
+
+    public bool TrySubtractingStamina(float amount)
+    {
+        if (currentStamina >= amount)
+        {
+            SubtractStamina(amount);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
+    #region Stamina Management
     void RegenerateStamina()
     {
         currentStamina += regenPerSecond * Time.deltaTime;
@@ -69,22 +63,17 @@ public class ActorStamina : MonoBehaviour
         updateStaminaInfo?.Invoke(currentStamina, maxStamina);
     }
 
-    void SubtractStamina(Transform who, float amount)
+    void SubtractStamina(float amount)
     {
-        if (who == transform)
-        {
-            currentStamina -= amount;
-            updateStaminaInfo?.Invoke(currentStamina, maxStamina);
-        }
+        currentStamina -= amount;
+        updateStaminaInfo?.Invoke(currentStamina, maxStamina);
     }
-    void AddStamina(Transform who, float amount)
+    void AddStamina(float amount)
     {
-        if (who == transform)
-        {
-            currentStamina += amount;
-            updateStaminaInfo?.Invoke(currentStamina, maxStamina);
-        }
+        currentStamina += amount;
+        updateStaminaInfo?.Invoke(currentStamina, maxStamina);
     }
+    #endregion
 
 
 }

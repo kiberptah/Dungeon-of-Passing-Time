@@ -44,9 +44,13 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < gridSizeY; ++y)
             {
+                /*  Vector3 worldPoint = worldBottomLeft
+                     + Vector3.right * (x * nodeDiameter + nodeRadius)
+                     + Vector3.up * (y * nodeDiameter + nodeRadius); */
                 Vector3 worldPoint = worldBottomLeft
-                    + Vector3.right * (x * nodeDiameter + nodeRadius)
-                    + Vector3.up * (y * nodeDiameter + nodeRadius);
+                    + Vector3.right * x * nodeDiameter + Vector3.right * nodeRadius
+                    + Vector3.up * y * nodeDiameter + Vector3.up * nodeRadius;
+
                 bool walkable = !Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter * nodeScanScale, nodeDiameter * nodeScanScale), 0, unwalkableMask.value);
                 grid[x, y] = new PathfindingNode(walkable, worldPoint, x, y);
                 //Debug.Log("grid[" + x + "," + y + "]: " + worldPoint);
@@ -123,7 +127,7 @@ public class Grid : MonoBehaviour
 
                 if (!n.walkable)
                 {
-                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter * 0.9f));
                 }
 
             }

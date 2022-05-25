@@ -4,42 +4,27 @@ using UnityEngine;
 
 public class ActorStats : MonoBehaviour
 {
+    //public float maxHealth;
+    public float strength = 1f;
+
+    public float sightRadius;
+
     public enum Factions
     {
         player,
-        enemy
+        mage,
+        invader,
+        witch,
+
+        skeleton,
+        slime,
+        demon
+
     }
 
-    public Factions faction;
-    public Factions[] friendlyFactions;
+    public Factions[] belongsToFactions;
+    public Factions[] friendedFactions;
     public Factions[] hatedFactions;
 
-    [Header("Basic Stats")]
-    public float maxHealth;
-    public float maxStamina;
-    public float staminaRegenPerSecond;
-    [HideInInspector]
-    public float defaultWalkSpeed;
-    public float walkSpeed;
-    public float sightRadius;
-    [Header("Costs")]
-    public float dashCost;
-
-    private void Start()
-    {
-        defaultWalkSpeed = walkSpeed;
-    }
-
-
-
-    [Header("Modifiers (do not tweak)")]
-    public float walkspeed_Modifiers = 1f;
-    public float walkspeed_StaminaMod = 1f;
-
-    private void Update()
-    {
-        walkspeed_Modifiers = walkspeed_StaminaMod;
-
-    }
 
 }

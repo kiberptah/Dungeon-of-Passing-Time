@@ -120,6 +120,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -880,6 +881,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Skeleton_Movement_16: -3500933923456949893
+      Skeleton_Movement_13: -1077942328574679968
+      Skeleton_Movement_9: -2740280482234136042
+      Skeleton_Movement_10: -3691458575511872938
+      Skeleton_Movement_28: 7207872986123526594
+      Skeleton_Movement_15: 1801153410071045979
+      Skeleton_Movement_21: 3163768886905536609
+      Skeleton_Movement_2: -1828970513431970996
+      Skeleton_Movement_27: -7450788467448531221
+      Skeleton_Movement_5: -4698535309536716731
+      Skeleton_Movement_6: 8105396416542161155
+      Skeleton_Movement_4: -5938247191629304487
+      Skeleton_Movement_17: 8381828213917116111
+      Skeleton_Movement_26: -1966196165373899892
+      Skeleton_Movement_12: -8116638882578841303
+      Skeleton_Movement_1: 4843240901656376353
+      Skeleton_Movement_22: 8019756436686973980
+      Skeleton_Movement_23: 5260977914208043516
+      Skeleton_Movement_25: 3237426805393161450
+      Skeleton_Movement_7: -3186364739548320695
+      Skeleton_Movement_20: 1366016348223692167
+      Skeleton_Movement_0: 4847792869956474828
+      Skeleton_Movement_8: 1833331382689909241
+      Skeleton_Movement_14: 2990965196887537256
+      Skeleton_Movement_30: -4519339808374140900
+      Skeleton_Movement_3: -4667682527504912271
+      Skeleton_Movement_11: 8382693408861941608
+      Skeleton_Movement_18: 5445207607623943065
+      Skeleton_Movement_19: 8647544399905111374
+      Skeleton_Movement_24: -3867405831714112307
+      Skeleton_Movement_31: 7990256503263865342
+      Skeleton_Movement_29: -7973478586423547675
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

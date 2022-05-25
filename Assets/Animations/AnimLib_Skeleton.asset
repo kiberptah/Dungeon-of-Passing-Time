@@ -1,0 +1,246 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a389ba02e3bc47748b01ba3a60ad73cb, type: 3}
+  m_Name: AnimLib_Skeleton
+  m_EditorClassIdentifier: 
+  states:
+  - name: Idle
+    spriteSheet: {fileID: 2800000, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    frameLength: 150
+    directionsAmount: 8
+    directions:
+    - name: 0
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 1289341499621613, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    - name: 1
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 8263354120806348729, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    - name: 2
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -6215719977951301400, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    - name: 3
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -2898514467810779481, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    - name: 4
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 8425052311770849706, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    - name: 5
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 8197608187946883643, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    - name: 6
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -2906095436349571867, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+    - name: 7
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 862156206509943282, guid: a3940ba146169e94ab228e520cc876e3, type: 3}
+  - name: Walk
+    spriteSheet: {fileID: 2800000, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    frameLength: 150
+    directionsAmount: 8
+    directions:
+    - name: 7
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 4847792869956474828, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 4843240901656376353, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: -1828970513431970996, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: -4667682527504912271, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    - name: 6
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -5938247191629304487, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -4698535309536716731, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: 8105396416542161155, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: -3186364739548320695, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    - name: 5
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 1833331382689909241, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -2740280482234136042, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: -3691458575511872938, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: 8382693408861941608, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    - name: 4
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -8116638882578841303, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -1077942328574679968, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: 2990965196887537256, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: 1801153410071045979, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    - name: 3
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -3500933923456949893, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 8381828213917116111, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: 5445207607623943065, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: 8647544399905111374, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    - name: 2
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 1366016348223692167, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 3163768886905536609, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: 8019756436686973980, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: 5260977914208043516, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    - name: 1
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -3867405831714112307, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 3237426805393161450, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: -1966196165373899892, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: -7450788467448531221, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+    - name: 0
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 7207872986123526594, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -7973478586423547675, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 3
+        sprite: {fileID: -4519339808374140900, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 4
+        sprite: {fileID: 7990256503263865342, guid: 7a6c943b82d5fc4488fac8c6e176484d, type: 3}
+  - name: Death
+    spriteSheet: {fileID: 2800000, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    frameLength: 400
+    directionsAmount: 8
+    directions:
+    - name: 4
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 1262121431, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -427178691, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    - name: 5
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 1813731572, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 294350530, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    - name: 3
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -1334757457, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -1245349152, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    - name: 2
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -1154764998, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 885285873, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    - name: 6
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -1780654819, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -1668884082, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    - name: 7
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: 83771710, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: 84016927, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    - name: 1
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -161794692, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -598403295, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+    - name: 0
+      frames:
+      - eventHolder: {fileID: 0}
+        frameName: Frame 1
+        sprite: {fileID: -1160206193, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}
+      - eventHolder: {fileID: 0}
+        frameName: Frame 2
+        sprite: {fileID: -961322950, guid: 7bec8bc2313ce0f4081a287d36c55a9f, type: 3}

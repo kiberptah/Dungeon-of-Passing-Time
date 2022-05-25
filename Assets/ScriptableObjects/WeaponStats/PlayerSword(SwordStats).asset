@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da86bb594d8d1fa4f850e5e33cfdd6aa, type: 3}
+  m_Name: PlayerSword(SwordStats)
+  m_EditorClassIdentifier: 
+  slashDamage: 50
+  slashDamageTickDelay: 0.25
+  velocityDamageModifier: 1
+  slashKnockbackModifier: 20
+  pierceDamage: 15
+  pierceDamageTickDelay: 0.5
+  pierceKnockbackModifier: 10
+  pierceStaminaCost: 30
+  pierceAttackSpeed: 0.2
+  pierceHoldTime: 0.25
+  pierceRecoverSpeed: 0.03
+  piercingDistance: 2

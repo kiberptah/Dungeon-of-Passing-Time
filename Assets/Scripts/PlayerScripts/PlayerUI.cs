@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
 {
-    PlayerInput playerInput;
+    PlayerController playerController;
 
     [SerializeField] Transform playerHealthBar;
     [SerializeField] Transform playerStaminaBar;
@@ -14,22 +14,22 @@ public class PlayerUI : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        playerController = GetComponent<PlayerController>();
     }
     private void OnEnable()
     {
-        playerInput.actorControllerConnector.updateHealthInfo += UpdateHealthBar;
-        playerInput.actorControllerConnector.updateStaminaInfo += UpdateStaminaBar;
+        playerController.actorConnector.updateHealthInfo += UpdateHealthBar;
+        playerController.actorConnector.updateStaminaInfo += UpdateStaminaBar;
 
-        playerInput.actorControllerConnector.interactableAreaEntered += InteractableAreaEntered;
-        playerInput.actorControllerConnector.interactableAreaLeft += InteractableAreaLeft;
+        playerController.actorConnector.interactableAreaEntered += InteractableAreaEntered;
+        playerController.actorConnector.interactableAreaLeft += InteractableAreaLeft;
     }
     private void OnDisable()
     {
-        playerInput.actorControllerConnector.updateHealthInfo -= UpdateHealthBar;
+        playerController.actorConnector.updateHealthInfo -= UpdateHealthBar;
 
-        playerInput.actorControllerConnector.interactableAreaEntered -= InteractableAreaEntered;
-        playerInput.actorControllerConnector.interactableAreaLeft -= InteractableAreaLeft;
+        playerController.actorConnector.interactableAreaEntered -= InteractableAreaEntered;
+        playerController.actorConnector.interactableAreaLeft -= InteractableAreaLeft;
     }
 
     void UpdateHealthBar(float newHealth, float maxHealth)
