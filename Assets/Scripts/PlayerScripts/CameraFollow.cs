@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    public bool smoothFollow = true;
     PlayerController playerController;
     Transform target;
     Rigidbody2D rb;
@@ -20,23 +21,33 @@ public class CameraFollow : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        FollowTarget();
+        if (smoothFollow)
+        {
+            FollowTarget();
+        }
     }
-
+    void Update()
+    {
+        if (!smoothFollow)
+        {
+            StickFollow();
+        }
+    }
     void FollowTarget()
     {
         if (Vector2.Distance(target.position, transform.position) > minimalOffset
-            || (Vector2.Distance(target.position, transform.position) < minimalOffset && rb.velocity != Vector2.zero))
+                || (Vector2.Distance(target.position, transform.position) < minimalOffset && rb.velocity != Vector2.zero))
         {
             //force = Vector2.Distance(target.position, transform.position);
             rb.AddRelativeForce((target.position - transform.position) * force, ForceMode2D.Force);
 
         }
-        else
-        {
-            //transform.position = target.position;
-        }
+    }
+
+    void StickFollow()
+    {
+        transform.position = target.position;
     }
 }

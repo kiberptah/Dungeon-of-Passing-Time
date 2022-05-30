@@ -65,8 +65,8 @@ public class WeaponManager : MonoBehaviour
     #region Sheath/Draw
     void DrawWeapon(int weaponSlot, Vector2? _mousePosition = null)
     {
-        Debug.Log("_mousePosition " + _mousePosition);
-        Debug.Log("actorConnector.transform.position " + actorConnector.transform.position);
+        //Debug.Log("_mousePosition " + _mousePosition);
+        //Debug.Log("actorConnector.transform.position " + actorConnector.transform.position);
 
         if (weaponsSheathed[weaponSlot] != null && isWeaponDrawn == false)
         {

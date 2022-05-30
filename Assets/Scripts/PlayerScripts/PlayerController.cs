@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     }
     private void OnEnable()
     {
-        //playerInput.Character.Movement.performed += Input_Movement;
         playerInput = new PlayerInput();
         playerInput.Enable();
 
@@ -42,11 +41,12 @@ public class PlayerController : MonoBehaviour
 
         playerInput.Character.DrawWeapon.performed += DrawWeapon;
         playerInput.Character.SheathWeapon.performed += SheathWeapon;
+        playerInput.Character.NextWeaponSlot.performed += NextWeaponSlot;
 
-        /* 
-                EventDirector.dialogue_start += DisableInput;
-                EventDirector.dialogue_end += EnableInput;
-         */
+        playerInput.Character.Attack.performed += Attack;
+
+
+
 
         actorConnector.updateDrawnWeapon += UpdateDrawnWeapon;
     }
@@ -56,12 +56,12 @@ public class PlayerController : MonoBehaviour
 
         playerInput.Character.DrawWeapon.performed -= DrawWeapon;
         playerInput.Character.SheathWeapon.performed -= SheathWeapon;
-        //playerInput.Character.Movement.performed -= Input_Movement;
+        playerInput.Character.NextWeaponSlot.performed -= NextWeaponSlot;
 
-        /* 
-                EventDirector.dialogue_start -= DisableInput;
-                EventDirector.dialogue_end -= EnableInput;
-        */
+        playerInput.Character.Attack.performed -= Attack;
+
+
+
         actorConnector.updateDrawnWeapon -= UpdateDrawnWeapon;
     }
 
@@ -70,15 +70,29 @@ public class PlayerController : MonoBehaviour
     {
         if (!inputDisabled)
         {
-            Input_Weapon();
+            //Input_Weapon();
             Input_Movement();
-            Input_Interaction();
+            //Input_Interaction();
 
             Input_WeaponSwing();
         }
 
     }
-
+    void NextWeaponSlot(InputAction.CallbackContext call)
+    {
+        actorConnector.Input_NextWeaponSlot();
+    }
+    void Dash()
+    {
+        actorConnector.Input_Ability();
+    }
+    void Attack(InputAction.CallbackContext call)
+    {
+        if (weaponObject != null)
+        {
+            actorConnector.Input_SpecialAttack();
+        }
+    }
     void DrawWeapon(InputAction.CallbackContext call)
     {
         if (cursorScript.cursorCentered == false)
@@ -102,44 +116,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void Input_Weapon()
-    {
-
-        // if (Input.GetButtonDown("DrawWeapon"))
-        // {
-        //     actorConnector.Input_DrawOrSheathWeapon(customMouseCursor.position);
-        // }
-
-        if (Input.GetButtonDown("NextWeaponSlot"))
-        {
-            actorConnector.Input_NextWeaponSlot();
-        }
-
-        // if (Input.GetButtonDown("RMB"))
-        // {
-        //     actorConnector.Input_SpecialAttack();
-        //     //print("pierce");
-        // }
-
-    }
     void Input_Movement()
     {
         Vector2 movementDirection = Vector2.zero;
-        /* 
-                movementDirection.x = Input.GetAxis("Horizontal");
-                movementDirection.y = Input.GetAxis("Vertical");
-         */
+
         movementDirection = input_movement.ReadValue<Vector2>();
         movementDirection = movementDirection.normalized;
 
         actorConnector.Input_Move(movementDirection);
-
-        /* 
-                if (Input.GetButtonDown("Dash"))
-                {
-                    actorConnector.Input_Ability();
-                }
-         */
     }
 
     void Input_Interaction()

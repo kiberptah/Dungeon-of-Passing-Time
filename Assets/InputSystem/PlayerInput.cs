@@ -33,7 +33,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""id"": ""89ff06eb-7e4f-4cc9-b511-54a91f45afbd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -49,6 +49,24 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""aea0fb11-4b01-4b20-b4e3-bd625f8440bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextWeaponSlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""2fff7b6d-ddae-4b23-82ed-303a5ae280ee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PreviousWeaponSlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""11c011dc-e1ad-460d-b93e-c2f67311c481"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -175,7 +193,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""18c3ba36-936d-42a6-8a2e-d2b1409d2ebc"",
                     ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""DrawWeapon"",
@@ -186,7 +204,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""c339cc91-0ed6-4878-86ee-6f02bf407680"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""DrawWeapon"",
@@ -219,7 +237,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""39569801-b565-4afb-90d6-5e3ad2f70bf7"",
                     ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""SheathWeapon"",
@@ -230,10 +248,43 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""a4f786ba-7ce7-49b6-9bed-041a7a82b987"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""SheathWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d311c420-28cb-4d83-be36-207d695ae7cc"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeaponSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e217b25-29fe-4ef2-bdc4-e10335360f09"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeaponSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""823a71dd-9054-4c53-b2aa-42f54e133d3a"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousWeaponSlot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -275,6 +326,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Character_DrawWeapon = m_Character.FindAction("DrawWeapon", throwIfNotFound: true);
         m_Character_SheathWeapon = m_Character.FindAction("SheathWeapon", throwIfNotFound: true);
         m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
+        m_Character_NextWeaponSlot = m_Character.FindAction("NextWeaponSlot", throwIfNotFound: true);
+        m_Character_PreviousWeaponSlot = m_Character.FindAction("PreviousWeaponSlot", throwIfNotFound: true);
         m_Character_CursorDelta = m_Character.FindAction("CursorDelta", throwIfNotFound: true);
         m_Character_CursorPosition = m_Character.FindAction("CursorPosition", throwIfNotFound: true);
         m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
@@ -340,6 +393,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_DrawWeapon;
     private readonly InputAction m_Character_SheathWeapon;
     private readonly InputAction m_Character_Attack;
+    private readonly InputAction m_Character_NextWeaponSlot;
+    private readonly InputAction m_Character_PreviousWeaponSlot;
     private readonly InputAction m_Character_CursorDelta;
     private readonly InputAction m_Character_CursorPosition;
     private readonly InputAction m_Character_Movement;
@@ -350,6 +405,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @DrawWeapon => m_Wrapper.m_Character_DrawWeapon;
         public InputAction @SheathWeapon => m_Wrapper.m_Character_SheathWeapon;
         public InputAction @Attack => m_Wrapper.m_Character_Attack;
+        public InputAction @NextWeaponSlot => m_Wrapper.m_Character_NextWeaponSlot;
+        public InputAction @PreviousWeaponSlot => m_Wrapper.m_Character_PreviousWeaponSlot;
         public InputAction @CursorDelta => m_Wrapper.m_Character_CursorDelta;
         public InputAction @CursorPosition => m_Wrapper.m_Character_CursorPosition;
         public InputAction @Movement => m_Wrapper.m_Character_Movement;
@@ -371,6 +428,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Attack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @NextWeaponSlot.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNextWeaponSlot;
+                @NextWeaponSlot.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNextWeaponSlot;
+                @NextWeaponSlot.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNextWeaponSlot;
+                @PreviousWeaponSlot.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnPreviousWeaponSlot;
+                @PreviousWeaponSlot.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnPreviousWeaponSlot;
+                @PreviousWeaponSlot.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnPreviousWeaponSlot;
                 @CursorDelta.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCursorDelta;
                 @CursorDelta.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCursorDelta;
                 @CursorDelta.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCursorDelta;
@@ -393,6 +456,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @NextWeaponSlot.started += instance.OnNextWeaponSlot;
+                @NextWeaponSlot.performed += instance.OnNextWeaponSlot;
+                @NextWeaponSlot.canceled += instance.OnNextWeaponSlot;
+                @PreviousWeaponSlot.started += instance.OnPreviousWeaponSlot;
+                @PreviousWeaponSlot.performed += instance.OnPreviousWeaponSlot;
+                @PreviousWeaponSlot.canceled += instance.OnPreviousWeaponSlot;
                 @CursorDelta.started += instance.OnCursorDelta;
                 @CursorDelta.performed += instance.OnCursorDelta;
                 @CursorDelta.canceled += instance.OnCursorDelta;
@@ -429,6 +498,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnDrawWeapon(InputAction.CallbackContext context);
         void OnSheathWeapon(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnNextWeaponSlot(InputAction.CallbackContext context);
+        void OnPreviousWeaponSlot(InputAction.CallbackContext context);
         void OnCursorDelta(InputAction.CallbackContext context);
         void OnCursorPosition(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
