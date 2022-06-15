@@ -38,10 +38,10 @@ public class Weapon : MonoBehaviour
 
         // Correct Position to avoid visual artifacts
         transform.localPosition = transform.localPosition.normalized * stats.minDistanceFromBody;
-
+        transform.localPosition = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
         // Set up correct rotation
-        float weaponDirAngle = Vector3.SignedAngle(transform.up, transform.localPosition, Vector3.forward);
-        transform.Rotate(0, 0, weaponDirAngle);
+        float weaponDirAngle = Vector3.SignedAngle(transform.forward, transform.localPosition, Vector3.up);
+        transform.Rotate(0, weaponDirAngle, 0);
 
         gameObject.SetActive(true);
     }
@@ -74,26 +74,42 @@ public class Weapon : MonoBehaviour
     void WeaponSwinging()
     {
         // --- Project direction vector
-        Vector2 swingProjection = 10 * -Vector2.Perpendicular(transform.position - connector.weaponHolder.position);
-        swingProjection = connector.weaponHolder.TransformPoint(swingProjection);
-
+        //Vector3 swingProjection = 10 * -Vector2.Perpendicular(transform.position - connector.weaponHolder.position);
+        Vector3 swingProjection = 1 * Vector3.Cross(transform.localPosition, Vector3.up);
+        swingProjection = transform.TransformPoint(Vector3.right);
+        proj = swingProjection;
         // --- Actually move the weapon
+        
         transform.position
                 = Vector3.MoveTowards(transform.position, swingProjection, totalVelocity);
 
-        // --- Set weapon on a fixed distance from the player
-        transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y);
+        // ---Set weapon on a fixed distance from the player
+        //transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y);
         transform.localPosition = transform.localPosition.normalized * stats.minDistanceFromBody;
+    }
+    Vector3 proj = Vector3.zero;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(proj, .25f);
     }
     void AdjustWeaponAngle()
     {
-        float threshhold = 2f;
-        float weaponDirAngle = Vector3.SignedAngle(transform.up, transform.localPosition, Vector3.forward);
+
+        float threshhold = 1f;
+        float weaponDirAngle = Vector3.SignedAngle(transform.forward, transform.localPosition, Vector3.up);
+        //Debug.Log("transform.forward " + transform.forward);
+        //Debug.Log("transform.localPosition " + transform.localPosition);
+
+        float rotation = Mathf.Sign(weaponDirAngle) * Mathf.Clamp(stats.angleSpeed, 0, Mathf.Abs(weaponDirAngle));
+        //Debug.Log("weaponDirAngle " + weaponDirAngle);
+        //Debug.Log("rotation " + rotation);
 
         if (Mathf.Abs(weaponDirAngle) > threshhold)
         {
-            transform.Rotate(0, 0, Mathf.Sign(weaponDirAngle) * Mathf.Clamp(stats.angleSpeed, 0, Mathf.Abs(weaponDirAngle)));
+            transform.Rotate(0, rotation, 0);
         }
+
     }
     #endregion
 

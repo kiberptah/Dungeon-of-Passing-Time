@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ActorStats : MonoBehaviour
 {
-    //public float maxHealth;
     public float strength = 1f;
 
     public float sightRadius;

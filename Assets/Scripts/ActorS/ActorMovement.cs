@@ -11,7 +11,7 @@ public class ActorMovement : MonoBehaviour
     #endregion
 
     #region References
-    Rigidbody2D rb;
+    Rigidbody rb;
     #endregion
 
     public float walkSpeed = 45;
@@ -19,30 +19,31 @@ public class ActorMovement : MonoBehaviour
     public float dashCost = 35;
 
 
-
     Vector3 movementDirection = Vector3.zero;
     Vector3 lastDirection = Vector3.zero;
 
-    //public event Action<Vector2> UpdateMovementDirection;
-
+    #region Init
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         actorStamina = GetComponent<ActorStamina>();
         animManager = GetComponent<ActorAnimManager>();
     }
+    #endregion
 
     private void FixedUpdate()
     {
         Walk();
     }
+
+    
     void Walk()
     {
         if (movementDirection != Vector3.zero)
         {
             animManager.UpdateAnimation("walk", movementDirection);
 
-            rb.AddRelativeForce(movementDirection * walkSpeed, ForceMode2D.Force);
+            rb.AddRelativeForce(movementDirection * walkSpeed, ForceMode.Force);
             movementDirection = Vector3.zero; // to avoid bugs when input is no longer present
         }
         else
@@ -67,8 +68,7 @@ public class ActorMovement : MonoBehaviour
         {
             if (actorStamina.TrySubtractingStamina(dashCost))
             {
-                //rb.AddRelativeForce(movementDirection * dashForce, ForceMode2D.Impulse);
-                rb.AddRelativeForce(lastDirection * dashForce, ForceMode2D.Impulse);
+                rb.AddRelativeForce(lastDirection * dashForce, ForceMode.Impulse);
             }
         }
     }

@@ -15,9 +15,11 @@ public class WeaponConnector : MonoBehaviour
     public event Action Special_Attack_Start;
     public event Action Special_Attack_Stop;
 
-    public void Initialize(Vector2 _position, Transform _weaponHolder, ActorConnector _actor)
+    public void Initialize(Vector3 _position, Transform _weaponHolder, ActorConnector _actor)
     {
         transform.position = _position;
+        //Debug.Log("init position " + transform.position);
+
         transform.eulerAngles = new Vector3(0, 0, 0);
 
         weaponHolder = _weaponHolder;

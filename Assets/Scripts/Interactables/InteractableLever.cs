@@ -5,34 +5,48 @@ using UnityEngine.Events;
 
 public class InteractableLever : MonoBehaviour, IInteractable
 {
-    public string actionLabel { get => "Flip Lever"; }
-    public bool isAvailableforInteraction { get; set; }
-    public bool isInteractableByDefault = true;
+    bool isLeverUp = true;
+    public Sprite leverUp;
+    public Sprite leverDown;
+    public SpriteRenderer sprite;
+    public UnityEvent LeverDown;
+    public UnityEvent LeverUp;
 
-    public UnityEvent FlipLever;
+    bool isAvailableforInteraction = true;
     private void Start()
     {
-        isAvailableforInteraction = isInteractableByDefault;
+        ChangeSpriteToState();
     }
-    public void OnHoverStart(InteractionUI interactionUI, Transform _interactor)
-    {
-        interactionUI.Activate(actionLabel);
 
-    }
     public void OnInteract(Transform interactor)
     {
         if (isAvailableforInteraction)
         {
-            FlipLever?.Invoke();
+            if (isLeverUp)
+            {
+                isLeverUp = false;
+                LeverDown?.Invoke();
+            }
+            else
+            {
+                isLeverUp = true;
+                LeverUp?.Invoke();
+            }
+
+            ChangeSpriteToState();
         }
     }
-    public void OnHoverEnd(InteractionUI interactionUI, Transform _interactor)
+
+    void ChangeSpriteToState()
     {
-        interactionUI.Deactivate();
+        if (isLeverUp)
+        {
+            sprite.sprite = leverUp;
+        }
+        else
+        {
+            sprite.sprite = leverDown;
+        }
     }
 
-    public void switchInteractivity()
-    {
-        isAvailableforInteraction = !isAvailableforInteraction;
-    }
 }

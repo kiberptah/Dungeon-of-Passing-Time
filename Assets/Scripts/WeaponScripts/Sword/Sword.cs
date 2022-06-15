@@ -81,7 +81,7 @@ public class Sword : MonoBehaviour
 
         //ResetSwingVelocity();
         // ----- Move weapon forward
-        while (localHolder.transform.localPosition.magnitude < swordStats.piercingDistance - weaponStats.minDistanceFromBody
+        while (localHolder.transform.localPosition.magnitude < weaponStats.minDistanceFromBody * swordStats.piercingDistance - weaponStats.minDistanceFromBody
             && weaponObject != null)
         {
             if (weaponObject == null)
@@ -90,7 +90,7 @@ public class Sword : MonoBehaviour
             }
 
             //weaponScript.currentVelocity = weaponScript.stats.minVelocity;
-            Vector3 direction = localHolder.transform.localPosition + Vector3.up;
+            Vector3 direction = localHolder.transform.localPosition + Vector3.forward;
 
             localHolder.transform.localPosition
                 = Vector3.MoveTowards(localHolder.transform.localPosition, direction, swordStats.pierceAttackSpeed);

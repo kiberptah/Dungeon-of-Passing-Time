@@ -14,26 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friction: 0.75
   swingStages:
-  - acceleration: 0.01
-    deadzone: 0
-    velocityThreshold: 0.1
   - acceleration: 0.001
     deadzone: 0
+    velocityThreshold: 0.1
+  - acceleration: 0.0005
+    deadzone: 0
     velocityThreshold: 999
-  minVelocity: 0.01
+  minVelocity: 0.005
   maxVelocity: 0.3
-  weaponRotationSpeed: 99
-  weaponSensitivityAngle: 45
-  weaponMinDistanceFromBody: 1
-  slashDamage: 50
-  slashDamageTickDelay: 0.25
-  velocityDamageModifier: 2
-  slashKnockbackModifier: 20
-  pierceDamage: 15
-  pierceDamageTickDelay: 0.25
-  pierceKnockbackModifier: 10
-  pierceStaminaCost: 30
-  pierceAttackSpeed: 0.2
-  pierceHoldTime: 0.1
-  pierceRecoverSpeed: 0.06
-  piercingDistance: 1.5
+  angleSpeed: 999
+  sensitivityAngle: 45
+  minDistanceFromBody: 0.5

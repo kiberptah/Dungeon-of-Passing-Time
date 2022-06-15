@@ -7,7 +7,10 @@ public class GetKnockbacked : MonoBehaviour
     #region DEPENDENCIES
     ActorHealth actorHealth;
     #endregion
-    public float healthCapPercentForMaxKnockback = 0.1f;
+
+    [SerializeField] float healthCapPercentForMaxKnockback = 0.1f;
+
+    #region Init
     private void Awake()
     {
         actorHealth = GetComponent<ActorHealth>();
@@ -28,31 +31,26 @@ public class GetKnockbacked : MonoBehaviour
             actorHealth.TakingDamage -= Knockback;
         }
     }
+    #endregion
 
     public void Knockback(float damage, float knockback, Transform fromWhom)
     {
         GetKnockedRb(transform, knockback, damage, fromWhom);
     }
-    /* 
-    public void DirectKnockback(Transform who, float knockback, float damage, Transform byWhom)
-    {
-        GetKnockedRb(who, knockback, damage, byWhom);
-    } */
+
     void GetKnockedRb(Transform who, float knockback, float damage, Transform byWhom)
     {
-        transform.TryGetComponent(out Rigidbody2D rb);
+        transform.TryGetComponent(out Rigidbody rb);
         if (rb != null)
         {
             Vector3 knockbackDirection = (who.position - byWhom.position).normalized;
-
-            //knockback = Mathf.Clamp(knockback * (damage / (health.currentHealth * healthCapPercentForMaxKnockback)), 0, knockback);
 
             if (damage < 1)
             {
                 knockback = 0;
             }
 
-            rb.AddRelativeForce(knockbackDirection * knockback, ForceMode2D.Impulse);
+            rb.AddRelativeForce(knockbackDirection * knockback, ForceMode.Impulse);
         }
     }
 }

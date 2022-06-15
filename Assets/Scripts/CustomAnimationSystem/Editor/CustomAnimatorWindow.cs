@@ -204,6 +204,31 @@ public class CustomAnimatorWindow : EditorWindow
         }
         #endregion
 
+        // ADJUST EVENTS AMOUNT
+        // Cut down FRAMES amount to match frames per direction
+        if (_state.eventReference.Count() > framesPerDirection)
+        {
+            _state.eventReference.Clear();
+            Debug.Log("anim events Cleared");
+        }
+        // Expand FRAMES amount to match frames per direction
+        if (_state.eventReference.Count() < framesPerDirection)
+        {
+            while(_state.eventReference.Count() < framesPerDirection)
+            {
+                _state.eventReference.Add(null);
+            }
+        }
+        /*
+        // Cut down FRAMES amount to match frames per direction
+        if (_state.eventHolders.Count() > framesPerDirection)
+        {
+            while (_state.eventHolders.Count() > framesPerDirection)
+            {
+                _state.eventHolders.RemoveAt(_state.eventHolders.Count() - 1);
+            }
+        }
+        */
 
         // FOR EACH DIRECTION
         int spriteCounter = 0;
@@ -280,8 +305,12 @@ public class CustomAnimatorWindow : EditorWindow
                 _state.directions[i].frames[j].frameName = "Frame " + (j + 1).ToString();
                 _state.directions[i].frames[j].sprite = tempSprite;
 
-                _state.directions[i].frames[j].eventHolder
-                    = (AnimEvents)EditorGUILayout.ObjectField(_state.directions[i].frames[j].eventHolder, typeof(AnimEvents), allowSceneObjects: false, GUILayout.Width(64));
+                //_state.directions[i].frames[j].eventHolder
+                //    = (AnimEvents)EditorGUILayout.ObjectField(_state.directions[i].frames[j].eventHolder, typeof(AnimEvents), allowSceneObjects: true, GUILayout.Width(64));
+                _state.eventReference[j]
+                    = EditorGUILayout.TextField(_state.eventReference[j], GUILayout.Width(64));
+
+
                 #endregion
                 spriteCounter++;
 

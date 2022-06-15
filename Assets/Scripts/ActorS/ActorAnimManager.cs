@@ -4,24 +4,17 @@ using UnityEngine;
 using System.Linq;
 public class ActorAnimManager : MonoBehaviour
 {
-    #region DEPENDENCIES
-    ActorMovement actorMovement;
-
-    #endregion
-
     #region References
     AnimLib animLib;
     AnimPlayer animPlayer;
     public SpriteRenderer actorSprite;
     #endregion
 
-    [SerializeField]
-    string playOnEnable = "";
+    [SerializeField] string playOnEnable = "";
     [SerializeField] bool isLooping = true;
 
+    List<Vector3> cardinalVectors = new List<Vector3>();
 
-
-    List<Vector2> cardinalVectors = new List<Vector2>();
     public enum spriteDirection
     {
         S, SW, W, NW, N, NE, E, SE
@@ -30,23 +23,20 @@ public class ActorAnimManager : MonoBehaviour
 
     string currentSpriteAction;
 
-
+    #region Initialization
     private void Awake()
     {
         animLib = actorSprite.GetComponent<AnimLib>();
         animPlayer = actorSprite.GetComponent<AnimPlayer>();
-        actorMovement = GetComponent<ActorMovement>();
 
-
-        cardinalVectors.Add(Vector2.up);
-        cardinalVectors.Add(Vector2.left);
-        cardinalVectors.Add(Vector2.down);
-        cardinalVectors.Add(Vector2.right);
-        cardinalVectors.Add((Vector2.up + Vector2.left).normalized);
-        cardinalVectors.Add((Vector2.up + Vector2.right).normalized);
-        cardinalVectors.Add((Vector2.down + Vector2.left).normalized);
-        cardinalVectors.Add((Vector2.down + Vector2.right).normalized);
-
+        cardinalVectors.Add(Vector3.forward);
+        cardinalVectors.Add(Vector3.left);
+        cardinalVectors.Add(Vector3.back);
+        cardinalVectors.Add(Vector3.right);
+        cardinalVectors.Add((Vector3.forward + Vector3.left).normalized);
+        cardinalVectors.Add((Vector3.forward + Vector3.right).normalized);
+        cardinalVectors.Add((Vector3.back + Vector3.left).normalized);
+        cardinalVectors.Add((Vector3.back + Vector3.right).normalized);
     }
     void OnEnable()
     {
@@ -54,10 +44,12 @@ public class ActorAnimManager : MonoBehaviour
         {
             UpdateAnimation(playOnEnable, _looping: isLooping);
         }
-
     }
+    #endregion
 
-    public void UpdateAnimation(string _action, Vector2? _direction = null, bool _looping = true, bool waitTillSeqEnd = false)
+
+
+    public void UpdateAnimation(string _action, Vector3? _direction = null, bool _looping = true, bool waitTillSeqEnd = false)
     {
         UpdateDirection(_direction);
         UpdateAction(_action);
@@ -68,18 +60,22 @@ public class ActorAnimManager : MonoBehaviour
         {
             animPlayer.UpdateData(
                 sequence,
+                animLib.FindStateEvents(currentSpriteAction),
                 animLib.FindStateFrameLength(currentSpriteAction),
                 isLooping,
                 waitTillSeqEnd);
         }
 
     }
+
+
+
     void UpdateAction(string action)
     {
         action = action.ToLower();
         currentSpriteAction = action;
     }
-    void UpdateDirection(Vector2? _direction)
+    void UpdateDirection(Vector3? _direction)
     {
         if (_direction == null)
         {
@@ -89,15 +85,15 @@ public class ActorAnimManager : MonoBehaviour
         {
             int x = cardinalVectors.Count();
 
-            if (_direction.Value != Vector2.zero)
+            if (_direction.Value != Vector3.zero)
             {
                 int whichDir = 0;
                 float minimalAngle = 180f;
 
                 int i = 0;
-                foreach (Vector2 dir in cardinalVectors)
+                foreach (Vector3 dir in cardinalVectors)
                 {
-                    float angle = Vector2.Angle(_direction.Value, dir);
+                    float angle = Vector3.Angle(_direction.Value, dir);
                     if (angle < minimalAngle)
                     {
                         whichDir = i;
@@ -137,7 +133,5 @@ public class ActorAnimManager : MonoBehaviour
                 }
             }
         }
-
     }
-
 }

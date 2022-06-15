@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public class AnimFrame
 {
-    public AnimEvents eventHolder;
+    //public AnimEvents eventHolder;
     public string frameName;
     public Sprite sprite;
     public AnimFrame()

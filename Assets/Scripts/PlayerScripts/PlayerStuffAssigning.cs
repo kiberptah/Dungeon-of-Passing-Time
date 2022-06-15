@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerStuffAssigning : MonoBehaviour
 {
     public PlayerController playerController;
-    public Transform playerSprite;
     public CustomMouseCursorScript cursor;
-
+    //public Camera characterCamera;
     void Awake()
     {
-        cursor.player = playerSprite;
+        cursor.player = playerController.actorConnector;
+        //cursor.player = characterCamera.transform;
         playerController.cursorScript = cursor;
     }
 

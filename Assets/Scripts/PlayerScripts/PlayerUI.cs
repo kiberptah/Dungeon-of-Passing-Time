@@ -6,6 +6,9 @@ public class PlayerUI : MonoBehaviour
 {
     PlayerController playerController;
 
+
+    ActorHealth actorHealth;
+    ActorStamina actorStamina;
     [SerializeField] Transform playerHealthBar;
     [SerializeField] Transform playerStaminaBar;
 
@@ -15,21 +18,31 @@ public class PlayerUI : MonoBehaviour
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
+
+        playerController.actorConnector.transform.TryGetComponent(out actorHealth);
+        playerController.actorConnector.transform.TryGetComponent(out actorStamina);
     }
     private void OnEnable()
     {
-        playerController.actorConnector.updateHealthInfo += UpdateHealthBar;
-        playerController.actorConnector.updateStaminaInfo += UpdateStaminaBar;
-
-        playerController.actorConnector.interactableAreaEntered += InteractableAreaEntered;
-        playerController.actorConnector.interactableAreaLeft += InteractableAreaLeft;
+        if (actorHealth != null)
+        {
+            actorHealth.updateHealthInfo += UpdateHealthBar;
+        }
+        if (actorHealth != null)
+        {
+            actorStamina.updateStaminaInfo += UpdateStaminaBar;
+        }
     }
     private void OnDisable()
     {
-        playerController.actorConnector.updateHealthInfo -= UpdateHealthBar;
-
-        playerController.actorConnector.interactableAreaEntered -= InteractableAreaEntered;
-        playerController.actorConnector.interactableAreaLeft -= InteractableAreaLeft;
+        if (actorHealth != null)
+        {
+            actorHealth.updateHealthInfo -= UpdateHealthBar;
+        }
+        if (actorHealth != null)
+        {
+            actorStamina.updateStaminaInfo -= UpdateStaminaBar;
+        }
     }
 
     void UpdateHealthBar(float newHealth, float maxHealth)
@@ -44,19 +57,6 @@ public class PlayerUI : MonoBehaviour
         if (playerStaminaBar != null)
         {
             playerStaminaBar.localScale = new Vector3(newStamina / maxStamina, playerStaminaBar.localScale.y, playerStaminaBar.localScale.z);
-        }
-    }
-
-    void InteractableAreaEntered(IInteractable interactable)
-    {
-        interactionUI.Activate(interactable.actionLabel);
-        currentInteractable = interactable;
-    }
-    void InteractableAreaLeft(IInteractable interactable)
-    {
-        if (interactable == currentInteractable)
-        {
-            interactionUI.Deactivate();
         }
     }
 }

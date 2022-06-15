@@ -28,7 +28,7 @@ public class AI_Action_Combat_Swordsman_Jackky : AI_Action
     public override void Act(AI_StateController controller)
     {
         if (controller.actorHealth.CurrentHealth > controller.actorHealth.MaxHealth * healthPercentToChangeToSwing
-        || Vector2.Distance(controller.actor.position, controller.currentTarget.position) > swingingMinRange)
+        || Vector3.Distance(controller.actor.position, controller.currentTarget.position) > swingingMinRange)
         {
             TryToPierce(controller);
         }
@@ -52,17 +52,18 @@ public class AI_Action_Combat_Swordsman_Jackky : AI_Action
     {
         ActionData_Combat_Swordsman_Jackky data = (ActionData_Combat_Swordsman_Jackky)controller.actionData[this.name];
 
-        float attackAngle = 15f;
+        float attackAngle = 10f;
 
-        float maxAngle = 3f;
-        float minAngle = 1f;
+        float maxAngle = 1f;
+        float minAngle = .5f;
 
 
         Vector3 targetProjection = controller.actor.InverseTransformPoint(controller.currentTarget.position).normalized;
-        Vector3 bladeProjection = controller.actor.InverseTransformPoint(controller.input.weaponObject.transform.position).normalized;
+        //Vector3 bladeProjection = controller.actor.InverseTransformPoint(controller.input.weaponObject.transform.position).normalized;
+        Vector3 bladeProjection = controller.actor.InverseTransformPoint(controller.input.weaponObject.transform.position.OverrideY(0f)).normalized;
 
-        float angleBetweenBladeAndEnemy = Vector3.SignedAngle(bladeProjection, targetProjection, -controller.transform.forward);
-
+        float angleBetweenBladeAndEnemy = Vector3.SignedAngle(bladeProjection, targetProjection, controller.transform.up);
+        //Debug.Log("angleBetweenBladeAndEnemy " + angleBetweenBladeAndEnemy);
         if (angleBetweenBladeAndEnemy > maxAngle)
         {
             data.swingDirection = 1;
@@ -80,7 +81,7 @@ public class AI_Action_Combat_Swordsman_Jackky : AI_Action
 
         if (Mathf.Abs(angleBetweenBladeAndEnemy) <= attackAngle)
         {
-            if (Vector2.Distance(controller.actor.position, controller.currentTarget.position) < 3f)
+            if (Vector3.Distance(controller.actor.position, controller.currentTarget.position) < 3f)
             {
                 controller.input.Input_WeaponPierce();
             }

@@ -7,40 +7,23 @@ public class ActorStamina : MonoBehaviour
 {
     public float maxStamina;
     float currentStamina;
+
     public float regenPerSecond;
 
 
-    public float minimalSpeedMod = .5f;
-    public float speedDebuffThreshold = .9f;
-
     public event Action<float, float> updateStaminaInfo; // current, max
-    //public event Action<float> updateStaminaWalkspeedMod;
 
+    #region Init
     void Awake()
     {
         currentStamina = maxStamina;
     }
+    #endregion
 
-    private void Update()
+    void Update()
     {
-
         RegenerateStamina();
-        //ChangeWalkspeedBasedOnStamina();
     }
-
-    /* void ChangeWalkspeedBasedOnStamina()
-    {
-        // it is kinda shitty in terms of compatibility with multiple speed modifiers
-
-        actorStats.walkspeed_StaminaMod = minimalSpeedMod + (1 - minimalSpeedMod) * (currentStamina / maxStamina);
-
-        if (currentStamina / maxStamina > speedDebuffThreshold)
-        {
-            actorStats.walkspeed_StaminaMod = 1f;
-        }
-    } */
-
-
 
     public bool TrySubtractingStamina(float amount)
     {
@@ -62,7 +45,6 @@ public class ActorStamina : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
         updateStaminaInfo?.Invoke(currentStamina, maxStamina);
     }
-
     void SubtractStamina(float amount)
     {
         currentStamina -= amount;

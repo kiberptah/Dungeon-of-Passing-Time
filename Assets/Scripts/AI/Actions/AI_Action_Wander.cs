@@ -35,13 +35,13 @@ public class AI_Action_Wander : AI_Action
         if (data.path.Count() == 0)
         {
             float offsetX = Random.Range(-1f, 1f);
-            float offsetY = Random.Range(-1f, 1f);
-            Vector3 randomCoordinateNearby = new Vector2(controller.actor.position.x + offsetX, controller.actor.position.y + offsetY);
+            float offsetZ = Random.Range(-1f, 1f);
+            Vector3 randomCoordinateNearby = controller.actor.position + new Vector3(offsetX, 0, offsetZ);
             PathRequestManager.RequestPath(controller.actor.position, randomCoordinateNearby, OnPathFound);
         }
         else
         {
-            controller.input.Input_Movement(data.destination - controller.actor.position);
+            controller.input.Input_Movement((data.destination - controller.actor.position).normalized);
 
             float minDistanceToDest = 0.1f;
             if (Vector3.Distance(controller.actor.position, data.destination) < minDistanceToDest)
@@ -60,11 +60,15 @@ public class AI_Action_Wander : AI_Action
             {
                 data.path = newPath.Cast<Vector3>().ToList();
                 data.destination = data.path[0];
+
+                controller.debug_path = data.path;
+                controller.debug_destination = data.destination;
             }
         }
         controller.actionData[this.name] = data;
 
     }
 
+    
 
 }

@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2869154decc1949aa70c5a9cd97bf3, type: 3}
   m_Name: DebugSword(WeaponStats)
   m_EditorClassIdentifier: 
-  friction: 0.769
+  friction: 0.7
   swingStages:
-  - acceleration: 0.035
+  - acceleration: 0.015
     deadzone: 0.1
-    velocityThreshold: 0.15
+    velocityThreshold: 0.1
   - acceleration: 0.001
     deadzone: 0
     velocityThreshold: 999
-  minVelocity: 0.02
-  maxVelocity: 0.3
+  minVelocity: 0.01
+  maxVelocity: 0.12
   angleSpeed: 999
   sensitivityAngle: 30
-  minDistanceFromBody: 1.2
+  minDistanceFromBody: 0.5

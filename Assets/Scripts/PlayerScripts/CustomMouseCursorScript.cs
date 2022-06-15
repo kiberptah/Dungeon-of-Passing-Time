@@ -8,24 +8,26 @@ using UnityEngine.InputSystem;
 public class CustomMouseCursorScript : MonoBehaviour
 {
     public PlayerInput playerInput;
+    [HideInInspector] public ActorConnector player;
 
     [Header("Assign Manually")]
-    public Transform cursorObject;
+    [SerializeField] Transform camera;
     public SpriteRenderer cursorSprite;
     float defaultAlpha = 1f;
-    [Header("Do Not Assign")]
-    public Transform player;
 
 
-    Vector2 deltaMousePosition;
-
-    Vector3 previousPlayerPosition;
-    Vector2 deltaPlayerPosition;
-
-
+    [Header("Positioning")]
     InputAction cursorDelta;
-    Vector2 cursorPosRaw;
     InputAction cursorPosition;
+
+    Vector3 deltaMousePosition;
+    Vector3 cursorPosRaw;
+
+    Vector3 playerPosition = Vector3.zero;
+    Vector3 previousPlayerPosition;
+    Vector3 deltaPlayerPosition;
+
+    
 
 
     Vector3 previousCameraPosition;
@@ -39,6 +41,24 @@ public class CustomMouseCursorScript : MonoBehaviour
     public float sensitivity = 1f;
     public float desiredRangeLerp = 0.05f;
 
+    [Header("Sprites for States")]
+    [SerializeField] Sprite cursor_default;
+    [SerializeField] Sprite cursor_combat;
+    [SerializeField] Sprite cursor_look;
+    [SerializeField] Sprite cursor_interact;
+    [SerializeField] Sprite cursor_deny;
+    [SerializeField] Sprite cursor_talk;
+    public enum cursorState
+    {
+        original,
+        combat,
+        look,
+        interact,
+        deny,
+        talk
+    }
+    cursorState currentCursorState;
+    [Header("etc")]
 
     bool gamepadCursorInput = false;
     IEnumerator DisableGamepad()
@@ -48,8 +68,10 @@ public class CustomMouseCursorScript : MonoBehaviour
         yield return null;
     }
 
-    public bool combatMode = false;
-    public bool cursorCentered = false;
+    [HideInInspector] public bool combatMode = false;
+    [HideInInspector] public bool cursorCentered = false;
+
+    #region Init
     void OnEnable()
     {
         playerInput = new PlayerInput();
@@ -64,21 +86,29 @@ public class CustomMouseCursorScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        previousPlayerPosition = player.position;
-        cursorPosRaw = cursorObject.position;
+        playerPosition = player.transform.position;
+        playerPosition = playerPosition.OverrideY(0.5f);
+        previousPlayerPosition = playerPosition;
+
+        previousCameraPosition = camera.position;
+
+        cursorPosRaw = transform.position;
 
         defaultAlpha = cursorSprite.color.a;
     }
+    #endregion
 
-
-
+      
     void Update()
     {
         if (player != null)
         {
+            playerPosition = player.transform.position;
+            playerPosition = playerPosition.OverrideY(0.5f);
 
             GetMouseDelta();
             GetPlayerDelta();
+            GetCameraDelta();
 
             #region Detect Gamepad Input
             if (cursorPosition.ReadValue<Vector2>() != Vector2.zero)
@@ -86,7 +116,7 @@ public class CustomMouseCursorScript : MonoBehaviour
                 StopCoroutine("DisableGamepad");
                 gamepadCursorInput = true;
             }
-            else if (deltaMousePosition != Vector2.zero)
+            else if (deltaMousePosition != Vector3.zero)
             {
                 StartCoroutine("DisableGamepad");
             }
@@ -95,35 +125,35 @@ public class CustomMouseCursorScript : MonoBehaviour
             #region Read Cursor Position
             if (gamepadCursorInput)
             {
-                Vector2 pos = cursorPosition.ReadValue<Vector2>();
+                Vector3 pos = new Vector3(cursorPosition.ReadValue<Vector2>().x, 0, cursorPosition.ReadValue<Vector2>().y);
                 if (combatMode)
                 {
                     cursorPosRaw = pos.normalized * rangeLimit * desiredRangeCoeff
-                    + (Vector2)player.position;
+                    + playerPosition;
                 }
                 else
                 {
                     cursorPosRaw = pos.normalized * Mathf.Pow(pos.magnitude, 3) * rangeLimit * desiredRangeCoeff
-                    + (Vector2)player.position;
+                    + playerPosition;
                 }
-                cursorObject.position = cursorPosRaw;
+                transform.position = cursorPosRaw;
 
             }
             else
             {
-                cursorPosRaw += deltaMousePosition + deltaPlayerPosition;
-                cursorObject.position = cursorPosRaw;
+                //cursorPosRaw += deltaMousePosition + deltaPlayerPosition;
+                cursorPosRaw += deltaMousePosition + deltaCameraPosition;
+                transform.position = cursorPosRaw;
 
                 if (combatMode)
                 {
-
                     // Smoothly lerp to some distance from body
-                    Vector2 rawPosToLerp = deltaMousePosition + deltaPlayerPosition
-                     + (Vector2)player.position
-                     + ((Vector2)cursorObject.position - (Vector2)player.position).normalized * rangeLimit * desiredRangeCoeff;
+                    Vector3 rawPosToLerp = playerPosition 
+                        + deltaMousePosition + deltaPlayerPosition
+                     + (transform.position - playerPosition).normalized * rangeLimit * desiredRangeCoeff;
 
-                    cursorPosRaw = Vector3.Lerp(cursorObject.position, rawPosToLerp, desiredRangeLerp);
-                    cursorObject.position = Vector2.Lerp(cursorObject.position, cursorPosRaw, desiredRangeLerp);
+                    cursorPosRaw = Vector3.Lerp(transform.position, rawPosToLerp, desiredRangeLerp);
+                    transform.position = Vector3.Lerp(transform.position, cursorPosRaw, desiredRangeLerp);
 
                 }
             }
@@ -131,23 +161,24 @@ public class CustomMouseCursorScript : MonoBehaviour
 
             #region Color
             cursorSprite.color = new Color(cursorSprite.color.r, cursorSprite.color.g, cursorSprite.color.b,
-                defaultAlpha * Vector2.Distance(player.position, cursorObject.position));
+                Mathf.Clamp(Vector3.Distance(playerPosition, transform.position), 0, defaultAlpha));
             #endregion
 
-            #region Limit Range
+
+            #region Hard Limit Range
             if (isCursorLimitedToThePlayer) // cursor distance limit can be disabled
             {
-                if (Vector3.Distance(cursorObject.position, player.position) > rangeLimit)
+                if (Vector3.Distance(transform.position, playerPosition) > rangeLimit)
                 {
-                    cursorPosRaw = player.position + (cursorObject.position - player.position).normalized * rangeLimit;
-                    cursorObject.position = cursorPosRaw;
+                    cursorPosRaw = playerPosition + (transform.position - playerPosition).normalized * rangeLimit;
+                    transform.position = cursorPosRaw;
                 }
             }
             #endregion
 
 
             #region Check if cursor is dead centered on player
-            if (Vector2.Distance(cursorObject.position, (Vector2)player.position) < 0.1f)
+            if (Vector3.Distance(transform.position, playerPosition) < 0.1f)
             {
                 cursorCentered = true;
             }
@@ -156,25 +187,125 @@ public class CustomMouseCursorScript : MonoBehaviour
                 cursorCentered = false;
             }
             #endregion
+
+
+            ScanForInteractables();
         }
     }
 
+
+
     void GetPlayerDelta()
     {
-        deltaPlayerPosition = player.position - previousPlayerPosition;
-        previousPlayerPosition = player.position;
+        deltaPlayerPosition = playerPosition - previousPlayerPosition;
+        previousPlayerPosition = playerPosition;
     }
+
     void GetCameraDelta()
     {
-        deltaCameraPosition = Camera.main.transform.position - previousCameraPosition;
-        previousCameraPosition = Camera.main.transform.position;
+        deltaCameraPosition = camera.position - previousCameraPosition;
+        previousCameraPosition = camera.position;
     }
+
     void GetMouseDelta()
     {
-        deltaMousePosition = cursorDelta.ReadValue<Vector2>() * sensitivity * Time.deltaTime;
+        deltaMousePosition = new Vector3
+            (cursorDelta.ReadValue<Vector2>().x, 0, cursorDelta.ReadValue<Vector2>().y) 
+            * sensitivity * Time.deltaTime;
     }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public IInteractable potentialInteractable;
+
+    void ScanForInteractables()
+    {
+        if (combatMode == false)
+        {
+            Vector3 rayOrigin = transform.position - new Vector3(0, -1, 1);
+
+            Ray ray = new Ray(rayOrigin, new Vector3(0, -1, 1));
+            RaycastHit hitInfo;
+            Physics.Raycast(ray, out hitInfo, 10f, LayerMask.GetMask("Interactables"));
+
+            if (hitInfo.transform == null)
+            {
+                ChangeCursorState(cursorState.original);
+                return;
+            }
+            else// if (potentialInteractable == null)
+            {
+                if (hitInfo.transform.TryGetComponent(out IInteractable interactable))
+                {
+                    potentialInteractable = interactable;
+
+                    if (player.interactionDetector.interactables.Contains(interactable))
+                    {
+                        ChangeCursorState(cursorState.interact);
+                    }
+                    else
+                    {
+                        ChangeCursorState(cursorState.deny);
+                    }
+                }
+                else
+                {
+                    ChangeCursorState(cursorState.original);
+                    potentialInteractable = null;
+                }
+            }
+            
+
+        }
+    }
+    public void ChangeCursorState(cursorState state)
+    {
+        currentCursorState = state;
+        UpdateCursorSprite();
+
+        if (state == cursorState.combat)
+        {
+            potentialInteractable = null;
+        }
+    }
+    void UpdateCursorSprite()
+    {
+        switch (currentCursorState)
+        {
+            case cursorState.original:
+                cursorSprite.sprite = cursor_default;
+                break;
+            case cursorState.combat:
+                cursorSprite.sprite = cursor_combat;
+                break;
+            case cursorState.interact:
+                cursorSprite.sprite = cursor_interact;
+                break;
+            case cursorState.deny:
+                cursorSprite.sprite = cursor_deny;
+                break;
+
+        }
+    }
 }

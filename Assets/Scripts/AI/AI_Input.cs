@@ -5,12 +5,20 @@ using UnityEngine;
 public class AI_Input : MonoBehaviour
 {
     AI_StateController controller;
+    
     ActorConnector connector;
-
 
     [HideInInspector] public GameObject weaponObject;
     WeaponConnector weaponConnector;
 
+    #region Init
+    void Awake()
+    {
+        controller = GetComponent<AI_StateController>();
+
+        connector = controller.actor.GetComponent<ActorConnector>();
+        connector.isPlayerControlled = false;
+    }
     void OnEnable()
     {
         connector.updateDrawnWeapon += UpdateDrawnWeapon;
@@ -19,22 +27,13 @@ public class AI_Input : MonoBehaviour
     {
         connector.updateDrawnWeapon -= UpdateDrawnWeapon;
     }
-
-    void Awake()
+    #endregion
+  
+    public void Input_Movement(Vector3 movementDirection)
     {
-        controller = GetComponent<AI_StateController>();
-
-        connector = controller.actor.GetComponent<ActorConnector>();
-        connector.isPlayerControlled = false;
-    }
-    public void Input_Movement(Vector2 movementDirection)
-    {
-        testmovementDirection = movementDirection;
-
         movementDirection = movementDirection.normalized;
 
         connector.Input_Move(movementDirection);
-
 
         if (connector.controller != null && connector.controller != transform)
         {
@@ -45,18 +44,18 @@ public class AI_Input : MonoBehaviour
             connector.controller = transform;
         }
     }
+
     public void Input_Dash()
     {
         connector.Input_Ability();
     }
-
-    Vector3 testmovementDirection;
 
     public void Input_Ability()
     {
         connector.Input_Ability();
     }
 
+    #region Weapon
     public void UpdateDrawnWeapon(GameObject _weaponObject, WeaponConnector _weaponConnector)
     {
         weaponObject = _weaponObject;
@@ -78,6 +77,8 @@ public class AI_Input : MonoBehaviour
     {
         connector.Input_UpdateSwingDirection(swingDirection); // idk what distance should be for npc? It will be clamped anyway
     }
+    #endregion
+
     public void Input_Interaction()
     {
         connector.Input_Interact();

@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
         playerInput.Character.Attack.performed += Attack;
 
+        playerInput.Character.Interact.performed += Interact;
 
 
 
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         playerInput.Character.Attack.performed -= Attack;
 
+        playerInput.Character.Interact.performed -= Interact;
 
 
         actorConnector.updateDrawnWeapon -= UpdateDrawnWeapon;
@@ -77,6 +79,17 @@ public class PlayerController : MonoBehaviour
             Input_WeaponSwing();
         }
 
+    }
+
+    void Interact(InputAction.CallbackContext call)
+    {
+        if (cursorScript.potentialInteractable != null)
+        {
+            if (actorConnector.interactionDetector.TryToInteract(cursorScript.potentialInteractable, actor))
+            {
+                // call some visual feedback from cursor
+            }
+        }
     }
     void NextWeaponSlot(InputAction.CallbackContext call)
     {
@@ -99,28 +112,22 @@ public class PlayerController : MonoBehaviour
         {
             actorConnector.Input_DrawWeapon(customMouseCursor.position);
             cursorScript.combatMode = true;
+            cursorScript.ChangeCursorState(CustomMouseCursorScript.cursorState.combat);
         }
     }
     void SheathWeapon(InputAction.CallbackContext call)
     {
         actorConnector.Input_SheathWeapon();
         cursorScript.combatMode = false;
-    }
-    void DisableInput()
-    {
-        inputDisabled = true;
-    }
-    void EnableInput()
-    {
-        inputDisabled = false;
+        cursorScript.ChangeCursorState(CustomMouseCursorScript.cursorState.original);
     }
 
 
     void Input_Movement()
     {
-        Vector2 movementDirection = Vector2.zero;
+        Vector3 movementDirection = Vector3.zero;
 
-        movementDirection = input_movement.ReadValue<Vector2>();
+        movementDirection = new Vector3(input_movement.ReadValue<Vector2>().x, 0 , input_movement.ReadValue<Vector2>().y);
         movementDirection = movementDirection.normalized;
 
         actorConnector.Input_Move(movementDirection);
@@ -158,13 +165,13 @@ public class PlayerController : MonoBehaviour
             //float maxAngle = 2f; // angle after which sword starts moving
             float minAngle = 1f; // angle after which sword should be considered aligned with mouse
 
-            Vector2 mouseProjection = actor.InverseTransformPoint(customMouseCursor.position).normalized;
-            Vector2 bladeProjection = actor.InverseTransformPoint(weaponObject.transform.position).normalized;
+            Vector3 mouseProjection = actor.InverseTransformPoint(customMouseCursor.position.Grounded()).normalized;
+            Vector3 bladeProjection = actor.InverseTransformPoint(weaponObject.transform.position.Grounded()).normalized;
 
             //float angleBetweenBladeAndCursor = Vector3.SignedAngle(bladeProjection, mouseProjection, -actor.forward);
-            float angleBetweenBladeAndCursor = Vector2.SignedAngle(mouseProjection, bladeProjection);
+            float angleBetweenBladeAndCursor = Vector3.SignedAngle(mouseProjection, bladeProjection, Vector3.down);
 
-            float distanceBetweenVectors = Vector2.Distance(bladeProjection, mouseProjection); // to avoid jitter caused by overshooting. It is a hypotnuse?
+            float distanceBetweenVectors = Vector3.Distance(bladeProjection, mouseProjection); // to avoid jitter caused by overshooting. It is a hypotnuse?
             //Debug.Log("angleBetweenBladeAndCursor " + angleBetweenBladeAndCursor);
             if (Mathf.Abs(angleBetweenBladeAndCursor) < thresholdAngle)// || swingDirection == 0)
             {

@@ -23,32 +23,40 @@ public class CameraShake : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("test"))
-        {
-            StartCoroutine(Shaking(0.1f, 0.1f));
-        }
+
+        //if (Input.GetButtonDown("test"))
+        //{
+        //    StartCoroutine(Shaking(0.1f, 0.1f));
+        //}
+
     }
 
     void CatchHitInfo(Transform who, float damage, Transform byWhom)
     {
         //Debug.Log("hit by " + byWhom + " to " + who);
-
-        if (byWhom.GetComponent<ActorConnector>().isPlayerControlled == true)
+        ActorConnector connector;
+        if (byWhom.TryGetComponent(out connector))
         {
-            float intensity = 0.05f;
-            float duration = 0.1f;
+            // player hit someone
+            if (connector.isPlayerControlled)
+            {
+                float intensity = 0.05f;
+                float duration = 0.1f;
 
-            StartCoroutine(Shaking(intensity, duration));
-
+                StartCoroutine(Shaking(intensity, duration));
+            }        
         }
-        if (who.GetComponent<ActorConnector>().isPlayerControlled == true)
+        if (who.TryGetComponent(out connector))
         {
-            float intensity = 0.2f;
-            float duration = 0.025f;
+            // someone hit player
+            if (connector.isPlayerControlled)
+            {
+                float intensity = 0.2f;
+                float duration = 0.025f;
 
 
-            StartCoroutine(Shaking(intensity, duration));
-
+                StartCoroutine(Shaking(intensity, duration));
+            }       
         }
     }
 
@@ -61,9 +69,9 @@ public class CameraShake : MonoBehaviour
         {
             originalPosition = mainCamera.position;
             float x = System.Convert.ToInt32(Random.value > 0.5f) * intensity;
-            float y = System.Convert.ToInt32(Random.value > 0.5f) * intensity;
+            float z = System.Convert.ToInt32(Random.value > 0.5f) * intensity;
 
-            offset = new Vector3(x, y, 0);
+            offset = new Vector3(x, 0, z);
             mainCamera.position += offset;
 
             timer += Time.deltaTime;

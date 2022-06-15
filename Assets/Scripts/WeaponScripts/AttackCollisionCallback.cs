@@ -4,19 +4,16 @@ using UnityEngine;
 using System;
 public class AttackCollisionCallback : MonoBehaviour
 {
-    public event Action<IHealth> collisionCallback;
+    public event Action<DamageReciever> collisionCallback;
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider collision)
     {
         if (gameObject.activeSelf && collision.isTrigger)
         {
             if (collision.TryGetComponent(out DamageReciever target))
             {
-                if (target.health != null)
-                {
-                    collisionCallback?.Invoke(target.health);
-                }
-                //Debug.Log("collisioner: " + gameObject.name);
+                collisionCallback?.Invoke(target);
+                //Debug.Log("hit: " + target.transform);
             }
         }
 

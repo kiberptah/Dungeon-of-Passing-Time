@@ -18,7 +18,7 @@ public class AI_Action_Chase : AI_Action
         [HideInInspector] public Vector3 destination;
 
 
-        public Vector3 chaseOffset = Vector2.zero;
+        public Vector3 chaseOffset = Vector3.zero;
         public float destinationOffsetInterval = 5f * Random.Range(0.8f, 1f);
         public float destinationOffseetTimer = 0;
     }
@@ -36,7 +36,7 @@ public class AI_Action_Chase : AI_Action
 
     public override void Act(AI_StateController controller)
     {
-        if (Vector2.Distance(controller.actor.position, controller.currentTarget.position) > minDistance)
+        if (Vector3.Distance(controller.actor.position, controller.currentTarget.position) > minDistance)
         {
             Chase(controller);
         }
@@ -50,18 +50,19 @@ public class AI_Action_Chase : AI_Action
 
         #region Pathfinding
         Vector3 goHere = controller.currentTarget.position;
+        
         if (data.destinationOffseetTimer > data.destinationOffsetInterval)
         {
             data.destinationOffseetTimer = 0;
 
             if (chaseOffsetDistance > 0)
             {
-                data.chaseOffset = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+                data.chaseOffset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
                 data.chaseOffset = data.chaseOffset.normalized * chaseOffsetDistance;
             }
         }
         goHere += data.chaseOffset;
-
+        
         PathRequestManager.RequestPath(controller.actor.position, goHere, OnPathFound);
 
 
@@ -73,6 +74,9 @@ public class AI_Action_Chase : AI_Action
             {
                 data.path = newPath.Cast<Vector3>().ToList();
                 data.destination = data.path[0];
+
+                controller.debug_path = data.path;
+                controller.debug_destination = data.destination;
             }
             else
             {
@@ -80,6 +84,10 @@ public class AI_Action_Chase : AI_Action
 
                 // To try another offset next frame
                 data.destinationOffseetTimer = data.destinationOffsetInterval;
+
+
+                controller.debug_path = data.path;
+                controller.debug_destination = data.destination;
             }
         }
         #endregion

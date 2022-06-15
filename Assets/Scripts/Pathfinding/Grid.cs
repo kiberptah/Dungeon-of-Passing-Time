@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Grid : MonoBehaviour
 {
+    
     public static Grid instance;
-
+    
     PathfindingNode[,] grid;
     public Vector2 gridWorldSize;
 
@@ -17,6 +18,7 @@ public class Grid : MonoBehaviour
     float nodeRadius;
     int gridSizeX, gridSizeY;
     public bool displayGridGizmos;
+    public bool gizmos_showWalkable;
 
     private void Awake()
     {
@@ -38,7 +40,7 @@ public class Grid : MonoBehaviour
     void CreateGrid()
     {
         grid = new PathfindingNode[gridSizeX, gridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
+        Vector3 worldBottomLeft = (transform.position) - (Vector3.right * gridWorldSize.x / 2) - (Vector3.forward * gridWorldSize.y / 2);
 
         for (int x = 0; x < gridSizeX; ++x)
         {
@@ -49,11 +51,20 @@ public class Grid : MonoBehaviour
                      + Vector3.up * (y * nodeDiameter + nodeRadius); */
                 Vector3 worldPoint = worldBottomLeft
                     + Vector3.right * x * nodeDiameter + Vector3.right * nodeRadius
-                    + Vector3.up * y * nodeDiameter + Vector3.up * nodeRadius;
+                    + Vector3.forward * y * nodeDiameter + Vector3.forward * nodeRadius;
 
-                bool walkable = !Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter * nodeScanScale, nodeDiameter * nodeScanScale), 0, unwalkableMask.value);
+
+                // Check geometry
+                bool walkable = true;
+                Vector3 boxSize = new Vector3(0.5f * nodeDiameter * nodeScanScale, 0.5f * nodeDiameter * nodeScanScale, 0.5f * nodeDiameter * nodeScanScale);
+                Collider[] hitColliders = Physics.OverlapBox(worldPoint, boxSize, Quaternion.identity, unwalkableMask.value, QueryTriggerInteraction.Ignore);
+                if (hitColliders.Length != 0)
+                {
+                    walkable = false;
+                }
+                //
+
                 grid[x, y] = new PathfindingNode(walkable, worldPoint, x, y);
-                //Debug.Log("grid[" + x + "," + y + "]: " + worldPoint);
             }
         }
     }
@@ -102,19 +113,19 @@ public class Grid : MonoBehaviour
         */
 
 
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
+        Vector3 worldBottomLeft = (transform.position) - (Vector3.right * gridWorldSize.x / 2) - (Vector3.forward * gridWorldSize.y / 2);
 
         int x = Mathf.FloorToInt(Mathf.Abs((_worldPosition - worldBottomLeft).x) / nodeDiameter);
-        int y = Mathf.FloorToInt(Mathf.Abs((_worldPosition - worldBottomLeft).y) / nodeDiameter);
+        int z = Mathf.FloorToInt(Mathf.Abs((_worldPosition - worldBottomLeft).z) / nodeDiameter);
 
         //Debug.Log("grid["+x+","+y+"]");
-        return grid[x, y];
+        return grid[x, z];
     }
 
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y));
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 0, gridWorldSize.y));
         if (grid != null && displayGridGizmos)
         {
             foreach (PathfindingNode n in grid)
@@ -125,7 +136,7 @@ public class Grid : MonoBehaviour
                 currentColor.a = 0.2f;
                 Gizmos.color = currentColor;
 
-                if (!n.walkable)
+                if (!n.walkable || gizmos_showWalkable)
                 {
                     Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter * 0.9f));
                 }

@@ -7,8 +7,9 @@ public class CameraFollow : MonoBehaviour
     public bool smoothFollow = true;
     PlayerController playerController;
     Transform target;
-    Rigidbody2D rb;
+    Rigidbody rb;
     public float force = 1f;
+    public float lerp = 0.5f;
 
     public float minimalOffset = 0.5f;
     void Awake()
@@ -18,7 +19,7 @@ public class CameraFollow : MonoBehaviour
     }
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -37,13 +38,15 @@ public class CameraFollow : MonoBehaviour
     }
     void FollowTarget()
     {
-        if (Vector2.Distance(target.position, transform.position) > minimalOffset
-                || (Vector2.Distance(target.position, transform.position) < minimalOffset && rb.velocity != Vector2.zero))
+        if (Vector3.Distance(target.position, transform.position) > minimalOffset)
+                //|| (Vector3.Distance(target.position, transform.position) < minimalOffset && rb.velocity != Vector3.zero))
         {
-            //force = Vector2.Distance(target.position, transform.position);
-            rb.AddRelativeForce((target.position - transform.position) * force, ForceMode2D.Force);
+            //rb.AddRelativeForce((target.position - transform.position) * force, ForceMode.Force);
+
 
         }
+        transform.position = Vector3.Lerp(transform.position, new Vector3(target.position.x, transform.position.y, target.position.z), lerp);
+
     }
 
     void StickFollow()

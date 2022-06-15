@@ -9,8 +9,8 @@ public class SwordDamageController : MonoBehaviour
     [SerializeField] AttackCollisionCallback slashCollider;
     [SerializeField] AttackCollisionCallback pierceCollider;
 
-    List<IHealth> recentlySlashedTargets = new List<IHealth>();
-    List<IHealth> recentlyPiercedTargets = new List<IHealth>();
+    List<DamageReciever> recentlySlashedTargets = new List<DamageReciever>();
+    List<DamageReciever> recentlyPiercedTargets = new List<DamageReciever>();
 
 
 
@@ -25,7 +25,7 @@ public class SwordDamageController : MonoBehaviour
         pierceCollider.collisionCallback -= BladePierceHit;
     }
 
-    void BladeSlashHit(IHealth target)
+    void BladeSlashHit(DamageReciever target)
     {
         if (!recentlySlashedTargets.Contains(target))
         {
@@ -33,7 +33,7 @@ public class SwordDamageController : MonoBehaviour
             {
                 //EventDirector.somebody_TakeDamage?.Invoke(target.transform, weaponScript.currentDamage, transform.parent);
                 //EventDirector.somebody_Knockback?.Invoke(target.transform, weaponScript.stats.slashKnockbackModifier, weaponScript.currentDamage, transform.parent);
-                //Debug.Log("damage: " + swordScript.currentSlashDamage);
+                //Debug.Log("target: " + target);
 
                 target.TakeDamage(
                     swordScript.currentSlashDamage,
@@ -42,12 +42,15 @@ public class SwordDamageController : MonoBehaviour
             }
 
             object[] prmtrs = new object[2] { target, swordScript.swordStats.slashDamageTickDelay };
-            StartCoroutine("DontSlashRecentTarget", prmtrs);
-            StartCoroutine("DontPierceRecentTarget", prmtrs);
+            //StartCoroutine("DontSlashRecentTarget", prmtrs);
+            //StartCoroutine("DontPierceRecentTarget", prmtrs);
+            StartCoroutine(DontSlashRecentTarget(prmtrs));
+            StartCoroutine(DontPierceRecentTarget(prmtrs));
+
         }
     }
 
-    void BladePierceHit(IHealth target)
+    void BladePierceHit(DamageReciever target)
     {
         if (!recentlyPiercedTargets.Contains(target))
         {
@@ -71,8 +74,10 @@ public class SwordDamageController : MonoBehaviour
             float delay = pierceTime + swordScript.swordStats.pierceHoldTime + recoveryTime;
 
             object[] prmtrs = new object[2] { target, delay };
-            StartCoroutine("DontPierceRecentTarget", prmtrs);
-            StartCoroutine("DontSlashRecentTarget", prmtrs);
+            //StartCoroutine("DontPierceRecentTarget", prmtrs);
+            //StartCoroutine("DontSlashRecentTarget", prmtrs);
+            StartCoroutine(DontPierceRecentTarget(prmtrs));
+            StartCoroutine(DontSlashRecentTarget(prmtrs));
         }
     }
 
@@ -82,7 +87,7 @@ public class SwordDamageController : MonoBehaviour
 
     IEnumerator DontSlashRecentTarget(object[] prmtrs)
     {
-        IHealth target = (IHealth)prmtrs[0];
+        DamageReciever target = (DamageReciever)prmtrs[0];
         float duration = (float)prmtrs[1];
 
         recentlySlashedTargets.Add(target);
@@ -93,7 +98,7 @@ public class SwordDamageController : MonoBehaviour
     }
     IEnumerator DontPierceRecentTarget(object[] prmtrs)
     {
-        IHealth target = (IHealth)prmtrs[0];
+        DamageReciever target = (DamageReciever)prmtrs[0];
         float duration = (float)prmtrs[1];
 
         recentlyPiercedTargets.Add(target);

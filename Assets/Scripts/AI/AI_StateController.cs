@@ -11,6 +11,7 @@ public class AI_StateController : MonoBehaviour
     [HideInInspector] public AI_Input input;
 
     public Transform actor;
+    //[HideInInspector] public ActorConnector actorConnector;
     [HideInInspector] public ActorStats actorStats;
     [HideInInspector] public ActorHealth actorHealth;
 
@@ -35,6 +36,7 @@ public class AI_StateController : MonoBehaviour
         input = GetComponent<AI_Input>();
         actorStats = actor.GetComponent<ActorStats>();
         actorHealth = actor.GetComponent<ActorHealth>();
+        //actorConnector = actor.GetComponent<ActorConnector>();
     }
     void Update()
     {
@@ -74,6 +76,11 @@ public class AI_StateController : MonoBehaviour
 
 
 
+
+
+    [HideInInspector] public List<Vector3> debug_path = new List<Vector3>();
+    [HideInInspector] public Vector3 debug_destination;
+
     void OnDrawGizmos()
     {
         if (Application.isPlaying)
@@ -82,7 +89,19 @@ public class AI_StateController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(actor.position, destination);
             */
+            foreach (var node in debug_path)
+            {
+                Gizmos.color = Color.white;
+                if (node == debug_destination)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(transform.position, node);
+                }
 
+                Gizmos.DrawSphere(node, .25f);
+            }
+
+            // show state
             float sphereRadius = 1f;
             if (currentState != null)
             {

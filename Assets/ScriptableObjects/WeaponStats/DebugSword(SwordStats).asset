@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da86bb594d8d1fa4f850e5e33cfdd6aa, type: 3}
   m_Name: DebugSword(SwordStats)
   m_EditorClassIdentifier: 
-  slashDamage: 50
+  slashDamage: 100
   slashDamageTickDelay: 0.25
   velocityDamageModifier: 1
   slashKnockbackModifier: 20
@@ -23,4 +23,4 @@ MonoBehaviour:
   pierceAttackSpeed: 0.2
   pierceHoldTime: 0.25
   pierceRecoverSpeed: 0.03
-  piercingDistance: 1.25
+  piercingDistance: 1.2

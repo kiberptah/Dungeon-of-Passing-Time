@@ -6,54 +6,22 @@ using TMPro;
 
 public class DamagePopUp : MonoBehaviour
 {
-    public TextMeshPro tmp;
+    [SerializeField] TextMeshPro tmp;
 
-    public float lifeTime = 1f;
+
+    [SerializeField] float lifeTime = 1f;
     float lifeTimeCounter = 1f;
-    public float floatingSpeed = 1f;
+
+    [SerializeField] float floatingSpeed = 1f;
+
+
     float damage;
     Transform damageTaker;
     Transform attacker;
 
-    Vector3 floatingDirection = Vector3.up;
+    Vector3 floatingDirection = Vector3.forward;
 
-    private void Start()
-    {
-
-    }
-
-    IEnumerator Dissolving()
-    {
-        //float defaultColorAlpha = tmp.color.a;
-        float coefficient = tmp.color.a / 100f;
-        while (true)
-        {
-            float subtraction = Time.deltaTime / lifeTime;
-            //transform.localScale = new Vector3(transform.localScale.x - subtraction, transform.localScale.y - subtraction, transform.localScale.z - subtraction);
-            tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, tmp.color.a - subtraction);
-            lifeTimeCounter -= subtraction;
-
-            if (lifeTimeCounter <= 0)
-            {
-                //StopCoroutine(Dissolving()); ?
-                Destroy(gameObject);
-            }
-
-            yield return null;
-        }
-    }
-    IEnumerator FloatingAway()
-    {
-        while (true)
-        {
-            //print("adsda");
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + floatingDirection, floatingSpeed);
-
-            yield return null;
-        }
-    }
-
-
+    #region Init
     public void Initialize(Transform _damageTaker, float _damage, Transform _attacker)
     {
         tmp.text = Mathf.RoundToInt(_damage).ToString();
@@ -68,4 +36,36 @@ public class DamagePopUp : MonoBehaviour
         StartCoroutine(Dissolving());
         StartCoroutine(FloatingAway());
     }
+    #endregion
+
+    IEnumerator Dissolving()
+    {
+        float coefficient = tmp.color.a / 100f;
+        while (true)
+        {
+            float subtraction = Time.deltaTime / lifeTime;
+
+            tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, tmp.color.a - subtraction);
+            lifeTimeCounter -= subtraction;
+
+            if (lifeTimeCounter <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            yield return null;
+        }
+    }
+    IEnumerator FloatingAway()
+    {
+        while (true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + floatingDirection, floatingSpeed);
+
+            yield return null;
+        }
+    }
+
+
+   
 }

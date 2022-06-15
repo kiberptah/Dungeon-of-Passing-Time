@@ -7,33 +7,36 @@ public class SpriteFlashing : MonoBehaviour
     #region DEPENDENCIES
     ActorHealth actorHealth;
     #endregion
+
     public float delay = 0.025f;
     public int flicksAmount = 2;
 
-    public SpriteRenderer sprite;
-    public Material whiteMat;
+    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] Material whiteMat;
 
     Material originalMat;
+    
+    #region Init
+    void Awake()
+    {
+        actorHealth = GetComponent<ActorHealth>();
+    }
     private void OnEnable()
     {
-        //EventDirector.somebody_TakeDamage += Flash;
         actorHealth.TakingDamage += Flash;
     }
 
     private void OnDisable()
     {
-        //EventDirector.somebody_TakeDamage -= Flash;
         actorHealth.TakingDamage -= Flash;
-    }
-    void Awake()
-    {
-        actorHealth = GetComponent<ActorHealth>();
     }
     private void Start()
     {
         originalMat = sprite.material;
 
     }
+    #endregion
+    
     void Flash(float amount, float knockback, Transform byWhom)
     {
         StartCoroutine("FlashingCR");

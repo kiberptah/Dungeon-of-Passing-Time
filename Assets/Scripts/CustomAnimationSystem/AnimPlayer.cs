@@ -6,9 +6,12 @@ using System;
 public class AnimPlayer : MonoBehaviour
 {
     [SerializeField] SpriteRenderer sprite;
+    AnimLib animLib;
 
     [HideInInspector]
     public List<AnimFrame> sequence;
+    [HideInInspector]
+    public List<string> events;
 
     [HideInInspector]
     public int frameLength = 150;
@@ -18,6 +21,7 @@ public class AnimPlayer : MonoBehaviour
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        animLib = GetComponent<AnimLib>();
     }
 
     int frameCounter = 0;
@@ -47,13 +51,36 @@ public class AnimPlayer : MonoBehaviour
                     sprite.sprite = sequence[frameCounter].sprite;
 
                     // Fire all events attached to frame
+                    /*
                     if (sequence[frameCounter].eventHolder != null)
                     {
                         sequence[frameCounter].eventHolder.events?.Invoke();
                     }
+                    */
+
+                    //Debug.Log("events " + events.Count);
+                    //Debug.Log("frameCounter " + frameCounter);
+                    if (events.Count > frameCounter)
+                    {
+                        if (events[frameCounter] != string.Empty)
+                        {
+                            //Debug.Log("animation event");
+
+                            animLib.eventsLib[events[frameCounter]].events?.Invoke();
+                            //events[frameCounter].events?.Invoke();
+                        }
+                    }
+
 
                     // Wait for frame length before going to next frame
                     yield return new WaitForSeconds(frameLength * 0.001f - Time.deltaTime); // IDK why but coroutines take aprx one frame longer to play animations!
+                    
+                    //float timer = frameLength * 0.001f;
+                    //while(timer > 0)
+                    //{
+                    //    yield return new WaitForEndOfFrame(); // IDK why but coroutines take aprx one frame longer to play animations!
+                    //    timer -= Time.deltaTime;
+                    //}
 
                     frameCounter++;
                 }
@@ -63,10 +90,21 @@ public class AnimPlayer : MonoBehaviour
         }
     }
 
-    public void UpdateData(List<AnimFrame> _sequence, int _frameLength, bool _isLooping, bool waitTillSeqEnd = false)
+    public void UpdateData(List<AnimFrame> _sequence, List<string> _events, int _frameLength, bool _isLooping, bool waitTillSeqEnd = false)
     {
-        if (sequence != _sequence || frameLength != _frameLength)
+        
+
+        //foreach(var aaa in _events)
+        //{
+        //    Debug.Log(aaa);
+
+        //}
+
+        if (sequence != _sequence || frameLength != _frameLength || events != _events)
         {
+            //List<AnimEvents> eventsTemp = new List<AnimEvents>();
+            //eventsTemp = animLib.FindEvents(_events);
+
             if (waitTillSeqEnd)
             {
                 StartCoroutine(UpdateDataAfterSequence(_sequence, _frameLength, _isLooping));
@@ -75,6 +113,7 @@ public class AnimPlayer : MonoBehaviour
             {
                 isLooping = _isLooping;
                 sequence = _sequence;
+                events = _events;
                 frameLength = _frameLength;
 
                 StopCoroutine("PlayAnimation");

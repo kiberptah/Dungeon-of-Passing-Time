@@ -14,7 +14,7 @@ public class WeaponManager : MonoBehaviour
     public GameObject[] weaponsSheathed = new GameObject[2];
     [HideInInspector] public bool isWeaponDrawn = false;
 
-    Vector2 savedWeaponPosition = Vector2.up;
+    Vector3 savedWeaponPosition = Vector3.forward;
 
     public event Action<GameObject, WeaponConnector> updateDrawnWeapon;
     void Awake()
@@ -22,7 +22,7 @@ public class WeaponManager : MonoBehaviour
         actorConnector = GetComponent<ActorConnector>();
     }
     #region Input
-    public void Input_DrawOrSheathWeapon(Vector2? _mousePosition = null)
+    public void Input_DrawOrSheathWeapon(Vector3? _mousePosition = null)
     {
         if (isWeaponDrawn == false)
         {
@@ -33,7 +33,7 @@ public class WeaponManager : MonoBehaviour
             Input_SheathWeapon();
         }
     }
-    public void Input_DrawWeapon(Vector2? _mousePosition = null)
+    public void Input_DrawWeapon(Vector3? _mousePosition = null)
     {
         DrawWeapon(selectedWeaponSlot, _mousePosition);
     }
@@ -63,7 +63,7 @@ public class WeaponManager : MonoBehaviour
 
 
     #region Sheath/Draw
-    void DrawWeapon(int weaponSlot, Vector2? _mousePosition = null)
+    void DrawWeapon(int weaponSlot, Vector3? _mousePosition = null)
     {
         //Debug.Log("_mousePosition " + _mousePosition);
         //Debug.Log("actorConnector.transform.position " + actorConnector.transform.position);
@@ -83,6 +83,7 @@ public class WeaponManager : MonoBehaviour
 
             weaponObject = Instantiate(weaponsSheathed[weaponSlot], transform);
             weaponConnector = weaponObject.GetComponent<WeaponConnector>();
+            //Debug.Log("savedWeaponPosition " + savedWeaponPosition);
             weaponConnector.Initialize(savedWeaponPosition, weaponHolder, actorConnector);
 
             updateDrawnWeapon?.Invoke(weaponObject, weaponConnector);

@@ -9,13 +9,12 @@ public class ActorInteraction : MonoBehaviour
 
     public event Action<IInteractable> interactableAreaEntered;
     public event Action<IInteractable> interactableAreaLeft;
-    //public event Action<IInteractable> interaction;
 
     private void Awake()
     {
         controllerConnector = GetComponent<ActorConnector>();
     }
-    public void TriggerEnterCallbackCatch(Collider2D collision)
+    public void TriggerEnterCallbackCatch(Collider collision)
     {
         if (collision.transform.TryGetComponent(out IInteractable interactable))
         {
@@ -23,7 +22,7 @@ public class ActorInteraction : MonoBehaviour
         }
 
     }
-    public void TriggerExitCallbackCatch(Collider2D collision)
+    public void TriggerExitCallbackCatch(Collider collision)
     {
         if (collision.transform.TryGetComponent(out IInteractable interactable))
         {

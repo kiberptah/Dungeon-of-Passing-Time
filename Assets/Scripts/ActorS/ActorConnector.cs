@@ -11,17 +11,16 @@ public class ActorConnector : MonoBehaviour
     [HideInInspector] public ActorStats stats;
     [Header("Health")]
     ActorHealth actorHealth;
-    //[SerializeField] Transform actorHealthBar;
 
     public event Action noHealth;
-    public event Action<float, float> updateHealthInfo;
+    //public Action<float, float> updateHealthInfo;
 
     [Header("Stamina")]
     ActorStamina actorStamina;
-    public event Action<float, float> updateStaminaInfo;
+    //public Action<float, float> updateStaminaInfo;
 
     [Header("Interactions")]
-    ActorInteraction actorInteraction;
+    public InteractionDetector interactionDetector;
     IInteractable interactableObject;
     public event Action<IInteractable> interactableAreaEntered;
     public event Action<IInteractable> interactableAreaLeft;
@@ -37,44 +36,33 @@ public class ActorConnector : MonoBehaviour
     [HideInInspector] public WeaponManager weaponManager;
     public event Action<GameObject, WeaponConnector> updateDrawnWeapon;
 
-    #region
+    #region Init
     private void Awake()
     {
         stats = GetComponent<ActorStats>();
 
         actorHealth = GetComponent<ActorHealth>();
         actorStamina = GetComponent<ActorStamina>();
-        actorInteraction = GetComponent<ActorInteraction>();
         actorMovement = GetComponent<ActorMovement>();
         actorAnimation = GetComponent<ActorAnimManager>();
-        //weaponController = GetComponent<WeaponController>();
         weaponManager = GetComponent<WeaponManager>();
-
     }
     private void OnEnable()
     {
-
         actorHealth.noHealth += NoHealth;
-        actorHealth.updateHealthInfo += UpdateHealthInfo;
-        actorStamina.updateStaminaInfo += UpdateStaminaInfo;
+
 
         weaponManager.updateDrawnWeapon += UpdateDrawnWeapon;
-
-        actorInteraction.interactableAreaEntered += InteractableAreaEntered;
-        actorInteraction.interactableAreaLeft += InteractableAreaLeft;
 
     }
     private void OnDisable()
     {
 
         actorHealth.noHealth -= NoHealth;
-        actorHealth.updateHealthInfo -= UpdateHealthInfo;
-        actorStamina.updateStaminaInfo -= UpdateStaminaInfo;
+
 
         weaponManager.updateDrawnWeapon -= UpdateDrawnWeapon;
 
-        actorInteraction.interactableAreaEntered -= InteractableAreaEntered;
-        actorInteraction.interactableAreaLeft -= InteractableAreaLeft;
     }
     #endregion
 
@@ -83,16 +71,7 @@ public class ActorConnector : MonoBehaviour
         noHealth?.Invoke();
     }
 
-    #region Stats
-    void UpdateHealthInfo(float newHealth, float maxHealth)
-    {
-        updateHealthInfo?.Invoke(newHealth, maxHealth);
-    }
-    void UpdateStaminaInfo(float newStamina, float maxStamina)
-    {
-        updateStaminaInfo?.Invoke(newStamina, maxStamina);
-    }
-    #endregion
+
 
 
     #region Interactions
@@ -123,16 +102,6 @@ public class ActorConnector : MonoBehaviour
     #region Movement
     public void Input_Move(Vector3 _direction)
     {
-        /* 
-        if (_direction != Vector3.zero)
-        {
-            actorAnimation.UpdateAnimation("walk", _direction);
-        }
-        else
-        {
-            actorAnimation.UpdateAnimation("idle", _direction);
-        }
-        */
         actorMovement.UpdateMovement(_direction);
     }
     public void Input_Ability()
@@ -158,8 +127,9 @@ public class ActorConnector : MonoBehaviour
     {
         weaponManager.Input_DrawOrSheathWeapon(_mousePosition);
     }
-    public void Input_DrawWeapon(Vector2? _mousePosition = null)
+    public void Input_DrawWeapon(Vector3? _mousePosition = null)
     {
+        //Debug.Log("_mousePosition " + _mousePosition);
         weaponManager.Input_DrawWeapon(_mousePosition);
     }
     public void Input_SheathWeapon()

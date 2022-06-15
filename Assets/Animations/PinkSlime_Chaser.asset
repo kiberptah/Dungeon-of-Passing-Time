@@ -14,59 +14,421 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states:
   - name: Idle
-    spriteSheet: {fileID: 2800000, guid: cbaf28775aea04f419588dcaa8a80da2, type: 3}
+    spriteSheet: {fileID: 2800000, guid: 4c65e81ee8f7ff2439c9101054fd4dc5, type: 3}
     frameLength: 150
+    eventReference: []
     directionsAmount: 1
     directions:
     - name: 0
       frames:
-      - eventHolder: {fileID: 0}
-        frameName: Frame 1
-        sprite: {fileID: 21300000, guid: cbaf28775aea04f419588dcaa8a80da2, type: 3}
+      - frameName: Frame 1
+        sprite: {fileID: 307432459, guid: 4c65e81ee8f7ff2439c9101054fd4dc5, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: -711042321, guid: 4c65e81ee8f7ff2439c9101054fd4dc5, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 841136954, guid: 4c65e81ee8f7ff2439c9101054fd4dc5, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 1999653337, guid: 4c65e81ee8f7ff2439c9101054fd4dc5, type: 3}
   - name: Walk
     spriteSheet: {fileID: 2800000, guid: 946be0298f94cd941a374c84426c7f12, type: 3}
     frameLength: 150
+    eventReference: []
     directionsAmount: 1
     directions:
     - name: 0
       frames:
-      - eventHolder: {fileID: 0}
-        frameName: Frame 1
+      - frameName: Frame 1
         sprite: {fileID: 1061219072, guid: 946be0298f94cd941a374c84426c7f12, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 2
+      - frameName: Frame 2
         sprite: {fileID: -1684716310, guid: 946be0298f94cd941a374c84426c7f12, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 3
+      - frameName: Frame 3
         sprite: {fileID: 1183531447, guid: 946be0298f94cd941a374c84426c7f12, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 4
+      - frameName: Frame 4
         sprite: {fileID: -924820070, guid: 946be0298f94cd941a374c84426c7f12, type: 3}
   - name: Death
-    spriteSheet: {fileID: 2800000, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
-    frameLength: 100
+    spriteSheet: {fileID: 2800000, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+    frameLength: 75
+    eventReference: []
     directionsAmount: 1
     directions:
     - name: 0
       frames:
-      - eventHolder: {fileID: 0}
-        frameName: Frame 1
-        sprite: {fileID: -1795610977, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 2
-        sprite: {fileID: -1462604018, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 3
-        sprite: {fileID: -148149516, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 4
-        sprite: {fileID: 534027769, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 5
-        sprite: {fileID: -1983663576, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 6
-        sprite: {fileID: 485074197, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
-      - eventHolder: {fileID: 0}
-        frameName: Frame 7
-        sprite: {fileID: 430150466, guid: 6f8014d4826e56d40bb810f3011bfd9f, type: 3}
+      - frameName: Frame 1
+        sprite: {fileID: 1026506220, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 2049005403, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -2060844883, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: -1525661236, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -120100116, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: 1916405420, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: 969995440, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: -505274377, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: 1521619806, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: 1866270898, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: 270358372, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+      - frameName: Frame 12
+        sprite: {fileID: -562523293, guid: 3c96de2044697504da71bdb0223137d6, type: 3}
+  - name: Attack_Jumping
+    spriteSheet: {fileID: 2800000, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    frameLength: 80
+    eventReference:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - JumpTransition1
+    - 
+    - 
+    - 
+    - 
+    - 
+    directionsAmount: 8
+    directions:
+    - name: 6
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 2005641933, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: -27021360, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 386424204, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 1670410377, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -108888310, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: -1314333906, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: 943210333, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: 1599142020, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: -1340387777, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: -1529025533, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: 2064837248, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    - name: 3
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -1876963974, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 878528739, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -2080368419, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: -1503875693, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -1160313529, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: -429493457, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: -600045626, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: 694474904, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: -2110159488, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: 911297390, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: -667256246, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    - name: 2
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 449075790, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 436008110, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -1532595659, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: -1791611213, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 429953450, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: -1955714038, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: 1104622438, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: 1171708805, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: 354606383, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: -90705342, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: -1980091284, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    - name: 5
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -889672264, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 1061077327, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -960355948, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: -445729897, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -300137554, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: 1623357346, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: -918348741, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: 1046107331, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: -549044718, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: -1521996093, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: 1300808525, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    - name: 4
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 1088408888, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 1045729486, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -1491318004, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 1677847584, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -341447878, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: 271902065, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: 6194991, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: -2041415106, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: -1871396288, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: 1629431745, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: 1555531985, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    - name: 7
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -1736162864, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 1346516252, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 1364575375, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 1631253078, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -1007104417, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: 1954516984, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: 363492689, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: -583184362, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: 931091912, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: -1120465676, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: -1158358685, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    - name: 1
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -800164608, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: -1267590914, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 772693179, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 470971423, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 1595965499, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: -343861557, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: 1271512939, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: 388627830, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: -1514320921, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: 252440153, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: 1822550202, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+    - name: 0
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 1632477536, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: -1701603906, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -359167718, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 1739704845, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 123085932, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 6
+        sprite: {fileID: -986787374, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 7
+        sprite: {fileID: -544612896, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 8
+        sprite: {fileID: -902377292, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 9
+        sprite: {fileID: -904238441, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 10
+        sprite: {fileID: -2137272515, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+      - frameName: Frame 11
+        sprite: {fileID: 175517064, guid: f5b38a072793cc145a66086b683da24c, type: 3}
+  - name: Attack_Flying
+    spriteSheet: {fileID: 2800000, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    frameLength: 150
+    eventReference:
+    - 
+    directionsAmount: 8
+    directions:
+    - name: 6
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 1984006947, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    - name: 3
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -1127527475, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    - name: 2
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 1245472241, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    - name: 5
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 811653082, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    - name: 4
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -1078047816, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    - name: 7
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -2134533733, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    - name: 1
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -409883018, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+    - name: 0
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 1053601014, guid: 27ce1c416cb57a746b8ba37fab8abc32, type: 3}
+  - name: Attack_Landing
+    spriteSheet: {fileID: 2800000, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    frameLength: 80
+    eventReference:
+    - 
+    - 
+    - 
+    - 
+    - FinishAttack
+    directionsAmount: 8
+    directions:
+    - name: 6
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -941370913, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: -338362072, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -1338580760, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 428782065, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 2108650919, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    - name: 3
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -822274492, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 412158385, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 1965603949, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 850011081, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 833337649, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    - name: 2
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -727778931, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: -1051872809, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -335981402, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 2017838504, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -401281716, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    - name: 5
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 588082033, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 953700550, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 496275113, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: -2078043653, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -86507877, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    - name: 4
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -1782392543, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 1569565275, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -61515700, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 173556927, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 341077214, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    - name: 7
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 1734773787, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 767064019, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: -471317789, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 544958916, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 621256409, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    - name: 1
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: -1792869918, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: 1681222474, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 367877659, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: -122752197, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: -1563896754, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+    - name: 0
+      frames:
+      - frameName: Frame 1
+        sprite: {fileID: 295567886, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 2
+        sprite: {fileID: -202271253, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 3
+        sprite: {fileID: 898962992, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 4
+        sprite: {fileID: 1551383600, guid: a168bfec8de5f424d833e342925ce69a, type: 3}
+      - frameName: Frame 5
+        sprite: {fileID: 236313232, guid: a168bfec8de5f424d833e342925ce69a, type: 3}

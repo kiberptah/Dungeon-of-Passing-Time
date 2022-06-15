@@ -18,17 +18,4 @@ public class AnimDirection
         SE
     }
     public List<AnimFrame> frames = new List<AnimFrame>();
-
-    /*     public void UpdateDirection(AnimDirection _dir)
-        {
-            int i = 0;
-            foreach (var fr in _dir.frames)
-            {
-                if (frames.Count <= i)
-                {
-                    frames.Add(new AnimFrame());
-                }
-                frames[i].sprite = _dir.frames[i].sprite;
-            }
-        } */
 }

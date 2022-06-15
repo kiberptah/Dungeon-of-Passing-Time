@@ -8,6 +8,9 @@ public class ActorDeath : MonoBehaviour
     ActorHealth actorHealth;
     #endregion
     [SerializeField] GameObject corpse;
+    [SerializeField] bool corpseKnockback = true;
+
+    #region Init
     void Awake()
     {
         actorHealth = GetComponent<ActorHealth>();
@@ -20,9 +23,14 @@ public class ActorDeath : MonoBehaviour
     {
         actorHealth.noHealth -= DeathAndKnockback;
     }
+    #endregion
 
     void DeathAndKnockback(float dmg, float kb, Transform killer)
     {
+        if (corpseKnockback == false)
+        {
+            kb = 0;
+        }
         gameObject.SetActive(false);
         GameObject _corpse = Instantiate(corpse, transform.position, Quaternion.identity);
 

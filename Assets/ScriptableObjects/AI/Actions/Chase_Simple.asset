@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21c4bd0a820fdf40b270293cc1d0898, type: 3}
   m_Name: Chase_Simple
   m_EditorClassIdentifier: 
+  minDistance: 1
+  chaseOffsetDistance: 0

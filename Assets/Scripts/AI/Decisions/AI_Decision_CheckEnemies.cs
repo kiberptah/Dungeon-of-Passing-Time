@@ -17,7 +17,7 @@ public class AI_Decision_CheckEnemies : AI_Decision
 
         foreach (var obj in controller.sightedObjects)
         {
-            if (obj.TryGetComponent<ActorStats>(out ActorStats objStats))
+            if (obj.TryGetComponent(out ActorStats objStats))
             {
                 foreach (var hatedFaction in controller.actorStats.hatedFactions)
                 {
@@ -39,8 +39,7 @@ public class AI_Decision_CheckEnemies : AI_Decision
             }
             else
             {
-                //Debug.Log(obj.name + " doesnt have stats");
-
+                Debug.Log(obj.name + " doesnt have stats");
             }
 
         }
