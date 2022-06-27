@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c25bb5bad7e468c6f6152ca5091c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  immunityToElemento: 
 --- !u!135 &755217651
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -283,6 +284,8 @@ GameObject:
   - component: {fileID: 937971299349516226}
   - component: {fileID: 6765226683277223605}
   - component: {fileID: 1536565917144634258}
+  - component: {fileID: 7978594033771693734}
+  - component: {fileID: 1727126542}
   m_Layer: 7
   m_Name: Actor_Skeleton
   m_TagString: Actor
@@ -308,6 +311,7 @@ Transform:
   - {fileID: 75975435278198090}
   - {fileID: 6528805273329869097}
   - {fileID: 1493964737}
+  - {fileID: 626789514142665839}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -334,7 +338,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4778285313243707444}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6d02a08ba5991724392726528fdf99cc, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4
@@ -371,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength: 0.33
-  sightRadius: 33
+  sightRadius: 100
   belongsToFactions: 04000000
   friendedFactions: 05000000
   hatedFactions: 00000000010000000200000003000000
@@ -389,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageReciever: {fileID: 1493964739}
   actorHealthBar: {fileID: 4778285314500999353}
-  maxHealth: 100
+  maxHealth: 50
 --- !u!114 &8231815206898031149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,9 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2a5b17223b5f44b47002b4fb60a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 11
-  dashForce: 6
-  dashCost: 35
+  walkSpeed: 20
+  speedMods: []
 --- !u!114 &-3841299325333075495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +510,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corpse: {fileID: 8335912291140536509, guid: 64025b21a4dd783478f494ba8646bdf0, type: 3}
   corpseKnockback: 1
+--- !u!114 &7978594033771693734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778285313243707444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6499042cfa1b1594987190487c8f8512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holder: {fileID: 6736270280948968502}
+  appliedEffects: []
+  immunityToBuffs: 
+  immunityToDebuffs: 
+--- !u!114 &1727126542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778285313243707444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6499042cfa1b1594987190487c8f8512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holder: {fileID: 6736270280948968502}
+  appliedEffects: []
+  immunityToBuffs: 
+  immunityToDebuffs: 
 --- !u!1 &4778285314500999352
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +626,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5558142529851275593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 626789514142665839}
+  - component: {fileID: 6736270280948968502}
+  m_Layer: 7
+  m_Name: SE Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &626789514142665839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558142529851275593}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.5299997, y: 0, z: -2.2299995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4778285313243707453}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6736270280948968502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558142529851275593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00cfb01be9e6fd94a9d9e9b612872f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceID: 
+  effects: []
 --- !u!1 &6073403397960335672
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +684,6 @@ GameObject:
   - component: {fileID: 6500837584520928616}
   - component: {fileID: 2455712087013853952}
   - component: {fileID: 5585636116507569278}
-  - component: {fileID: 4696105323396118968}
   m_Layer: 7
   m_Name: ActorSprite
   m_TagString: Untagged
@@ -647,7 +727,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 25a469e91bd348d479606c526a3ce2ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -693,6 +773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 6500837584520928616}
   sequence: []
+  events: []
   frameLength: 1
   isLooping: 1
 --- !u!114 &5585636116507569278
@@ -708,18 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   libData: {fileID: 11400000, guid: 84e73eb84905dd54b9368ad90ba65018, type: 2}
---- !u!114 &4696105323396118968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6073403397960335672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4562f3c016f21044295d6f493aa0f0b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  animEvents: []
 --- !u!1 &8391193506758973177
 GameObject:
   m_ObjectHideFlags: 0

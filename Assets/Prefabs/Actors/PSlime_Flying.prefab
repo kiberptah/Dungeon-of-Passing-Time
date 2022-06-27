@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6386931511ed48996d422606a1be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageType: 1
+  elemento: 1
   whoDealsDamage: {fileID: 2545547731520182594}
   damage: 20
   knockback: 0

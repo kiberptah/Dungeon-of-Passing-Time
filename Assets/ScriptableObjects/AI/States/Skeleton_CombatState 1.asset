@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa574f0c5e77524a98232b1bc8173fa, type: 3}
+  m_Name: Skeleton_CombatState 1
+  m_EditorClassIdentifier: 
+  debug_Color: {r: 1, g: 0, b: 0, a: 0.33}
+  onEnterStateActions:
+  - {fileID: 11400000, guid: c527dbad1e9e2e94aa0760bdc0fce2f1, type: 2}
+  actions:
+  - {fileID: 11400000, guid: ee2311c9a1228c14bb77c49fdb37e586, type: 2}
+  - {fileID: 11400000, guid: 708527870c30377439ed76976a768322, type: 2}
+  - {fileID: 11400000, guid: 95ac51051df6d4f4b8d0a27f24e89505, type: 2}
+  onExitStateActions:
+  - {fileID: 11400000, guid: 3ed9aabbeda268747b1792d28c71f67f, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: dde19336b08c61b419d8275dff1b83f3, type: 2}
+    trueState: {fileID: 11400000}
+    falseState: {fileID: 11400000, guid: 4706b2251ed50614e8583a6ccfde5229, type: 2}

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class DamageTypes
+public static class Damage
 {
-    public enum types
+    public enum elemento
     {
         physical,
         slime,

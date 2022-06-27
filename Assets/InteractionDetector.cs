@@ -11,7 +11,7 @@ public class InteractionDetector : MonoBehaviour
         if (other.TryGetComponent(out IInteractable interact))
         {
             interactables.Add(interact);
-            Debug.Log(other.transform.name + " added to the list");
+            //Debug.Log(other.transform.name + " added to the list");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -19,7 +19,7 @@ public class InteractionDetector : MonoBehaviour
         if (other.TryGetComponent(out IInteractable interact))
         {
             interactables.Remove(interact);
-            Debug.Log(other.transform.name + " removed from the list");
+            //Debug.Log(other.transform.name + " removed from the list");
 
         }
     }

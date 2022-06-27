@@ -5,16 +5,16 @@ using System;
 
 public class DamageReciever : MonoBehaviour
 {
-    public List<DamageTypes.types> immunityToDamageTypes = new List<DamageTypes.types>();
+    public List<Damage.elemento> immunityToElemento = new List<Damage.elemento>();
     public event Action<float, float, Transform> takingDamage;
 
 
     List<Transform> recentAttackers = new List<Transform>();
     float delayBeforeTakingDamageAgain = 0.1f;
 
-    public void TakeDamage(float damage, float knockback, Transform attacker, DamageTypes.types damageType = DamageTypes.types.physical)
+    public void TakeDamage(float damage, float knockback, Transform attacker, Damage.elemento elemento = Damage.elemento.physical)
     {
-        if (!immunityToDamageTypes.Contains(damageType))
+        if (!immunityToElemento.Contains(elemento))
         {
             takingDamage?.Invoke(damage, knockback, attacker);
 

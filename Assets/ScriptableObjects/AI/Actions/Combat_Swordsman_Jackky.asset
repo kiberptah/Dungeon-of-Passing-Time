@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffb6d3501ff40046b7e2c55d91f907a, type: 3}
   m_Name: Combat_Swordsman_Jackky
   m_EditorClassIdentifier: 
+  healthPercentToChangeToSwing: 0.33
+  swingingMinRange: 5

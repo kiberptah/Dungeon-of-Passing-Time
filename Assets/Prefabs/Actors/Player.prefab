@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c25bb5bad7e468c6f6152ca5091c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  immunityToElemento: 
 --- !u!135 &8416403624030281614
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -89,6 +90,97 @@ Transform:
   m_Father: {fileID: 8416403624754557206}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1782908903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782908904}
+  - component: {fileID: 1782908905}
+  m_Layer: 7
+  m_Name: test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1782908904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782908903}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8416403624754557206}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1782908905
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782908903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1794568092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1794568093}
+  - component: {fileID: 1794568094}
+  m_Layer: 7
+  m_Name: SE Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1794568093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794568092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8416403624754557206}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1794568094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794568092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00cfb01be9e6fd94a9d9e9b612872f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceID: 
+  effects: []
 --- !u!1 &605277942373437764
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6718909160675738707
 Transform:
   m_ObjectHideFlags: 0
@@ -197,7 +289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660389971646869054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.900001, y: 1, z: 5.29}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -302,7 +394,6 @@ GameObject:
   - component: {fileID: 8644336114245441273}
   - component: {fileID: 1413966617}
   - component: {fileID: 1413966618}
-  - component: {fileID: 1413966619}
   m_Layer: 7
   m_Name: ActorSprite
   m_TagString: Untagged
@@ -408,18 +499,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   libData: {fileID: 11400000, guid: 3ff75ca84777ef84ea9a758241436985, type: 2}
---- !u!114 &1413966619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4299562586047105524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4562f3c016f21044295d6f493aa0f0b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   animEvents: []
 --- !u!1 &4486638402575764233
 GameObject:
@@ -583,6 +662,7 @@ GameObject:
   - component: {fileID: 8416403624754557201}
   - component: {fileID: 8625460432902448952}
   - component: {fileID: 1236293107}
+  - component: {fileID: 1849775830}
   m_Layer: 7
   m_Name: Player
   m_TagString: Actor
@@ -608,6 +688,8 @@ Transform:
   - {fileID: 2531521299343281970}
   - {fileID: 1647061099}
   - {fileID: 8416403625703064169}
+  - {fileID: 1782908904}
+  - {fileID: 1794568093}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -634,7 +716,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8416403624754557204}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6d02a08ba5991724392726528fdf99cc, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4
@@ -656,7 +738,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   isPlayerControlled: 0
   stats: {fileID: 0}
-  interactionDetector: {fileID: 0}
+  interactionDetector: {fileID: 3643841303385072674}
   weaponManager: {fileID: 0}
 --- !u!114 &8416403624754557213
 MonoBehaviour:
@@ -688,7 +770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageReciever: {fileID: 504654880}
-  actorHealthBar: {fileID: 0}
+  actorHealthBar: {fileID: 4129943258498861670}
   maxHealth: 100
 --- !u!114 &2186507204534222735
 MonoBehaviour:
@@ -717,8 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 45
-  dashForce: 15
-  dashCost: 35
+  speedMods: []
 --- !u!114 &6832903126129166461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +862,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthCapPercentForMaxKnockback: 0.5
+--- !u!114 &1849775830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416403624754557204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6499042cfa1b1594987190487c8f8512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holder: {fileID: 1794568094}
+  appliedEffects: []
+  immunityToBuffs: 
+  immunityToDebuffs: 
 --- !u!1001 &2875621584323066442
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -106,7 +106,7 @@ public class ActorConnector : MonoBehaviour
     }
     public void Input_Ability()
     {
-        actorMovement.Dash();
+        //actorMovement.Dash();
     }
     #endregion
 

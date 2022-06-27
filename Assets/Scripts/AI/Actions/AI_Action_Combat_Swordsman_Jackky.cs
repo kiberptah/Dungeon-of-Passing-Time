@@ -6,8 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AI/Actions/Combat_Swordsman_Jackky")]
 public class AI_Action_Combat_Swordsman_Jackky : AI_Action
 {
-    float healthPercentToChangeToSwing = 0.33f;
-    float swingingMinRange = 5f;
+    public float healthPercentToChangeToSwing = 0.33f;
+    public float swingingMinRange = 5f;
     class ActionData_Combat_Swordsman_Jackky : AI_ActionData
     {
         public int swingDirection = 0;

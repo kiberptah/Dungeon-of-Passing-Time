@@ -5,19 +5,12 @@ using UnityEngine.Events;
 using System;
 public class ActorMovement : MonoBehaviour
 {
-    #region DEPENDENCIES
-    ActorStamina actorStamina;
     ActorAnimManager animManager;
-    #endregion
-
-    #region References
     Rigidbody rb;
-    #endregion
 
     public float walkSpeed = 45;
-    public float dashForce = 6f;
-    public float dashCost = 35;
-
+    //[HideInInspector] public float speedMod = 1f;
+    public List<float> speedMods = new List<float>();
 
     Vector3 movementDirection = Vector3.zero;
     Vector3 lastDirection = Vector3.zero;
@@ -26,7 +19,7 @@ public class ActorMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        actorStamina = GetComponent<ActorStamina>();
+        //actorStamina = GetComponent<ActorStamina>();
         animManager = GetComponent<ActorAnimManager>();
     }
     #endregion
@@ -43,7 +36,13 @@ public class ActorMovement : MonoBehaviour
         {
             animManager.UpdateAnimation("walk", movementDirection);
 
-            rb.AddRelativeForce(movementDirection * walkSpeed, ForceMode.Force);
+            float speedMod = 1f;
+            foreach (var mod in speedMods)
+            {
+                speedMod *= mod;
+            }
+
+            rb.AddRelativeForce(movementDirection * walkSpeed * speedMod, ForceMode.Force);
             movementDirection = Vector3.zero; // to avoid bugs when input is no longer present
         }
         else
@@ -62,27 +61,16 @@ public class ActorMovement : MonoBehaviour
         }
     }
 
-    public void Dash()
-    {
-        if (movementDirection != Vector3.zero)
-        {
-            if (actorStamina.TrySubtractingStamina(dashCost))
-            {
-                rb.AddRelativeForce(lastDirection * dashForce, ForceMode.Impulse);
-            }
-        }
-    }
+    //public void Dash()
+    //{
+    //    if (movementDirection != Vector3.zero)
+    //    {
+    //        if (actorStamina.TrySubtractingStamina(dashCost))
+    //        {
+    //            rb.AddRelativeForce(lastDirection * dashForce, ForceMode.Impulse);
+    //        }
+    //    }
+    //}
 
-    void ChangeWalkspeedBasedOnStamina()
-    {
-        // it is kinda shitty in terms of compatibility with multiple speed modifiers
-        /* 
-                actorStats.walkspeed_StaminaMod = minimalSpeedMod + (1 - minimalSpeedMod) * (currentStamina / maxStamina);
-
-                if (currentStamina / maxStamina > speedDebuffThreshold)
-                {
-                    actorStats.walkspeed_StaminaMod = 1f;
-                } */
-    }
 
 }

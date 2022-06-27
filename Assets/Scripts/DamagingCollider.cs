@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamagingCollider : MonoBehaviour
 {
-    public DamageTypes.types damageType;
+    public Damage.elemento elemento;
     public Transform whoDealsDamage;
     public float damage;
     public float knockback;
@@ -18,7 +18,7 @@ public class DamagingCollider : MonoBehaviour
         {
             if (other.TryGetComponent(out DamageReciever target))
             {
-                target.TakeDamage(damage, knockback, whoDealsDamage, damageType);
+                target.TakeDamage(damage, knockback, whoDealsDamage, elemento);
             }
 
             object[] prmtrs = new object[2] { other.transform, damageTickDelay };
