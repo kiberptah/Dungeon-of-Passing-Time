@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using DialogueSystem;
 
 public class DialogueTrigger : MonoBehaviour, IInteractable
 {

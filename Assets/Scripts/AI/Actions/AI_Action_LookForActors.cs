@@ -6,54 +6,26 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AI/Actions/LookForActors")]
 public class AI_Action_LookForActors : AI_Action
 {
-    public float lookAroundInterval = 1f; // optimization!
-    class ActionData_Look : AI_ActionData
-    {
-        public float lookAroundTimer = 0;
-    }
-
     #region Default
-    public override void StateEntered(AI_StateController controller)
+    public override void InitializeWithBehavior(AI_Controller controller, AI_ActionData actionData)
     {
-        controller.actionData.Add(this.name, new ActionData_Look());
+
     }
-    public override void StateExited(AI_StateController controller)
-    {
-        controller.actionData.Remove(this.name);
-    }
-    public override void Act(AI_StateController controller)
+    public override void Act(AI_Controller controller, AI_StateData stateData, AI_ActionData actionData)
     {
         LookAround(controller);
-        Timers(controller);
     }
     #endregion
 
-    void Timers(AI_StateController controller)
+
+    void LookAround(AI_Controller controller)
     {
-        ActionData_Look data = (ActionData_Look)controller.actionData[this.name];
 
-        data.lookAroundTimer += Time.deltaTime;
-
-        controller.actionData[this.name] = data;
-    }
-
-    void LookAround(AI_StateController controller)
-    {
-        ActionData_Look data = (ActionData_Look)controller.actionData[this.name];
-
-        if (data.lookAroundTimer > lookAroundInterval)
-        {
-            data.lookAroundTimer = 0;
-
-            controller.sightedObjects = LookForTheObjectsAround(controller);
-        }
-
-        controller.actionData[this.name] = data;
-
+        controller.sightedObjects = LookForTheObjectsAround(controller);
 
     }
     #region Lookin methods
-    List<Transform> LookForTheObjectsAround(AI_StateController controller)
+    List<Transform> LookForTheObjectsAround(AI_Controller controller)
     {
         List<Transform> _sightedObjects = new List<Transform>();
 
@@ -83,7 +55,7 @@ public class AI_Action_LookForActors : AI_Action
     }
 
 
-    public bool EyeContactWithTarget(AI_StateController controller, Transform target)
+    public bool EyeContactWithTarget(AI_Controller controller, Transform target)
     {
         if (target != null)
         {
@@ -116,6 +88,8 @@ public class AI_Action_LookForActors : AI_Action
             return false;
         }
     }
+
+   
     #endregion
 
 }

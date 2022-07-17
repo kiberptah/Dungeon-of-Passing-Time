@@ -1,7 +1,11 @@
 ﻿using System;
 
-[Serializable]
-public class CommentsNodeData : CustomNodeData
+
+namespace DialogueSystem
 {
-    public string text;
+    [Serializable]
+    public class CommentsNodeData : CustomNodeData
+    {
+        public string text;
+    }
 }

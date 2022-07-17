@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_Input : MonoBehaviour
 {
-    AI_StateController controller;
+    AI_Controller controller;
     
     ActorConnector connector;
 
@@ -14,7 +14,7 @@ public class AI_Input : MonoBehaviour
     #region Init
     void Awake()
     {
-        controller = GetComponent<AI_StateController>();
+        controller = GetComponent<AI_Controller>();
 
         connector = controller.actor.GetComponent<ActorConnector>();
         connector.isPlayerControlled = false;

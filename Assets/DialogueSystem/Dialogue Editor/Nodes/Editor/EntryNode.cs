@@ -1,6 +1,8 @@
 ﻿
-
-public class EntryNode : CustomNode
+namespace DialogueSystem
 {
+    public class EntryNode : CustomNode
+    {
 
+    }
 }

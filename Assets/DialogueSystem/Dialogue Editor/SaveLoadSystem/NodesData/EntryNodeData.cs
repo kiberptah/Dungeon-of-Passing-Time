@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public class EntryNodeData : CustomNodeData
-{
 
+
+
+namespace DialogueSystem
+{
+    [Serializable]
+    public class EntryNodeData : CustomNodeData
+    {
+
+    }
 }

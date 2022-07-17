@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public class RedirectionsNodeData : CustomNodeData
+
+
+
+namespace DialogueSystem
 {
-    public List<DialogueChoiceCondition> redirections;
+    [Serializable]
+    public class RedirectionsNodeData : CustomNodeData
+    {
+        public List<DialogueChoiceCondition> redirections;
+    }
 }

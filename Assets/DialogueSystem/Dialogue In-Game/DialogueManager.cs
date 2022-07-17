@@ -6,6 +6,8 @@ using TMPro;
 
 using System.Linq;
 
+using DialogueSystem;
+
 public class DialogueManager : MonoBehaviour
 {
     StoryEventsContainer storyEvents;// = Resources.Load<StoryEvents>(path: StoryEvents.storyEventsPath);

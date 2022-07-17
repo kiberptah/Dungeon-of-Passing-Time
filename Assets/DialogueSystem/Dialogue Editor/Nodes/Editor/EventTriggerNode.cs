@@ -9,9 +9,11 @@ using UnityEngine.UIElements;
 using System;
 using System.Linq;
 
-
-public class EventTriggerNode : CustomNode
+namespace DialogueSystem
 {
-    public List<DialogueEventTrigger> allDialogueEventTriggers = new List<DialogueEventTrigger>();
+    public class EventTriggerNode : CustomNode
+    {
+        public List<DialogueEventTrigger> allDialogueEventTriggers = new List<DialogueEventTrigger>();
 
+    }
 }

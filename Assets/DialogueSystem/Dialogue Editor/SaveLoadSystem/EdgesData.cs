@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public class EdgesData
+
+
+
+namespace DialogueSystem
 {
-    public string outputPortName;
+    [Serializable]
+    public class EdgesData
+    {
+        public string outputPortName;
 
-    public string outputNodeGuid;
-    
+        public string outputNodeGuid;
 
-    public string targetNodeGuid;
+
+        public string targetNodeGuid;
+    }
 }

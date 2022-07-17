@@ -4,19 +4,14 @@ using UnityEngine;
 using System;
 
 
-[Serializable]
-public class DialogueChoice
+namespace DialogueSystem
 {
-    public string choiceName;
-    public List<DialogueChoiceCondition> allChoiceConditions = new List<DialogueChoiceCondition>();
-
-
+    [Serializable]
+    public class DialogueChoice
+    {
+        public string choiceName;
+        public List<DialogueChoiceCondition> allChoiceConditions = new List<DialogueChoiceCondition>();
+    }
 }
-
-
-
-
-
-
 
 

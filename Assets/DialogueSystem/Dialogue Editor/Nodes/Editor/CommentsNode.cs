@@ -1,4 +1,9 @@
-﻿public class CommentsNode : CustomNode
+﻿
+
+namespace DialogueSystem
 {
-    public string text;
+    public class CommentsNode : CustomNode
+    {
+        public string text;
+    }
 }

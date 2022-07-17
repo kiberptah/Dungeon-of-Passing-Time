@@ -10,27 +10,27 @@ public class AI_Action_Wander : AI_Action
     class ActionData_Wander : AI_ActionData
     {
         [HideInInspector] public List<Vector3> path = new List<Vector3>();
-        [HideInInspector] public Vector3 destination;
+        [HideInInspector] public Vector3 destination = Vector3.zero;
     }
 
     #region Default
-    public override void StateEntered(AI_StateController controller)
+
+    public override void InitializeWithBehavior(AI_Controller controller, AI_ActionData actionData)
     {
-        controller.actionData.Add(this.name, new ActionData_Wander());
+        ActionData_Wander data = (ActionData_Wander)actionData;
+        actionData = data;
     }
-    public override void StateExited(AI_StateController controller)
+
+    public override void Act(AI_Controller controller, AI_StateData stateData, AI_ActionData actionData)
     {
-        controller.actionData.Remove(this.name);
-    }
-    public override void Act(AI_StateController controller)
-    {
-        Wonder(controller);
+
+        Wonder(controller, actionData);
     }
     #endregion
 
-    void Wonder(AI_StateController controller)
+    void Wonder(AI_Controller controller, AI_ActionData actionData)
     {
-        ActionData_Wander data = (ActionData_Wander)controller.actionData[this.name];
+        ActionData_Wander data = (ActionData_Wander)actionData;
 
         if (data.path.Count() == 0)
         {
@@ -65,10 +65,11 @@ public class AI_Action_Wander : AI_Action
                 controller.debug_destination = data.destination;
             }
         }
-        controller.actionData[this.name] = data;
+
+        actionData = data;
 
     }
 
-    
+
 
 }

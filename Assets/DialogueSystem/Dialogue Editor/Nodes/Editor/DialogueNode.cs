@@ -9,15 +9,17 @@ using UnityEngine.UIElements;
 using System;
 using System.Linq;
 
-
-public class DialogueNode : CustomNode
+namespace DialogueSystem
 {
-    //public string GUID;
+    public class DialogueNode : CustomNode
+    {
+        //public string GUID;
 
-    public string dialogueText;
-    public string speakerName;
-    public Sprite speakerPortrait;
+        public string dialogueText;
+        public string speakerName;
+        public Sprite speakerPortrait;
 
-    public List<DialogueChoice> choices = new List<DialogueChoice>();
+        public List<DialogueChoice> choices = new List<DialogueChoice>();
 
+    }
 }

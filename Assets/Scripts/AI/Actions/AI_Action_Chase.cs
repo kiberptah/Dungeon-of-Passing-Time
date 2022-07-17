@@ -9,7 +9,7 @@ using System.Linq;
 public class AI_Action_Chase : AI_Action
 {
     [Range(0, 10)]
-    public float minDistance = 2f;
+    public float minDistance = 1.5f;
     public float chaseOffsetDistance = 0f;
 
     class ActionData_Chase : AI_ActionData
@@ -23,30 +23,24 @@ public class AI_Action_Chase : AI_Action
         public float destinationOffseetTimer = 0;
     }
 
-    #region Default methods
-    public override void StateEntered(AI_StateController controller)
-    {
-        controller.actionData.Add(this.name, new ActionData_Chase());
-    }
-    public override void StateExited(AI_StateController controller)
-    {
-        controller.actionData.Remove(this.name);
-    }
 
 
-    public override void Act(AI_StateController controller)
+    public override void InitializeWithBehavior(AI_Controller controller, AI_ActionData actionData)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public override void Act(AI_Controller controller, AI_StateData stateData, AI_ActionData actionData)
     {
         if (Vector3.Distance(controller.actor.position, controller.currentTarget.position) > minDistance)
         {
-            Chase(controller);
+            Chase(controller, actionData);
         }
-        Timers(controller);
     }
-    #endregion
 
-    void Chase(AI_StateController controller)
+    void Chase(AI_Controller controller, AI_ActionData actionData)
     {
-        ActionData_Chase data = (ActionData_Chase)controller.actionData[this.name];
+        ActionData_Chase data = (ActionData_Chase)actionData;
 
         #region Pathfinding
         Vector3 goHere = controller.currentTarget.position;
@@ -98,7 +92,7 @@ public class AI_Action_Chase : AI_Action
             controller.input.Input_Movement(data.destination - controller.actor.position);
 
 
-            // Remove waypoints after reaching them, put this in State controller also in wonder action 
+            // Remove waypoints after reaching them
             float minDistanceToDest = 0.1f;
             if (Vector3.Distance(controller.actor.position, data.destination) < minDistanceToDest)
             {
@@ -113,16 +107,9 @@ public class AI_Action_Chase : AI_Action
 
 
 
-        controller.actionData[this.name] = data;
+        actionData = data;
     }
 
 
 
-    void Timers(AI_StateController controller)
-    {
-        ActionData_Chase data = (ActionData_Chase)controller.actionData[this.name];
-        data.destinationOffseetTimer += Time.deltaTime;
-
-        controller.actionData[this.name] = data;
-    }
 }

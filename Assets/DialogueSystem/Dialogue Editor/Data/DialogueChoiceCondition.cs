@@ -5,133 +5,138 @@ using UnityEditor;
 using System;
 using System.Linq;
 
-[Serializable]
-public class DialogueChoiceCondition
+
+
+namespace DialogueSystem
 {
-    public string choiceGUID;
-    public string nodeGUID;
+    [Serializable]
+    public class DialogueChoiceCondition
+    {
+        public string choiceGUID;
+        public string nodeGUID;
 
-    public string currentVarName;
-    public string logicSign;
-    public string comparedVarName;
+        public string currentVarName;
+        public string logicSign;
+        public string comparedVarName;
 
-    public DialogueChoiceCondition()
-    {
-        choiceGUID = Guid.NewGuid().ToString();
-    }
-
-    public void addCurrentVariable(string _var)
-    {
-        currentVarName = _var;
-    }
-    public void addComparedVariable(string _var)
-    {
-        comparedVarName = _var;
-    } 
-    public void addLogicSign(string _sign)
-    {
-        logicSign = _sign;
-    }
-
-    public bool CheckCondition()
-    {
-        StoryVariablesContainer storyVariables = Resources.Load<StoryVariablesContainer>(path: StoryVariablesContainer.storyVariablesPath);
-        if (storyVariables == null)
+        public DialogueChoiceCondition()
         {
-            CustomRuntimeTools.DebugDump("StoryVariables file not found. This is bad. Really bad.");
-            //EditorUtility.DisplayDialog(title: "Error!@#$", message: "StoryVariables file not found", ok: "Fuck...");
-            return false;
+            choiceGUID = Guid.NewGuid().ToString();
         }
 
-        StoryVariable currentVar = storyVariables.varList.Where(v => v.varName == currentVarName).FirstOrDefault();
-        StoryVariable comparedVar = storyVariables.varList.Where(v => v.varName == comparedVarName).FirstOrDefault();
-        if (currentVar == null || comparedVar == null)
+        public void addCurrentVariable(string _var)
         {
-            return true;
+            currentVarName = _var;
+        }
+        public void addComparedVariable(string _var)
+        {
+            comparedVarName = _var;
+        }
+        public void addLogicSign(string _sign)
+        {
+            logicSign = _sign;
         }
 
-
-        bool result = false;
-
-        float? floatCurrentVar = null;
-        float? floatComparedVar = null;
-
-
-        if (currentVar.varType == StoryVariable.dataType.floatType || currentVar.varType == StoryVariable.dataType.intType)
+        public bool CheckCondition()
         {
-            floatCurrentVar = float.Parse(currentVar.rawValue);
-        }
-        if (comparedVar.varType == StoryVariable.dataType.floatType || comparedVar.varType == StoryVariable.dataType.intType)
-        {
-            floatComparedVar = float.Parse(comparedVar.rawValue);
-        }
+            StoryVariablesContainer storyVariables = Resources.Load<StoryVariablesContainer>(path: StoryVariablesContainer.storyVariablesPath);
+            if (storyVariables == null)
+            {
+                CustomRuntimeTools.DebugDump("StoryVariables file not found. This is bad. Really bad.");
+                //EditorUtility.DisplayDialog(title: "Error!@#$", message: "StoryVariables file not found", ok: "Fuck...");
+                return false;
+            }
+
+            StoryVariable currentVar = storyVariables.varList.Where(v => v.varName == currentVarName).FirstOrDefault();
+            StoryVariable comparedVar = storyVariables.varList.Where(v => v.varName == comparedVarName).FirstOrDefault();
+            if (currentVar == null || comparedVar == null)
+            {
+                return true;
+            }
 
 
-        switch (logicSign)
-        {
-            case ("=="):
-                if (currentVar.rawValue == comparedVar.rawValue)
-                {
-                    result = true;
-                }
-                break;
+            bool result = false;
 
-            case ("!="):
-                if (currentVar != comparedVar)
-                {
-                    result = true;
-                }
-                break;
+            float? floatCurrentVar = null;
+            float? floatComparedVar = null;
 
-            case (">"):
-                if (floatCurrentVar != null && floatComparedVar != null)
-                {                 
-                    if (floatCurrentVar > floatComparedVar)
+
+            if (currentVar.varType == StoryVariable.dataType.floatType || currentVar.varType == StoryVariable.dataType.intType)
+            {
+                floatCurrentVar = float.Parse(currentVar.rawValue);
+            }
+            if (comparedVar.varType == StoryVariable.dataType.floatType || comparedVar.varType == StoryVariable.dataType.intType)
+            {
+                floatComparedVar = float.Parse(comparedVar.rawValue);
+            }
+
+
+            switch (logicSign)
+            {
+                case ("=="):
+                    if (currentVar.rawValue == comparedVar.rawValue)
                     {
                         result = true;
                     }
-                }              
-                break;
+                    break;
 
-            case (">="):
-                if (floatCurrentVar != null && floatComparedVar != null)
-                {
-                    if (floatCurrentVar >= floatComparedVar)
+                case ("!="):
+                    if (currentVar != comparedVar)
                     {
                         result = true;
                     }
-                }
-                break;
+                    break;
 
-            case ("<"):
-                if (floatCurrentVar != null && floatComparedVar != null)
-                {
-                    if (floatCurrentVar < floatComparedVar)
+                case (">"):
+                    if (floatCurrentVar != null && floatComparedVar != null)
                     {
-                        result = true;
+                        if (floatCurrentVar > floatComparedVar)
+                        {
+                            result = true;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case ("<="):
-                if (floatCurrentVar != null && floatComparedVar != null)
-                {
-                    if (floatCurrentVar <= floatComparedVar)
+                case (">="):
+                    if (floatCurrentVar != null && floatComparedVar != null)
                     {
-                        result = true;
+                        if (floatCurrentVar >= floatComparedVar)
+                        {
+                            result = true;
+                        }
                     }
-                }
-                break;
+                    break;
+
+                case ("<"):
+                    if (floatCurrentVar != null && floatComparedVar != null)
+                    {
+                        if (floatCurrentVar < floatComparedVar)
+                        {
+                            result = true;
+                        }
+                    }
+                    break;
+
+                case ("<="):
+                    if (floatCurrentVar != null && floatComparedVar != null)
+                    {
+                        if (floatCurrentVar <= floatComparedVar)
+                        {
+                            result = true;
+                        }
+                    }
+                    break;
+            }
+
+            return result;
         }
 
-        return result;
+        /*
+        public void addValueToCompare(string _value)
+        {
+            //rawValue = _value;
+            currentVariable.rawValue = _value;
+        }
+        */
     }
-
-    /*
-    public void addValueToCompare(string _value)
-    {
-        //rawValue = _value;
-        currentVariable.rawValue = _value;
-    }
-    */
 }

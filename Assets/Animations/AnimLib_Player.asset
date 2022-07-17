@@ -16,7 +16,8 @@ MonoBehaviour:
   - name: Idle
     spriteSheet: {fileID: 2800000, guid: f5909e65c1f6cbf428d259474d93358b, type: 3}
     frameLength: 150
-    eventReference: []
+    eventReference:
+    - 
     directionsAmount: 8
     directions:
     - name: 0

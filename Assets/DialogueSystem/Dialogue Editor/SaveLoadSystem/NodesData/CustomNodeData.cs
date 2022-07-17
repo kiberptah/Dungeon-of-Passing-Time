@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System;
 
-[Serializable]
-public class CustomNodeData
+
+
+namespace DialogueSystem
 {
-    public string guid;
-    public Rect rect;
+    [Serializable]
+    public class CustomNodeData
+    {
+        public string guid;
+        public Rect rect;
+    }
 }

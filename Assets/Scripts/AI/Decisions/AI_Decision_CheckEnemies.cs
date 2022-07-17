@@ -3,16 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(menuName = "AI/Decisions/CheckEnemies")]
+[CreateAssetMenu(menuName = "AI/Decisions/CheckIfSeeEnemies")]
 public class AI_Decision_CheckEnemies : AI_Decision
 {
-    public override bool Decide(AI_StateController controller)
+    void OnValidate()
+    {
+        //dynamicValues.intValues.Add("swingDirection", 1);
+        //dynamicValues.boolValues.Add("testBool", true);
+        //dynamicValues.floatValues.Add("testFloat", 1);
+        //Debug.Log("validated");
+    }
+    public override void InitializeWithBehavior(AI_Controller controller, AI_DecisionData decisionData)
+    {
+
+    }
+    public override void Decide(AI_Controller controller, AI_DecisionData decisionData)
     {
         //Debug.Log("seeAnEnemy returns " + seeAnEnemy(controller));
-        return seeAnEnemy(controller);
+        if (seeAnEnemy(controller))
+        {
+            decisionData.nextActionGUID = decisionData.trueGUID;
+        }
+        else
+        {
+            decisionData.nextActionGUID = decisionData.falseGUID;
+        }
+        
     }
-
-    bool seeAnEnemy(AI_StateController controller)
+    
+    bool seeAnEnemy(AI_Controller controller)
     {
 
         foreach (var obj in controller.sightedObjects)

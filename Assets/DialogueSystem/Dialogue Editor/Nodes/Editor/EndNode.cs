@@ -1,4 +1,8 @@
-﻿public class EndNode : CustomNode
+﻿
+namespace DialogueSystem
 {
+    public class EndNode : CustomNode
+    {
 
+    }
 }

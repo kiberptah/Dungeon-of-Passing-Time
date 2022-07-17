@@ -3,18 +3,19 @@ using System;
 
 
 
-
-
-
-[Serializable]
-public class DialogueEventTrigger
+namespace DialogueSystem
 {
-    public string nodeGUID;
-    public string eventName = "";
 
-    public DialogueEventTrigger(string _nodeGUID)
+    [Serializable]
+    public class DialogueEventTrigger
     {
-        nodeGUID = _nodeGUID;
-    }
+        public string nodeGUID;
+        public string eventName = "";
 
+        public DialogueEventTrigger(string _nodeGUID)
+        {
+            nodeGUID = _nodeGUID;
+        }
+
+    }
 }
