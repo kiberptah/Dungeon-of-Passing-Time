@@ -21,7 +21,13 @@ namespace AI_BehaviorEditor
             styleSheets.Add(styleSheet: Resources.Load<StyleSheet>(path: "StyleSheets/Nodes")); 
 
             // --- Basic stuff from API to intercat with elements
-            SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale); // without it there's no zoom
+            //SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale); // without it there's no zoom
+            SetupZoom(.25f, 1); // without it there's no zoom
+            //Debug.Log("viewTransform ");
+            //Debug.Log("viewport.resolvedStyle " + viewport.resolvedStyle);
+            
+            viewTransform.position = new Vector3(100, 200, 0); // default camera position... sort of
+
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
@@ -235,6 +241,8 @@ namespace AI_BehaviorEditor
                         newNode.SetPosition(thisNode.GetPosition());
                         thisNode.AddChild(newNode);
 
+                        thisNode.data.actionsData.Add(newNode.data.GUID, newNode.data);
+                        newNode.data.stateData = thisNode.data;
                     }
                 }
 
@@ -254,6 +262,9 @@ namespace AI_BehaviorEditor
                         AddElement(newNode);
                         newNode.SetPosition(thisNode.GetPosition());
                         thisNode.AddChild(newNode);
+
+                        thisNode.data.decisionsData.Add(newNode.data.GUID, newNode.data);
+                        newNode.data.stateData = thisNode.data;
                     }
                 }
                 // --- Button to add timers
@@ -272,6 +283,9 @@ namespace AI_BehaviorEditor
                         AddElement(newNode);
                         newNode.SetPosition(thisNode.GetPosition());
                         thisNode.AddChild(newNode);
+
+                        thisNode.data.timersData.Add(newNode.data.GUID, newNode.data);
+                        newNode.data.stateData = thisNode.data;
                     }
                 }
                 // --- Button to add values
@@ -290,6 +304,9 @@ namespace AI_BehaviorEditor
                         AddElement(newNode);
                         newNode.SetPosition(thisNode.GetPosition());
                         thisNode.AddChild(newNode);
+
+                        thisNode.data.valuesData.Add(newNode.data.GUID, newNode.data);
+                        newNode.data.stateData = thisNode.data;
                     }
                 }
                 // --- Button to add valueschangers
@@ -308,6 +325,9 @@ namespace AI_BehaviorEditor
                         AddElement(newNode);
                         newNode.SetPosition(thisNode.GetPosition());
                         thisNode.AddChild(newNode);
+
+                        thisNode.data.valueChangersData.Add(newNode.data.GUID, newNode.data);
+                        newNode.data.stateData = thisNode.data;
                     }
                 }
                 
@@ -327,6 +347,8 @@ namespace AI_BehaviorEditor
                         AddElement(newNode);
                         newNode.SetPosition(thisNode.GetPosition());
                         thisNode.AddChild(newNode);
+
+                        thisNode.data.transitionsData.Add(newNode.data.GUID, newNode.data);
                     }
                 }
 
@@ -358,7 +380,7 @@ namespace AI_BehaviorEditor
 
 
 
-        public TransitionNode Create_TransitionNode(AI_StateTransitionData loadData = null, CustomNode_Data loadNodeData = null)
+        public TransitionNode Create_TransitionNode(AI_TransitionData loadData = null, CustomNode_Data loadNodeData = null)
         {
             // --- Generate Node
             var thisNode = new TransitionNode();

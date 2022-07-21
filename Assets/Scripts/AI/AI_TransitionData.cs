@@ -2,7 +2,7 @@
 
 
 [System.Serializable]
-public class AI_StateTransitionData : AI_Data
+public class AI_TransitionData : AI_Data
 {
     public string nextStateGUID = "";
 }

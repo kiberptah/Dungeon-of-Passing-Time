@@ -14,14 +14,14 @@ public static class AI_State
 
     public static void StateLoop(AI_StateData state)
     {
-        GoThroughActions(state, state.loopActionGUID);
+        GoThroughActions(state, state.nextLoopActionGUID);
     }
 
 
 
     public static void ExitState(AI_StateData state)
     {
-        GoThroughTimers(state);
+        IncrementAllTimers(state);
         GoThroughActions(state, state.onExitActionGUID);
 
 
@@ -40,17 +40,28 @@ public static class AI_State
         string currentActionGUID = guid;
         while (currentActionGUID != "")
         {
-            if (stateData.actions.ContainsKey(currentActionGUID))
+            if (stateData.actionsData.ContainsKey(currentActionGUID))
             {
-                stateData.actions[currentActionGUID].Act(stateData.behavior.controller, stateData, stateData.actionsData[currentActionGUID]);
+                stateData.actionsData[currentActionGUID].action.Act(stateData.behavior.controller, stateData, stateData.actionsData[currentActionGUID]);
                 currentActionGUID = stateData.actionsData[currentActionGUID]?.nextActionGUID;
             }
+            if (stateData.decisionsData.ContainsKey(currentActionGUID))
+            {
+                stateData.decisionsData[currentActionGUID].decision.Decide(stateData.behavior.controller, stateData.decisionsData[currentActionGUID]);
+                currentActionGUID = stateData.decisionsData[currentActionGUID]?.nextActionGUID;
+            }
+            if (stateData.valueChangersData.ContainsKey(currentActionGUID))
+            {
+                //stateData.valueChangersData[currentActionGUID].valueChanger.ChangeValue(stateData, stateData.valueChangersData[currentActionGUID]);
+                //currentActionGUID = stateData.actionsData[currentActionGUID]?.nextActionGUID;
+            }
+
             // same for decisions !!!
         }
     }
 
 
-    static void GoThroughTimers(AI_StateData state)
+    static void IncrementAllTimers(AI_StateData state)
     {
 
     }
@@ -59,7 +70,13 @@ public static class AI_State
 
     }
 
-
+    public static void FindValueDataGUID(AI_StateData state, string GUID)
+    {
+        foreach (var data in state.valuesData)
+        {
+            
+        }
+    }
 
 
 

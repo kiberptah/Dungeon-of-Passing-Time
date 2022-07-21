@@ -23,6 +23,6 @@ namespace AI_BehaviorEditor
         public List<AI_TimerData> timersData = new List<AI_TimerData>();
         public List<AI_ValueData> valuesData = new List<AI_ValueData>();
         public List<AI_ValueChangerData> valueChangersData = new List<AI_ValueChangerData>();
-        public List<AI_StateTransitionData> transitionsData = new List<AI_StateTransitionData>();
+        public List<AI_TransitionData> transitionsData = new List<AI_TransitionData>();
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class AI_ValueData : AI_Data
 {
+    public AI_StateData stateData;
     //public System.Type type;
     public enum supportedTypes
     {

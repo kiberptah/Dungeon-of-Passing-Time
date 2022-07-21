@@ -5,7 +5,7 @@ namespace AI_BehaviorEditor
 {
     public class TransitionNode : CustomNode
     {
-        public AI_StateTransitionData data = new AI_StateTransitionData();
+        public AI_TransitionData data = new AI_TransitionData();
     }
 
 

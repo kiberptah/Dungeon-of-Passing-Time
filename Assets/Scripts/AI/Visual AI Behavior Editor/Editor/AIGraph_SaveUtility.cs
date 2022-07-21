@@ -6,6 +6,9 @@ using System.IO;
 using UnityEditor;
 
 
+using UnityEngine.UIElements;
+using UnityEditor.UIElements;
+
 
 
 namespace AI_BehaviorEditor
@@ -17,8 +20,13 @@ namespace AI_BehaviorEditor
         //static AIGraphView targetGraphView; // reference to a graphview
 
 
-        public static void SaveGraph(AIGraphView targetGraphView, AIGraph_SaveData data, string filename)
+        public static AIGraph_SaveData SaveGraph(AIGraphView targetGraphView, ObjectField behaviorField, AIGraph_SaveData data, string filename, bool saveAsNew)
         {
+            if (filename == "")
+            {
+                filename = "New Behavior";
+            }
+
             AIGraph_SaveData newSaveData = ScriptableObject.CreateInstance<AIGraph_SaveData>();
             newSaveData.name = filename;
             newSaveData.filename = filename;
@@ -44,8 +52,6 @@ namespace AI_BehaviorEditor
                 if (node.GetType() == typeof(TimerNode))
                 {
                     newSaveData.timersData.Add(((TimerNode)node).data);
-                    Debug.Log("saved timer node with guid = " + ((TimerNode)node).data.GUID);
-                    Debug.Log("saved timer node with nodeguid = " + ((TimerNode)node).nodeData.nodeGUID);
                 }
                 if (node.GetType() == typeof(ValueNode))
                 {
@@ -89,37 +95,106 @@ namespace AI_BehaviorEditor
                 // ----- create resources folder if it doesnt exist
                 Directory.CreateDirectory(saveFilePath);
 
-                // ----- SAVE it OR OVERRIDE it if file already exists!!! important overwise serializefields of dialoguetriggers get reset
-                
-                //AIGraph_SaveData existingContainer = Resources.Load<AIGraph_SaveData>("AIGraph_SaveData/" + data.name);
-                if (data != null)
+                if (saveAsNew == true || data == null)
                 {
-                    AIGraph_SaveData existingContainer = Resources.Load<AIGraph_SaveData>("AIGraph_SaveData/" + data.name);
-                    if (existingContainer != null)
-                    {
-                        Debug.Log("rewriting ai savedata");
-                        EditorUtility.SetDirty(existingContainer); // there's data loss on reload without this shit
-                        existingContainer = newSaveData;
-                    }
-                    else
-                    {
-                        Debug.Log("ai savedata created");
-                        AssetDatabase.CreateAsset(newSaveData, path: saveFilePath + $"{filename}.asset");
-                    }
+                    SaveNew(newSaveData);
                 }
                 else
                 {
-                    Debug.Log("ai savedata created");
-                    AssetDatabase.CreateAsset(newSaveData, path: saveFilePath + $"{filename}.asset");
+                    // -----  OVERRIDE it if file already exists!!! important overwise references get reset
+                    AIGraph_SaveData existingContainer = Resources.Load<AIGraph_SaveData>("AIGraph_SaveData/" + data.name);
+                    if (existingContainer == null)
+                    {
+                        SaveNew(newSaveData);
+                    }
+                    else
+                    {
+                        SaveReplace(newSaveData, existingContainer);
+                    }
                 }
-
-
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
             }
-            
+
+            return newSaveData;
         }
         
+
+
+
+        static void SaveNew(AIGraph_SaveData saveData)
+        {
+            int i = 0;
+            string filename = saveData.name;
+            bool filenameAlreadyTaken = true;
+
+            while (filenameAlreadyTaken == true)
+            {
+                AIGraph_SaveData existingContainer = Resources.Load<AIGraph_SaveData>("AIGraph_SaveData/" + filename);
+                if (existingContainer == null)
+                {
+                    filenameAlreadyTaken = false;
+                    saveData.filename = filename;
+                    saveData.name = filename;   
+                    break;
+                }
+
+
+                if (i >= 99)
+                {
+                    saveData.filename = filename;
+                    saveData.name = filename;
+
+                    SaveReplace(saveData, existingContainer);
+                    return;
+                }
+
+
+                ++i;
+                filename = saveData.name + " " + i;         
+            }
+
+
+            Debug.Log("AI BEHAVIOR SAVED: NEW DATA CREATED");
+            AssetDatabase.CreateAsset(saveData, path: saveFilePath + $"{saveData.filename}.asset");
+            //behaviorField.value = newSaveData;
+
+
+        }
+
+        static void SaveReplace(AIGraph_SaveData saveData, AIGraph_SaveData existingContainer)
+        {
+            Debug.Log("AI BEHAVIOR SAVED: OLD DATA REPLACED");
+            EditorUtility.SetDirty(existingContainer); // there's data loss on reload without this shit
+            existingContainer = saveData;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public static void LoadGraph(AIGraphView targetGraphView, AIGraph_SaveData saveData)
         {
             

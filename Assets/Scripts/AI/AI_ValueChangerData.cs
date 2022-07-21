@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class AI_ValueChangerData : AI_Data
 {
+    public AI_StateData stateData;
     //public System.Type type;
 
     public AI_DynamicValues dynamicValues = new AI_DynamicValues();
@@ -23,6 +24,11 @@ public class AI_ValueChangerData : AI_Data
         type_bool
     }
     public supportedTypes valueType;
+
+    public string intValueGUID;
+    public string floatValueGUID;
+    public string boolValueGUID;
+
     /*
     public AI_ValueChanger_Int valueChanger_Int = null;
     public AI_ValueChanger_Float valueChanger_Float = null;
